@@ -63,28 +63,16 @@ function HighwayBot() {
 
 
             if (message === `${config.prefix}mine`) {
-                for (var i = -2; i <= 2; i++) {
-                    async function dig() {
-                        let target2
-                        let target1
-                        if (bot.targetDigBlock) {
-                            bot.chat(`already digging ${bot.targetDigBlock.name}`)
-                        } else {
-                            target2 = bot.blockAt(bot.entity.position.offset(2, 2, i))
-                            target1 = bot.blockAt(bot.entity.position.offset(2, 1, i))
-                            target0 = bot.blockAt(bot.entity.position.offset(2, 0, i))  
-                            targetobs1 = bot.blockAt(bot.entity.position.offset(2, -1, -1))
-                            targetobs2 = bot.blockAt(bot.entity.position.offset(2, -1, 0))
-                            targetobs3 = bot.blockAt(bot.entity.position.offset(2, -1, 1))
-                            if (target2 && bot.canDigBlock(target2)) {
-                                bot.chat(`starting to dig ${target2.name}`)
-                                try {   
-                                    await bot.dig(target2).then(bot.dig(target1)).then(bot.dig(target0)).then(bot.dig(targetobs1)).then(bot.dig(targetobs2)).then(bot.dig(targetobs3))
-                                    
-                                    bot.chat(`finished digging ${target2.name}`)
-                                    setTimeout(() => {
-                                        bot.stopDigging()
-                                    }, 300);
+                async function dig() {
+                    for (var i = -2; i <= 2; i++) {
+                        for (var y = 2; y >= -1; y--) {
+                            const target = bot.blockAt(bot.entity.position.offset(2, y, i))
+                            if (target && bot.canDigBlock(target)) {
+                                bot.chat(`starting to dig ${target.name}`)
+                                try {
+                                    await bot.dig(target)
+
+                                    bot.chat(`finished digging ${target.name}`)
                                 } catch (err) {
                                     console.log(err.stack)
                                 }
@@ -93,9 +81,10 @@ function HighwayBot() {
                             }
                         }
                     }
-                    dig()
                 }
-
+                dig()
+            } else if (message == `${config.prefix}stopmine`) {
+                bot.stopDigging()
             }
         })
     })
