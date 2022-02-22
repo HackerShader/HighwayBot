@@ -12,7 +12,7 @@
     "discord.js": "^12.5.3",
     "fs": "^0.0.1-security",
     "minecraft-data": "^2.86.0",
-    "mineflayer": "^3.18.0",
+    "mineflayer": "^4.0.0",
     "mineflayer-autocrystal": "^0.7.0",
     "mineflayer-navigate": "0.0.10",
     "mineflayer-pathfinder": "^1.9.1",
