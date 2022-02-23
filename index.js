@@ -34,19 +34,48 @@ function HighwayBot() {
     bot.loadPlugin(pathfinder)
 
     bot.on('spawn', spawn => {
-
         const mcData = require('minecraft-data')(bot.version)
-
         const defaultMove = new Movements(bot, mcData)
+        async function dig() {
+            for (var i = -2; i <= 2; i++) {
+                for (var y = 2; y >= -1; y--) {
+                    const target = bot.blockAt(bot.entity.position.offset(2, y, i))
+                    if (target && bot.canDigBlock(target)) {
+                        const posblock = target.position
+                        console.log(`> | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                        try {
+                            await bot.dig(target)
+                            console.log(bot.digTime(target))
+                            console.log(`< | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                        } catch (err) {
+                            console.log(err.stack)
+                        }
+                    } else {
+                        bot.chat('cannot dig')
+                    }
+                }
+            }
+        }
+        async function move() {
+            const botpos = bot.entity.position
+            bot.pathfinder.setMovements(defaultMove)
+            bot.pathfinder.setGoal(new GoalNear(botpos.x + 1, botpos.y, botpos.z))
+        }
+        bot.on('health', health => {
+            console.log(`${bot.health} | ${bot.food}`)
+            if(bot.health <= 10) {
+                bot.end()
+                const endtime = setTimeout(() => {
+                    HighwayBot()
+                }, 5000);
 
+            }
+        })
         bot.on('chat', function (username, message) {
-
-            if (username === bot.username) return
-
-            const target = bot.players[username] ? bot.players[username].entity : null
-            if (message === `${config.prefix}come`) {
-
-                function move() {
+            if (message === `${config.prefix}baritone`) {
+                if (username === bot.username) return
+                const target = bot.players[username] ? bot.players[username].entity : null
+                function pathfinder() {
                     const p = target.position
                     bot.chat(`/msg ${username} I see you, Coord: ${(p.x).toFixed(0)}, ${(p.y).toFixed(0)}, ${(p.z).toFixed(0)}`)
                     bot.pathfinder.setMovements(defaultMove)
@@ -57,32 +86,17 @@ function HighwayBot() {
                 if (!target) {
                     bot.chat('I don\'t see you !')
                     return
-                } else move()
-
+                } else pathfinder()
             }
-
-
             if (message === `${config.prefix}mine`) {
-                async function dig() {
-                    for (var i = -2; i <= 2; i++) {
-                        for (var y = 2; y >= -1; y--) {
-                            const target = bot.blockAt(bot.entity.position.offset(2, y, i))
-                            if (target && bot.canDigBlock(target)) {
-                                bot.chat(`starting to dig ${target.name}`)
-                                try {
-                                    await bot.dig(target)
-
-                                    bot.chat(`finished digging ${target.name}`)
-                                } catch (err) {
-                                    console.log(err.stack)
-                                }
-                            } else {
-                                bot.chat('cannot dig')
-                            }
-                        }
-                    }
-                }
                 dig()
+                setTimeout(() => {
+                    move()
+                    
+                }, 2000);
+                
+      
+                 
             } else if (message == `${config.prefix}stopmine`) {
                 bot.stopDigging()
             }
