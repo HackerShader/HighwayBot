@@ -38,14 +38,14 @@ function HighwayBot() {
         const defaultMove = new Movements(bot, mcData)
         async function dig() {
             for (var i = -2; i <= 2; i++) {
-                for (var y = 2; y >= -1; y--) {
+                for (var y = 2; y >= 0; y--) {
                     const target = bot.blockAt(bot.entity.position.offset(2, y, i))
-                    if (target && bot.canDigBlock(target)) {
+                    if (target && bot.canDigBlock(target)) {    
+                        bot.equip(278, 'hand')
                         const posblock = target.position
                         console.log(`> | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         try {
                             await bot.dig(target)
-                            console.log(bot.digTime(target))
                             console.log(`< | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         } catch (err) {
                             console.log(err.stack)
@@ -53,6 +53,7 @@ function HighwayBot() {
                     } else {
                         bot.chat('cannot dig')
                     }
+
                 }
             }
         }
@@ -65,10 +66,7 @@ function HighwayBot() {
             console.log(`${bot.health} | ${bot.food}`)
             if(bot.health <= 10) {
                 bot.end()
-                const endtime = setTimeout(() => {
-                    HighwayBot()
-                }, 5000);
-
+                HighwayBot()
             }
         })
         bot.on('chat', function (username, message) {
@@ -89,19 +87,22 @@ function HighwayBot() {
                 } else pathfinder()
             }
             if (message === `${config.prefix}mine`) {
-                dig()
-                setTimeout(() => {
-                    move()
+                setInterval(() => {
+                    dig()
+                    setTimeout(() => {
+                        move()
+                    }, 3000);
+                    //bot.navigate.to(bot.entity.position.offset(1,0,0))
+                }, 6000);   
                     
-                }, 2000);
                 
-      
-                 
-            } else if (message == `${config.prefix}stopmine`) {
-                bot.stopDigging()
+                if (message == `${config.prefix}stopmine`) {
+                    return
+                }
+                
             }
         })
-    })
+    })  
     bot.on('kicked', kick => {
         console.log(`i got kicked, reason: ${kick}`)
     })
