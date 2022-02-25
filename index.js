@@ -1,6 +1,6 @@
 //Package Collection
 const mineflayer = require('mineflayer')
-const mineflayernavigate = require('mineflayer-navigate')
+const mineflayernavigate = require('mineflayer-navigate')(mineflayer)
 const pathfinder = require('mineflayer-pathfinder').pathfinder
 const scaffold = require('mineflayer-scaffold')
 const tool = require('mineflayer-tool')
@@ -32,6 +32,7 @@ function HighwayBot() {
         }
     }
     bot.loadPlugin(pathfinder)
+    mineflayernavigate(bot)
 
     bot.on('spawn', spawn => {
         const mcData = require('minecraft-data')(bot.version)
@@ -40,7 +41,7 @@ function HighwayBot() {
             for (var i = -2; i <= 2; i++) {
                 for (var y = 2; y >= 0; y--) {
                     const target = bot.blockAt(bot.entity.position.offset(2, y, i))
-                    if (target && bot.canDigBlock(target)) {    
+                    if (target && bot.canDigBlock(target)) {
                         bot.equip(278, 'hand')
                         const posblock = target.position
                         console.log(`> | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
@@ -57,14 +58,9 @@ function HighwayBot() {
                 }
             }
         }
-        async function move() {
-            const botpos = bot.entity.position
-            bot.pathfinder.setMovements(defaultMove)
-            bot.pathfinder.setGoal(new GoalNear(botpos.x + 1, botpos.y, botpos.z))
-        }
         bot.on('health', health => {
             console.log(`${bot.health} | ${bot.food}`)
-            if(bot.health <= 10) {
+            if (bot.health <= 10) {
                 bot.end()
                 HighwayBot()
             }
@@ -87,22 +83,21 @@ function HighwayBot() {
                 } else pathfinder()
             }
             if (message === `${config.prefix}mine`) {
+                async function domakesth() {
+                    await dig()
+                    bot.navigate.to(bot.entity.position.offset(1,0,0))
+                }
                 setInterval(() => {
-                    dig()
-                    setTimeout(() => {
-                        move()
-                    }, 3000);
-                    //bot.navigate.to(bot.entity.position.offset(1,0,0))
-                }, 6000);   
-                    
-                
+                    domakesth()
+                }, 2500);
+
                 if (message == `${config.prefix}stopmine`) {
                     return
                 }
-                
+
             }
         })
-    })  
+    })
     bot.on('kicked', kick => {
         console.log(`i got kicked, reason: ${kick}`)
     })
