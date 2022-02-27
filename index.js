@@ -2,7 +2,7 @@
 const mineflayer = require('mineflayer')
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer)
 const pathfinder = require('mineflayer-pathfinder').pathfinder
-const scaffold = require('mineflayer-scaffold')
+const scaffold = require('mineflayer-scaffold')(mineflayer)
 const tool = require('mineflayer-tool')
 const Movements = require('mineflayer-pathfinder').Movements
 const { GoalNear } = require('mineflayer-pathfinder').goals
@@ -33,13 +33,14 @@ function HighwayBot() {
     }
     bot.loadPlugin(pathfinder)
     mineflayernavigate(bot)
+    scaffold(bot)
 
     bot.on('spawn', spawn => {
         const mcData = require('minecraft-data')(bot.version)
         const defaultMove = new Movements(bot, mcData)
         async function dig() {
             for (var i = -2; i <= 2; i++) {
-                for (var y = 2; y >= 0; y--) {
+                for (var y = 3; y >= 0; y--) {
                     const target = bot.blockAt(bot.entity.position.offset(2, y, i))
                     if (target && bot.canDigBlock(target)) {
                         bot.equip(278, 'hand')
@@ -85,7 +86,7 @@ function HighwayBot() {
             if (message === `${config.prefix}mine`) {
                 async function domakesth() {
                     await dig()
-                    bot.navigate.to(bot.entity.position.offset(1,0,0))
+                    bot.navigate.to(bot.entity.position.offset(1, 0, 0))
                 }
                 setInterval(() => {
                     domakesth()
@@ -94,7 +95,6 @@ function HighwayBot() {
                 if (message == `${config.prefix}stopmine`) {
                     return
                 }
-
             }
         })
     })
