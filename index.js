@@ -12,6 +12,7 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const Vec3 = require('vec3').Vec3;
 client.commands = new Discord.Collection()
+let interval
 
 function HighwayBot() {
 
@@ -31,6 +32,7 @@ function HighwayBot() {
             bot.on(event.name, (...args) => event.execute(...args));
         }
     }
+
     bot.loadPlugin(pathfinder)
     mineflayernavigate(bot)
     scaffold(bot)
@@ -39,69 +41,73 @@ function HighwayBot() {
         const mcData = require('minecraft-data')(bot.version)
         const defaultMove = new Movements(bot, mcData)
         async function dig() {
-            for (var i = -2; i <= 2; i++) {
+            for (var z = -2; z <= 2; z++) {
                 for (var y = 3; y >= 0; y--) {
-                    const target = bot.blockAt(bot.entity.position.offset(2, y, i))
+                    const target = bot.blockAt(bot.entity.position.offset(2, y, z))
                     if (target && bot.canDigBlock(target)) {
                         const posblock = target.position
-                        console.log(`> | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                        console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         try {
                             bot.equip(278, 'hand')
                             await bot.dig(target)
-                            //bot.placeBlock('87', new Vec3(bot.entity.position.x+2, bot.entity.position.y+1, bot.entity.position.z-2))
-                            //bot.placeBlock('87', new Vec3(bot.entity.position.x+2, bot.entity.position.y+1, bot.entity.position.z+2))
-                            console.log(`< | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                            console.log(`✔ | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         } catch (err) {
                             console.log(err.stack)
                         }
                     } else {
-                        bot.chat('cannot dig')
+                        console.log('✖ | Can\'t dig')
                     }
                 }
             }
         }
+    })
+    /*
         bot.on('health', health => {
             console.log(`${bot.health} | ${bot.food}`)
             if (bot.health <= 10) {
                 bot.end()
                 HighwayBot()
             }
-        })
-        bot.on('chat', function (username, message) {
-            if (message === `${config.prefix}baritone`) {
-                if (username === bot.username) return
-                const target = bot.players[username] ? bot.players[username].entity : null
-                function pathfinder() {
-                    const p = target.position
-                    bot.chat(`/msg ${username} I see you, Coord: ${(p.x).toFixed(0)}, ${(p.y).toFixed(0)}, ${(p.z).toFixed(0)}`)
-                    bot.pathfinder.setMovements(defaultMove)
-                    bot.pathfinder.setGoal(new GoalNear(p.x, p.y, p.z, 1))
-                    const positionrolate = new Vec3(p.x, p.y, p.z)
-                    bot.lookAt(positionrolate)
-                }
-                if (!target) {
-                    bot.chat('I don\'t see you !')
-                    return
-                } else pathfinder()
+        })*/
+    bot.on('chat', function (username, message) {
+        if (message === `${config.prefix}baritone`) {
+            if (username === bot.username) return
+            const target = bot.players[username] ? bot.players[username].entity : null
+            function pathfinder() {
+                const p = target.position
+                bot.chat(`/msg ${username} I see you, Coord: ${(p.x).toFixed(0)}, ${(p.y).toFixed(0)}, ${(p.z).toFixed(0)}`)
+                bot.pathfinder.setMovements(defaultMove)
+                bot.pathfinder.setGoal(new GoalNear(p.x, p.y, p.z, 1))
+                const positionrolate = new Vec3(p.x, p.y, p.z)
+                bot.lookAt(positionrolate)
             }
-            if (message === `${config.prefix}mine`) {
-                bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
-                async function mine() {
-                    await dig()
+            if (!target) {
+                bot.chat('I don\'t see you !')
+                return
+            } else pathfinder()
+        } else if (message === `${config.prefix}mine`) {
+            bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+            async function mine() {
+                try {
+                    dig()
+                } catch (err) {
+
+                } finally {
                     bot.navigate.to(bot.entity.position.offset(1, 0, 0))
                 }
-                setInterval(() => {
-                    mine()
-                }, 3500);
 
-                if (message == `${config.prefix}stopmine`) {
-                    return
-                }
             }
-        })
+            bot.chat('⛏ | Bắt đầu mine.')
+            interval = setInterval(() => {
+                mine()
+            }, 500);
+        } else if (message == `${config.prefix}stopmine`) {
+            clearInterval(interval)
+            bot.chat('🛑 | Đã dừng mine')
+        }
     })
     bot.on('kicked', kick => {
-        console.log(`i got kicked, reason: ${kick}`)
+        console.log(`i got kicked, reason: ${kick.toString()}`)
     })
 }
 
