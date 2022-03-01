@@ -43,11 +43,13 @@ function HighwayBot() {
                 for (var y = 3; y >= 0; y--) {
                     const target = bot.blockAt(bot.entity.position.offset(2, y, i))
                     if (target && bot.canDigBlock(target)) {
-                        bot.equip(278, 'hand')
                         const posblock = target.position
                         console.log(`> | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         try {
+                            bot.equip(278, 'hand')
                             await bot.dig(target)
+                            //bot.placeBlock('87', new Vec3(bot.entity.position.x+2, bot.entity.position.y+1, bot.entity.position.z-2))
+                            //bot.placeBlock('87', new Vec3(bot.entity.position.x+2, bot.entity.position.y+1, bot.entity.position.z+2))
                             console.log(`< | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         } catch (err) {
                             console.log(err.stack)
@@ -55,7 +57,6 @@ function HighwayBot() {
                     } else {
                         bot.chat('cannot dig')
                     }
-
                 }
             }
         }
@@ -84,13 +85,14 @@ function HighwayBot() {
                 } else pathfinder()
             }
             if (message === `${config.prefix}mine`) {
-                async function domakesth() {
+                bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+                async function mine() {
                     await dig()
                     bot.navigate.to(bot.entity.position.offset(1, 0, 0))
                 }
                 setInterval(() => {
-                    domakesth()
-                }, 2500);
+                    mine()
+                }, 3500);
 
                 if (message == `${config.prefix}stopmine`) {
                     return
