@@ -36,30 +36,51 @@ function HighwayBot() {
     bot.loadPlugin(pathfinder)
     mineflayernavigate(bot)
     scaffold(bot)
-
-    bot.on('spawn', spawn => {
-        const mcData = require('minecraft-data')(bot.version)
-        const defaultMove = new Movements(bot, mcData)
-        async function dig() {
+    const check = () => {
+        let check
+        for (var y = 3; y >= 0; y--) {
             for (var z = -2; z <= 2; z++) {
-                for (var y = 3; y >= 0; y--) {
-                    const target = bot.blockAt(bot.entity.position.offset(2, y, z))
-                    if (target && bot.canDigBlock(target)) {
-                        const posblock = target.position
-                        console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
-                        try {
-                            bot.equip(278, 'hand')
-                            await bot.dig(target)
-                            console.log(`✔ | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
-                        } catch (err) {
-                            console.log(err.stack)
-                        }
-                    } else {
-                        console.log('✖ | Can\'t dig')
-                    }
+                const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                if (target.name != `air`) {
+                    check = false
                 }
             }
         }
+        return check;
+    }
+
+    async function dig() {
+        for (var z = -2; z <= 2; z++) {
+            for (var y = 3; y >= 0; y--) {
+                const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                if (target && bot.canDigBlock(target)) {
+                    const posblock = target.position
+                    console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                    try {
+                        bot.equip(278, 'hand')
+                        await bot.dig(target)
+                        console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                    } catch (err) {
+                        console.log(err.stack)
+                    }
+                } else {
+                    console.log('✖ | Can\'t dig')
+                }
+            }
+        }
+        //check 
+        const check1 = await check()
+        if (check1 === false) {
+            setTimeout(() => dig(), 1000)
+        } else {
+            bot.navigate.to(bot.entity.position.offset(1, 0, 0))
+            setTimeout(() => {
+                dig()
+            }, 1000)
+        }
+    }
+    bot.on('spawn', spawn => {
+        console.log('Bot spawn !')
     })
     /*
         bot.on('health', health => {
@@ -69,8 +90,10 @@ function HighwayBot() {
                 HighwayBot()
             }
         })*/
-    bot.on('chat', function (username, message) {
+    bot.on('chat', async function (username, message) {
         if (message === `${config.prefix}baritone`) {
+            const mcData = require('minecraft-data')(bot.version)
+            const defaultMove = new Movements(bot, mcData)
             if (username === bot.username) return
             const target = bot.players[username] ? bot.players[username].entity : null
             function pathfinder() {
@@ -87,23 +110,16 @@ function HighwayBot() {
             } else pathfinder()
         } else if (message === `${config.prefix}mine`) {
             bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
-            async function mine() {
-                try {
-                    dig()
-                } catch (err) {
-
-                } finally {
-                    bot.navigate.to(bot.entity.position.offset(1, 0, 0))
-                }
-
-            }
+            dig()
             bot.chat('⛏ | Bắt đầu mine.')
-            interval = setInterval(() => {
-                mine()
-            }, 500);
+            interval = setInterval(async () => {
+                await dig()
+            }, 3000);
         } else if (message == `${config.prefix}stopmine`) {
             clearInterval(interval)
             bot.chat('🛑 | Đã dừng mine')
+        } else if (message === `${config.prefix}check`) {
+            await check()
         }
     })
     bot.on('kicked', kick => {
