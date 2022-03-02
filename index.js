@@ -36,11 +36,12 @@ function HighwayBot() {
     bot.loadPlugin(pathfinder)
     mineflayernavigate(bot)
     scaffold(bot)
+    /*
     const check = () => {
         let check
         for (var y = 3; y >= 0; y--) {
             for (var z = -2; z <= 2; z++) {
-                const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                const target = bot.blockAt(bot.entity.position.offset(1, y, z))
                 if (target.name != `air`) {
                     check = false
                 }
@@ -48,7 +49,7 @@ function HighwayBot() {
         }
         return check;
     }
-
+    */
     async function dig() {
         for (var z = -2; z <= 2; z++) {
             for (var y = 3; y >= 0; y--) {
@@ -82,6 +83,19 @@ function HighwayBot() {
         }
         */
     }
+    function checkrewrite() {
+        let check 
+        for (var z = -2; z <= 2; z++) {
+            for (var y = 3; y >= 0; y--) {
+                const target = bot.blockAt(bot.entity.position.offset(1, y, z))
+                console.log(target.name.length)
+                if(target.name == `netherrack`) {
+                    bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+                }
+            }
+        }   
+        return check
+    }
     bot.on('spawn', spawn => {
         console.log('Bot spawn !')
     })
@@ -111,18 +125,18 @@ function HighwayBot() {
                 bot.chat('I don\'t see you !')
                 return
             } else pathfinder()
-        //checking here
+            //checking here
         } else if (message === `${config.prefix}mine`) {
-           // bot.navigate.to(bot.entity.position.offset(-1, 0, 0)) 
-            bot.chat('⛏ | Bắt đầu mine.')
-            interval = setInterval(async () => {
-                await dig()
-            }, 3000);
+            // bot.navigate.to(bot.entity.position.offset(-1, 0, 0)) 
+            async function mine() {
+                await checkrewrite() 
+            }
+            mine()
         } else if (message == `${config.prefix}stopmine`) {
             clearInterval(interval)
             bot.chat('🛑 | Đã dừng mine')
         } else if (message === `${config.prefix}check`) {
-            await check()
+            await checkrewrite()
         }
     })
     bot.on('kicked', kick => {
