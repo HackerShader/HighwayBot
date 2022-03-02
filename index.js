@@ -68,8 +68,10 @@ function HighwayBot() {
                 }
             }
         }
-        //check 
+        //check (beta)
+        /*
         const check1 = await check()
+        console.log(check1)
         if (check1 === false) {
             setTimeout(() => dig(), 1000)
         } else {
@@ -78,6 +80,7 @@ function HighwayBot() {
                 dig()
             }, 1000)
         }
+        */
     }
     bot.on('spawn', spawn => {
         console.log('Bot spawn !')
@@ -108,9 +111,9 @@ function HighwayBot() {
                 bot.chat('I don\'t see you !')
                 return
             } else pathfinder()
+        //checking here
         } else if (message === `${config.prefix}mine`) {
-            bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
-            dig()
+           // bot.navigate.to(bot.entity.position.offset(-1, 0, 0)) 
             bot.chat('⛏ | Bắt đầu mine.')
             interval = setInterval(async () => {
                 await dig()
