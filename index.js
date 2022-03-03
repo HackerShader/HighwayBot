@@ -36,6 +36,7 @@ function HighwayBot() {
     bot.loadPlugin(pathfinder)
     mineflayernavigate(bot)
     scaffold(bot)
+<<<<<<< HEAD
     async function check() {
         let check = Boolean
         for (var y = 3; y >= 0; y--) {
@@ -73,11 +74,22 @@ function HighwayBot() {
                     if (target.name != `air`) {
                         check = false
                     }
+=======
+    /*
+    const check = () => {
+        let check
+        for (var y = 3; y >= 0; y--) {
+            for (var z = -2; z <= 2; z++) {
+                const target = bot.blockAt(bot.entity.position.offset(1, y, z))
+                if (target.name != `air`) {
+                    check = false
+>>>>>>> 2f3835ebc8f59ec85f80fc3d7926c98685a7e561
                 }
             }
         }
         return check;
     }
+<<<<<<< HEAD
 
     async function dig(stop) {
         if (stop === true) return
@@ -114,14 +126,42 @@ function HighwayBot() {
                         }
                     } else {
                         console.log('✖ | Can\'t dig')
+=======
+    */
+    async function dig() {
+        for (var z = -2; z <= 2; z++) {
+            for (var y = 3; y >= 0; y--) {
+                const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                if (target && bot.canDigBlock(target)) {
+                    const posblock = target.position
+                    console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                    try {
+                        bot.equip(278, 'hand')
+                        await bot.dig(target)
+                        console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                    } catch (err) {
+                        console.log(err.stack)
+>>>>>>> 2f3835ebc8f59ec85f80fc3d7926c98685a7e561
                     }
                 }
             }
         }
+<<<<<<< HEAD
         const check2 = await checkInFront()
         if (check2 === false) {
             setTimeout(async () => {
                 await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+=======
+        //check (beta)
+        /*
+        const check1 = await check()
+        console.log(check1)
+        if (check1 === false) {
+            setTimeout(() => dig(), 1000)
+        } else {
+            bot.navigate.to(bot.entity.position.offset(1, 0, 0))
+            setTimeout(() => {
+>>>>>>> 2f3835ebc8f59ec85f80fc3d7926c98685a7e561
                 dig()
             }, 1000)
         } else {
@@ -138,6 +178,20 @@ function HighwayBot() {
             }
 
         }
+        */
+    }
+    function checkrewrite() {
+        let check 
+        for (var z = -2; z <= 2; z++) {
+            for (var y = 3; y >= 0; y--) {
+                const target = bot.blockAt(bot.entity.position.offset(1, y, z))
+                console.log(target.name.length)
+                if(target.name == `netherrack`) {
+                    bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+                }
+            }
+        }   
+        return check
     }
 
     bot.on('spawn', spawn => {
@@ -169,15 +223,24 @@ function HighwayBot() {
                 bot.chat('I don\'t see you !')
                 return
             } else pathfinder()
+            //checking here
         } else if (message === `${config.prefix}mine`) {
+<<<<<<< HEAD
             await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
             await dig(stop)
             bot.chat('⛏ | Bắt đầu đào')
+=======
+            // bot.navigate.to(bot.entity.position.offset(-1, 0, 0)) 
+            async function mine() {
+                await checkrewrite() 
+            }
+            mine()
+>>>>>>> 2f3835ebc8f59ec85f80fc3d7926c98685a7e561
         } else if (message == `${config.prefix}stopmine`) {
             stop = true
             bot.chat('🛑 | Sẽ dừng lại tại vòng lặp tiếp theo')
         } else if (message === `${config.prefix}check`) {
-            await check()
+            await checkrewrite()
         }
     })
     bot.on('kicked', kick => {
