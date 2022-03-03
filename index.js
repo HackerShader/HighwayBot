@@ -1,4 +1,3 @@
-//Package Collection
 const mineflayer = require('mineflayer')
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer)
 const pathfinder = require('mineflayer-pathfinder').pathfinder
@@ -12,7 +11,7 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const Vec3 = require('vec3').Vec3;
 client.commands = new Discord.Collection()
-let interval
+let stop = Boolean
 
 function HighwayBot() {
 
@@ -36,8 +35,6 @@ function HighwayBot() {
     bot.loadPlugin(pathfinder)
     mineflayernavigate(bot)
     scaffold(bot)
-<<<<<<< HEAD
-<<<<<<< HEAD
     async function check() {
         let check = Boolean
         for (var y = 3; y >= 0; y--) {
@@ -75,33 +72,11 @@ function HighwayBot() {
                     if (target.name != `air`) {
                         check = false
                     }
-=======
-    /*
-    const check = () => {
-        let check
-        for (var y = 3; y >= 0; y--) {
-            for (var z = -2; z <= 2; z++) {
-                const target = bot.blockAt(bot.entity.position.offset(1, y, z))
-                if (target.name != `air`) {
-                    check = false
->>>>>>> 2f3835ebc8f59ec85f80fc3d7926c98685a7e561
-=======
-    const check = () => {
-        let check
-        for (var y = 3; y >= 0; y--) {
-            for (var z = -2; z <= 2; z++) {
-                const target = bot.blockAt(bot.entity.position.offset(2, y, z))
-                if (target.name != `air`) {
-                    check = false
->>>>>>> parent of f7a6f2a (Update 03032022.0803)
                 }
             }
         }
         return check;
     }
-<<<<<<< HEAD
-
-<<<<<<< HEAD
     async function dig(stop) {
         if (stop === true) return
         for (var y = 3; y >= 0; y--) {
@@ -137,86 +112,35 @@ function HighwayBot() {
                         }
                     } else {
                         console.log('✖ | Can\'t dig')
-=======
-    */
-=======
->>>>>>> parent of f7a6f2a (Update 03032022.0803)
-    async function dig() {
-        for (var z = -2; z <= 2; z++) {
-            for (var y = 3; y >= 0; y--) {
-                const target = bot.blockAt(bot.entity.position.offset(2, y, z))
-                if (target && bot.canDigBlock(target)) {
-                    const posblock = target.position
-                    console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
-                    try {
-                        bot.equip(278, 'hand')
-                        await bot.dig(target)
-                        console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
-                    } catch (err) {
-                        console.log(err.stack)
-<<<<<<< HEAD
->>>>>>> 2f3835ebc8f59ec85f80fc3d7926c98685a7e561
-=======
->>>>>>> parent of f7a6f2a (Update 03032022.0803)
                     }
-                } else {
-                    console.log('✖ | Can\'t dig')
                 }
             }
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
         const check2 = await checkInFront()
         if (check2 === false) {
             setTimeout(async () => {
                 await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
-=======
-        //check (beta)
-        /*
-        const check1 = await check()
-        console.log(check1)
-=======
-        //check 
-        const check1 = await check()
->>>>>>> parent of f7a6f2a (Update 03032022.0803)
-        if (check1 === false) {
-            setTimeout(() => dig(), 1000)
-        } else {
-            bot.navigate.to(bot.entity.position.offset(1, 0, 0))
-            setTimeout(() => {
-<<<<<<< HEAD
->>>>>>> 2f3835ebc8f59ec85f80fc3d7926c98685a7e561
-=======
->>>>>>> parent of f7a6f2a (Update 03032022.0803)
                 dig()
             }, 1000)
-        }
-        */
-    }
-    function checkrewrite() {
-        let check 
-        for (var z = -2; z <= 2; z++) {
-            for (var y = 3; y >= 0; y--) {
-                const target = bot.blockAt(bot.entity.position.offset(1, y, z))
-                console.log(target.name.length)
-                if(target.name == `netherrack`) {
-                    bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
-                }
+        } else {
+            const check1 = await check()
+            if (check1 === false) {
+                setTimeout(() => dig(), 1000)
+            } else {
+                console.clear()
+                console.log('✔  | Đã đào xong bức tường trước mặt.')
+                setTimeout(async () => {
+                    await bot.navigate.to(bot.entity.position.offset(1, 0, 0))
+                    dig()
+                }, 1000)
             }
-        }   
-        return check
+
+        }
     }
+
     bot.on('spawn', spawn => {
         console.log('Bot spawn !')
     })
-    /*
-        bot.on('health', health => {
-            console.log(`${bot.health} | ${bot.food}`)
-            if (bot.health <= 10) {
-                bot.end()
-                HighwayBot()
-            }
-        })*/
     bot.on('chat', async function (username, message) {
         if (message === `${config.prefix}baritone`) {
             const mcData = require('minecraft-data')(bot.version)
@@ -235,37 +159,19 @@ function HighwayBot() {
                 bot.chat('I don\'t see you !')
                 return
             } else pathfinder()
-            //checking here
         } else if (message === `${config.prefix}mine`) {
-<<<<<<< HEAD
-<<<<<<< HEAD
             await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
             await dig(stop)
             bot.chat('⛏ | Bắt đầu đào')
-=======
-            // bot.navigate.to(bot.entity.position.offset(-1, 0, 0)) 
-            async function mine() {
-                await checkrewrite() 
-            }
-            mine()
->>>>>>> 2f3835ebc8f59ec85f80fc3d7926c98685a7e561
-=======
-            bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
-            dig()
-            bot.chat('⛏ | Bắt đầu mine.')
-            interval = setInterval(async () => {
-                await dig()
-            }, 3000);
->>>>>>> parent of f7a6f2a (Update 03032022.0803)
         } else if (message == `${config.prefix}stopmine`) {
-            clearInterval(interval)
-            bot.chat('🛑 | Đã dừng mine')
+            stop = true
+            bot.chat('🛑 | Sẽ dừng lại tại vòng lặp tiếp theo')
         } else if (message === `${config.prefix}check`) {
-            await checkrewrite()
+            await check()
         }
     })
     bot.on('kicked', kick => {
-        console.log(`i got kicked, reason: ${kick.toString()}`)
+        console.log(`I got kicked, reason: ${kick.toString()}`)
     })
 }
 
