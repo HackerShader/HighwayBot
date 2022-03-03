@@ -79,6 +79,7 @@ function HighwayBot() {
     }
     async function dig(stop) {
         if (stop === true) return
+        bot.equip(278, 'hand')
         for (var y = 3; y >= 0; y--) {
             if (y != 0) {
                 for (var z = -2; z <= 2; z++) {
@@ -87,7 +88,6 @@ function HighwayBot() {
                         const posblock = target.position
                         console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         try {
-                            bot.equip(278, 'hand')
                             await bot.dig(target)
                             console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         } catch (err) {
@@ -104,7 +104,6 @@ function HighwayBot() {
                         const posblock = target.position
                         console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         try {
-                            bot.equip(278, 'hand')
                             await bot.dig(target)
                             console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         } catch (err) {
@@ -119,7 +118,7 @@ function HighwayBot() {
         const check2 = await checkInFront()
         if (check2 === false) {
             setTimeout(async () => {
-                await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+            //    await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
                 dig()
             }, 1000)
         } else {
