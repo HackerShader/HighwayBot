@@ -12,7 +12,7 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const Vec3 = require('vec3').Vec3;
 client.commands = new Discord.Collection()
-let interval
+let stop = Boolean
 
 function HighwayBot() {
 
@@ -36,49 +36,110 @@ function HighwayBot() {
     bot.loadPlugin(pathfinder)
     mineflayernavigate(bot)
     scaffold(bot)
-    const check = () => {
-        let check
+    async function check() {
+        let check = Boolean
         for (var y = 3; y >= 0; y--) {
-            for (var z = -2; z <= 2; z++) {
-                const target = bot.blockAt(bot.entity.position.offset(2, y, z))
-                if (target.name != `air`) {
-                    check = false
+            if (y != 0) {
+                for (var z = -2; z <= 2; z++) {
+                    const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                    if (target.name != `air`) {
+                        check = false
+                    }
+                }
+            } else if (y == 0) {
+                for (var z = -1; z <= 1; z++) {
+                    const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                    if (target.name != `air`) {
+                        check = false
+                    }
+                }
+            }
+        }
+        return check;
+    }
+    async function checkInFront() {
+        let check = Boolean
+        for (var y = 3; y >= 0; y--) {
+            if (y != 0) {
+                for (var z = -2; z <= 2; z++) {
+                    const target = bot.blockAt(bot.entity.position.offset(1, y, z))
+                    if (target.name != `air`) {
+                        check = false
+                    }
+                }
+            } else if (y == 0) {
+                for (var z = -1; z <= 1; z++) {
+                    const target = bot.blockAt(bot.entity.position.offset(1, y, z))
+                    if (target.name != `air`) {
+                        check = false
+                    }
                 }
             }
         }
         return check;
     }
 
-    async function dig() {
-        for (var z = -2; z <= 2; z++) {
-            for (var y = 3; y >= 0; y--) {
-                const target = bot.blockAt(bot.entity.position.offset(2, y, z))
-                if (target && bot.canDigBlock(target)) {
-                    const posblock = target.position
-                    console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
-                    try {
-                        bot.equip(278, 'hand')
-                        await bot.dig(target)
-                        console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
-                    } catch (err) {
-                        console.log(err.stack)
+    async function dig(stop) {
+        if (stop === true) return
+        for (var y = 3; y >= 0; y--) {
+            if (y != 0) {
+                for (var z = -2; z <= 2; z++) {
+                    const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                    if (target && bot.canDigBlock(target)) {
+                        const posblock = target.position
+                        console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                        try {
+                            bot.equip(278, 'hand')
+                            await bot.dig(target)
+                            console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                        } catch (err) {
+                            console.log(err.stack)
+                        }
+                    } else {
+                        console.log('✖ | Can\'t dig')
                     }
-                } else {
-                    console.log('✖ | Can\'t dig')
+                }
+            } else if (y == 0) {
+                for (var z = -1; z <= 1; z++) {
+                    const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                    if (target && bot.canDigBlock(target)) {
+                        const posblock = target.position
+                        console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                        try {
+                            bot.equip(278, 'hand')
+                            await bot.dig(target)
+                            console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                        } catch (err) {
+                            console.log(err.stack)
+                        }
+                    } else {
+                        console.log('✖ | Can\'t dig')
+                    }
                 }
             }
         }
-        //check 
-        const check1 = await check()
-        if (check1 === false) {
-            setTimeout(() => dig(), 1000)
-        } else {
-            bot.navigate.to(bot.entity.position.offset(1, 0, 0))
-            setTimeout(() => {
+        const check2 = await checkInFront()
+        if (check2 === false) {
+            setTimeout(async () => {
+                await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
                 dig()
             }, 1000)
+        } else {
+            const check1 = await check()
+            if (check1 === false) {
+                setTimeout(() => dig(), 1000)
+            } else {
+                console.clear()
+                console.log('✔  | Đã đào xong bức tường trước mặt.')
+                setTimeout(async () => {
+                    await bot.navigate.to(bot.entity.position.offset(1, 0, 0))
+                    dig()
+                }, 1000)
+            }
+
         }
     }
+
     bot.on('spawn', spawn => {
         console.log('Bot spawn !')
     })
@@ -109,21 +170,18 @@ function HighwayBot() {
                 return
             } else pathfinder()
         } else if (message === `${config.prefix}mine`) {
-            bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
-            dig()
-            bot.chat('⛏ | Bắt đầu mine.')
-            interval = setInterval(async () => {
-                await dig()
-            }, 3000);
+            await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+            await dig(stop)
+            bot.chat('⛏ | Bắt đầu đào')
         } else if (message == `${config.prefix}stopmine`) {
-            clearInterval(interval)
-            bot.chat('🛑 | Đã dừng mine')
+            stop = true
+            bot.chat('🛑 | Sẽ dừng lại tại vòng lặp tiếp theo')
         } else if (message === `${config.prefix}check`) {
             await check()
         }
     })
     bot.on('kicked', kick => {
-        console.log(`i got kicked, reason: ${kick.toString()}`)
+        console.log(`I got kicked, reason: ${kick.toString()}`)
     })
 }
 
