@@ -120,13 +120,13 @@ function HighwayBot() {
         const check2 = await checkInFront()
         if (check2 === false) {
             setTimeout(async () => {
-                await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
-                dig()
-            }, 1000)
+                await dig()
+                bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+            }, 500)
         } else {
             const check1 = await check()
             if (check1 === false) {
-                setTimeout(() => dig(), 1000)
+                setTimeout(() => dig(), 500)
             } else {
                 console.clear()
                 console.log('✔  | Đã đào xong bức tường trước mặt.')
@@ -134,7 +134,7 @@ function HighwayBot() {
                     await dig()
                     bot.navigate.to(bot.entity.position.offset(1, 0, 0))
 
-                }, 1000)
+                }, 500)
             }
 
         }
