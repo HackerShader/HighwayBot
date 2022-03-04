@@ -62,6 +62,7 @@ function HighwayBot() {
             if (y != 0) {
                 for (var z = -2; z <= 2; z++) {
                     const target = bot.blockAt(bot.entity.position.offset(1, y, z))
+                    console.log(target.name)
                     if (target.name != `air`) {
                         check = false
                     }
@@ -69,6 +70,7 @@ function HighwayBot() {
             } else if (y == 0) {
                 for (var z = -1; z <= 1; z++) {
                     const target = bot.blockAt(bot.entity.position.offset(1, y, z))
+                    console.log(target.name)
                     if (target.name != `air`) {
                         check = false
                     }
@@ -118,7 +120,7 @@ function HighwayBot() {
         const check2 = await checkInFront()
         if (check2 === false) {
             setTimeout(async () => {
-            //    await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+                await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
                 dig()
             }, 1000)
         } else {
@@ -129,8 +131,9 @@ function HighwayBot() {
                 console.clear()
                 console.log('✔  | Đã đào xong bức tường trước mặt.')
                 setTimeout(async () => {
-                    await bot.navigate.to(bot.entity.position.offset(1, 0, 0))
-                    dig()
+                    await dig()
+                    bot.navigate.to(bot.entity.position.offset(1, 0, 0))
+
                 }, 1000)
             }
 
