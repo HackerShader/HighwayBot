@@ -2,7 +2,6 @@ const mineflayer = require('mineflayer')
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer)
 const pathfinder = require('mineflayer-pathfinder').pathfinder
 const scaffold = require('mineflayer-scaffold')(mineflayer)
-const tool = require('mineflayer-tool')
 const Movements = require('mineflayer-pathfinder').Movements
 const { GoalNear } = require('mineflayer-pathfinder').goals
 const config = require('./config.json')
@@ -30,9 +29,6 @@ function HighwayBot() {
 
     commandfiles = fs.readdirSync(__dirname + '/commands').filter(file => file.endsWith('.js'));
     let commands = []
-    bot.on('spawn', spawn => {
-        console.log('Bot spawn !')
-    })
     for (const val of commandfiles) {
         commands.push(val.replace('.js', ''))
     }
@@ -41,7 +37,11 @@ function HighwayBot() {
         const command = args.shift().toLowerCase();
         if (!commands.includes(command)) return;
         const torun = require(__dirname + '/commands/' + command + '.js')
-        torun.execute(bot, message, args, username)
+        if (torun.run && !torun.execute) {
+            torun.run(bot, message, args, username)
+        } else {
+            torun.execute(bot, message, args, username)
+        }
 
 
 
@@ -74,7 +74,6 @@ function HighwayBot() {
                 return
             } else pathfinder()
 
-            */
 
 
         if (message == `${config.prefix}stopmine`) {
@@ -85,6 +84,7 @@ function HighwayBot() {
         } else if (message === `${config.prefix}inv`) {
             bot.inventory.slots.forEach((d) => console.log(d))
         }
+            */
     })
     bot.on('kicked', kick => {
         console.log(`I got kicked, reason: ${kick.toString()}`)
@@ -92,6 +92,9 @@ function HighwayBot() {
     bot.on('end', (reason) => {
         console.log('Bot đã ngắt kết nối bới server. Lý do ' + reason)
         setTimeout(() => HighwayBot, 1000)
+    })
+    bot.on('spawn', spawn => {
+        console.log('Bot spawn !')
     })
 }
 
