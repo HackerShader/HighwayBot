@@ -174,10 +174,10 @@ module.exports = {
             bot.chat('🛑 | Sẽ dừng lại tại vòng lặp tiếp theo')
         } else {
             stop = false
-            await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+            //await bot.navigate.to(bot.entity.position.offset(-1, 0, 0)) i removed this for stable movenment, can you check again your checkinfront function?
             bot.chat('⛏ | Bắt đầu đào')
             await dig(message.split(' ')[1])
         }
-
     }
 }
+

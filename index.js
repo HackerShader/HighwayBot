@@ -2,10 +2,9 @@ const mineflayer = require('mineflayer')
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer)
 const pathfinder = require('mineflayer-pathfinder').pathfinder
 const scaffold = require('mineflayer-scaffold')(mineflayer)
-const Movements = require('mineflayer-pathfinder').Movements
-const { GoalNear } = require('mineflayer-pathfinder').goals
 const config = require('./config.json')
 const fs = require('fs')
+const mineflayerViewer = require('prismarine-viewer').mineflayer
 const Discord = require('discord.js')
 const { info } = require('console')
 const client = new Discord.Client()
@@ -42,52 +41,15 @@ function HighwayBot() {
         } else {
             torun.execute(bot, message, args, username)
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-        if (message === `${config.prefix}baritone`) {
-            const mcData = require('minecraft-data')(bot.version)
-            const defaultMove = new Movements(bot, mcData)
-            if (username === bot.username) return
-            const target = bot.players[username] ? bot.players[username].entity : null
-            function pathfinder() {
-                const p = target.position
-                bot.chat(`/msg ${username} I see you, Coord: ${(p.x).toFixed(0)}, ${(p.y).toFixed(0)}, ${(p.z).toFixed(0)}`)
-                bot.pathfinder.setMovements(defaultMove)
-                bot.pathfinder.setGoal(new GoalNear(p.x, p.y, p.z, 1))
-                const positionrolate = new Vec3(p.x, p.y, p.z)
-                bot.lookAt(positionrolate)
-            }
-            if (!target) {
-                bot.chat('I don\'t see you !')
-                return
-            } else pathfinder()
-
-
-
-        if (message == `${config.prefix}stopmine`) {
-            stop = true
-            bot.chat('🛑 | Sẽ dừng lại tại vòng lặp tiếp theo')
-        } else if (message === `${config.prefix}check`) {
+        if (message === `${config.prefix}check`) {
             console.log(bot.blockAt(bot.entity.position.offset(2, -1, 0)))
         } else if (message === `${config.prefix}inv`) {
             bot.inventory.slots.forEach((d) => console.log(d))
         }
-            */
+           
     })
     bot.on('kicked', kick => {
-        console.log(`I got kicked, reason: ${kick.toString()}`)
+        console.log('Bot đã ngắt kết nối bới server. Lý do ' + kick.toString()) 
     })
     bot.on('end', (reason) => {
         console.log('Bot đã ngắt kết nối bới server. Lý do ' + reason)
@@ -96,6 +58,9 @@ function HighwayBot() {
     bot.on('spawn', spawn => {
         console.log('Bot spawn !')
     })
+    bot.on('spawn', () => {
+        mineflayerViewer(bot, { port: 3007, firstPerson: true })
+    })
 }
 
-HighwayBot()
+HighwayBot()    
