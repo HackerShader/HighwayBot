@@ -36,20 +36,21 @@ function HighwayBot() {
         const command = args.shift().toLowerCase();
         if (!commands.includes(command)) return;
         const torun = require(__dirname + '/commands/' + command + '.js')
-        if (torun.run && !torun.execute) {
-            torun.run(bot, message, args, username)
-        } else {
-            torun.execute(bot, message, args, username)
+        try {
+            if (torun.run && !torun.execute) {
+                torun.run(bot, message, args, username)
+            } else {
+                torun.execute(bot, message, args, username)
+            }
+        } catch (err) {
+            console.log(err)
         }
         if (message === `${config.prefix}check`) {
             console.log(bot.blockAt(bot.entity.position.offset(2, -1, 0)))
-        } else if (message === `${config.prefix}inv`) {
-            bot.inventory.slots.forEach((d) => console.log(d))
         }
-           
     })
     bot.on('kicked', kick => {
-        console.log('Bot đã ngắt kết nối bới server. Lý do ' + kick.toString()) 
+        console.log('Bot đã ngắt kết nối bới server. Lý do ' + kick.toString())
     })
     bot.on('end', (reason) => {
         console.log('Bot đã ngắt kết nối bới server. Lý do ' + reason)
@@ -59,7 +60,7 @@ function HighwayBot() {
         console.log('Bot spawn !')
     })
     bot.on('spawn', () => {
-        mineflayerViewer(bot, { port: 3007, firstPerson: true })
+        mineflayerViewer(bot, { port: config.localport, firstPerson: true })
     })
 }
 

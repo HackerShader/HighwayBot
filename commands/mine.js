@@ -63,13 +63,14 @@ module.exports = {
             return check;
         }
         async function placeNetherrack(y, z) {
-            const target = bot.blockAt(bot.entity.position.offset(2, y, z))
-            bot.inventory.slots.forEach(async (slot) => {
-                if (!slot || slot.name !== 'netherrack') return
-                await bot.equip(slot, 'hand')
+            const target = bot.blockAt(bot.entity.position.offset(3, y, z))
+          //  bot.inventory.slots.forEach(async (slot) => {
+                //console.log(slot.name)
+                //if (!slot || slot.name !== 'netherrack') return
+                await bot.equip(87, 'hand')
                 console.log(target.position.plus(new Vec3(0, 1, 0)))
-                await bot.placeBlock(target, new Vec3(0, 1, 0))
-            })
+                bot.placeBlock(target, new Vec3(0, 2, 0))
+           // })
         }
         async function checkLava(y, z) {
             let check = Boolean
@@ -78,9 +79,11 @@ module.exports = {
             const target3 = bot.blockAt(bot.entity.position.offset(2, y, z + 1))
             const target4 = bot.blockAt(bot.entity.position.offset(2, y - 1, z))
             if (!target1 && !target2 && !target3 && !target4) {
-                return check = false
+                check = false
+                stop = true
             } else {
                 if (target1.name === 'lava' || target2.name === 'lava' || target3.name === 'lava' || target4.name === 'lava') {
+
                     check = true
                 } else if (target1.name !== 'lava' && target2.name !== 'lava' && target3.name !== 'lava' && target4.name !== 'lava') {
                     check = false
@@ -180,4 +183,5 @@ module.exports = {
         }
     }
 }
+
 
