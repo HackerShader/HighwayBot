@@ -18,7 +18,6 @@ module.exports = {
                 if (y != 0) {
                     for (var z = -2; z <= 2; z++) {
                         const lavachecker = await checkLava(y, z)
-                        console.log(lavachecker)
                         if (lavachecker === true) continue;
                         const target = bot.blockAt(bot.entity.position.offset(2, y, z))
                         if (target.name != `air`) {
@@ -27,7 +26,6 @@ module.exports = {
                     }
                 } else if (y == 0) {
                     const lavachecker = await checkLava(y, z)
-                    console.log(lavachecker)
                     if (lavachecker === true) continue;
                     for (var z = -1; z <= 1; z++) {
                         const target = bot.blockAt(bot.entity.position.offset(2, y, z))
@@ -45,7 +43,6 @@ module.exports = {
                 if (y != 0) {
                     for (var z = -2; z <= 2; z++) {
                         const lavachecker = await checkLava(y, z)
-                        console.log(lavachecker)
                         if (lavachecker === true) continue;
                         const target = bot.blockAt(bot.entity.position.offset(1, y, z))
                         if (target.name != `air`) check = false
@@ -53,7 +50,6 @@ module.exports = {
                 } else if (y == 0) {
                     for (var z = -1; z <= 1; z++) {
                         const lavachecker = await checkLava(y, z)
-                        console.log(lavachecker)
                         if (lavachecker === true) continue;
                         const target = bot.blockAt(bot.entity.position.offset(1, y, z))
                         if (target.name != `air`) check = false
@@ -68,8 +64,12 @@ module.exports = {
                 //console.log(slot.name)
                 //if (!slot || slot.name !== 'netherrack') return
                 await bot.equip(87, 'hand')
-                console.log(target.position.plus(new Vec3(0, 1, 0)))
-                bot.placeBlock(target, new Vec3(0, 2, 0))
+                // console.log(target.position.plus(new Vec3(0, 1, 0)))
+                try {
+                    bot.placeBlock(target, new Vec3(0, 1, 0))    
+                } catch (error) {
+                    console.log(error.stack)
+                }
            // })
         }
         async function checkLava(y, z) {
@@ -83,7 +83,6 @@ module.exports = {
                 stop = true
             } else {
                 if (target1.name === 'lava' || target2.name === 'lava' || target3.name === 'lava' || target4.name === 'lava') {
-
                     check = true
                 } else if (target1.name !== 'lava' && target2.name !== 'lava' && target3.name !== 'lava' && target4.name !== 'lava') {
                     check = false
@@ -103,15 +102,18 @@ module.exports = {
             else if (look === 'x-') await bot.look(90)
             else if (look === 'z+') await bot.look(0)
             else if (look === 'z-') await bot.look(180)
+            /*
             const check4 = await checkInFront()
             if (check4 == false) {
                 await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
                 return dig()
             }
+            */
             for (var y = 3; y >= 0; y--) {
                 if (y != 0) {
                     for (var z = -2; z <= 2; z++) {
                         const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                        if (target.name === 'air') continue
                         if (target && bot.canDigBlock(target)) {
                             const posblock = target.position
                             console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
@@ -132,6 +134,7 @@ module.exports = {
                 } else if (y == 0) {
                     for (var z = -1; z <= 1; z++) {
                         const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                        if (target.name === 'air') continue
                         if (target && bot.canDigBlock(target)) {
                             const posblock = target.position
                             console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
@@ -179,7 +182,7 @@ module.exports = {
             stop = false
             //await bot.navigate.to(bot.entity.position.offset(-1, 0, 0)) i removed this for stable movenment, can you check again your checkinfront function?
             bot.chat('⛏ | Bắt đầu đào')
-            await dig(message.split(' ')[1])
+            dig()
         }
     }
 }
