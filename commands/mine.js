@@ -36,7 +36,7 @@ module.exports = {
                 }
             }
             return check;
-        }
+        }  
         async function checkInFront() {
             let check = Boolean
             for (var y = 3; y >= 0; y--) {
@@ -46,6 +46,7 @@ module.exports = {
                         if (lavachecker === true) continue;
                         const target = bot.blockAt(bot.entity.position.offset(1, y, z))
                         if (target.name != `air`) check = false
+                            
                     }
                 } else if (y == 0) {
                     for (var z = -1; z <= 1; z++) {
@@ -59,18 +60,32 @@ module.exports = {
             return check;
         }
         async function placeNetherrack(y, z) {
-            const target = bot.blockAt(bot.entity.position.offset(3, y, z))
-          //  bot.inventory.slots.forEach(async (slot) => {
-                //console.log(slot.name)
-                //if (!slot || slot.name !== 'netherrack') return
-                await bot.equip(87, 'hand')
-                // console.log(target.position.plus(new Vec3(0, 1, 0)))
-                try {
-                    bot.placeBlock(target, new Vec3(0, 1, 0))    
-                } catch (error) {
-                    console.log(error.stack)
-                }
-           // })
+            const target = bot.blockAt(bot.entity.position.offset(0, y, z))
+            //  bot.inventory.slots.forEach(async (slot) => {
+            //console.log(slot.name)
+            //if (!slot || slot.name !== 'netherrack') return
+            await bot.equip(87, 'hand')
+
+            try {
+                console.log(y)
+                bot.placeBlock(target, new Vec3(0, y, z))
+            } catch (error) {
+                console.log(error.stack)
+            }
+        }
+        async function lavaPlacer(y, z) {
+            const target1 = bot.blockAt(bot.entity.position.offset(2, y, z - 1))
+            const target2 = bot.blockAt(bot.entity.position.offset(2, y + 1, z))
+            const target3 = bot.blockAt(bot.entity.position.offset(2, y, z + 1))
+            const target4 = bot.blockAt(bot.entity.position.offset(2, y - 1, z))
+            if (!target1 && !target2 && !target3 && !target4) {
+                stop = true
+            } else {
+                     if (target1.name === 'lava') placeNetherrack(target1.position.y, target1.position.z)
+                else if (target2.name === 'lava') placeNetherrack(target2.position.y, target2.position.z)
+                else if (target3.name === 'lava') placeNetherrack(target3.position.y, target3.position.z)
+                else if (target4.name === 'lava') placeNetherrack(target4.position.y, target4.position.z)
+            }
         }
         async function checkLava(y, z) {
             let check = Boolean
@@ -120,15 +135,16 @@ module.exports = {
                             try {
                                 await bot.dig(target)
                                 console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                                //thứ 1: tôi nhận ra rằng là do vòng loop này hoạt động nên không thể dùng lavaPlacer (giờ thay vị trí function sao cho nó làm trong vòng loop này để dùng break)
+                                //thứ 2: số y bị lên tới > 300 là số lava bị cộng dồn (vd 119+120+121) nên y quá cao
+
+                                lavaPlacer(y,z)
+                                
                             } catch (err) {
                                 console.log(err.stack)
                             }
                         } else {
                             console.log('✖ | Can\'t dig')
-                        }
-                        const lavachecker = await checkLava(y, z)
-                        if (lavachecker === true) {
-                            placeNetherrack(y, z)
                         }
                     }
                 } else if (y == 0) {
@@ -140,16 +156,14 @@ module.exports = {
                             console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                             try {
                                 await bot.dig(target)
+                                console.log(posblock)
                                 console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                                await lavaPlacer(y, z)  
                             } catch (err) {
                                 console.log(err.stack)
                             }
                         } else {
                             console.log('✖ | Can\'t dig')
-                        }
-                        const lavachecker = await checkLava(y, z)
-                        if (lavachecker === true) {
-                            placeNetherrack(y, z)
                         }
                     }
                 }
@@ -165,7 +179,7 @@ module.exports = {
                 if (check1 === false) {
                     setTimeout(() => dig(), 500)
                 } else {
-                    console.clear()
+                    //console.clear()
                     console.log('✔  | Đã đào xong bức tường trước mặt.')
                     setTimeout(async () => {
                         await dig()

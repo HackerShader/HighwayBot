@@ -12,6 +12,7 @@ const Vec3 = require('vec3').Vec3;
 client.commands = new Discord.Collection()
 let stop = Boolean
 const prefix = config.prefix
+const inventoryViewer = require('mineflayer-web-inventory')
 
 function HighwayBot() {
 
@@ -25,7 +26,7 @@ function HighwayBot() {
     bot.loadPlugin(pathfinder)
     mineflayernavigate(bot)
     scaffold(bot)
-
+    inventoryViewer(bot, { port: config.invport})
     commandfiles = fs.readdirSync(__dirname + '/commands').filter(file => file.endsWith('.js'));
     let commands = []
     for (const val of commandfiles) {
