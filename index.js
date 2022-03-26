@@ -4,12 +4,14 @@ const pathfinder = require('mineflayer-pathfinder').pathfinder
 const scaffold = require('mineflayer-scaffold')(mineflayer)
 const config = require('./config.json')
 const fs = require('fs')
+var tpsPlugin = require('mineflayer-tps')(mineflayer)
 const mineflayerViewer = require('prismarine-viewer').mineflayer
 const Discord = require('discord.js')
 const { info } = require('console')
 const client = new Discord.Client()
 const Vec3 = require('vec3').Vec3;
 client.commands = new Discord.Collection()
+const minecraft = require('minecraft-server-util')
 let stop = Boolean
 const prefix = config.prefix
 const inventoryViewer = require('mineflayer-web-inventory')
@@ -24,6 +26,7 @@ function HighwayBot() {
     })
 
     bot.loadPlugin(pathfinder)
+    bot.loadPlugin(tpsPlugin)
     mineflayernavigate(bot)
     scaffold(bot)
     inventoryViewer(bot, { port: config.invport})

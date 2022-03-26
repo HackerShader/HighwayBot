@@ -36,7 +36,7 @@ module.exports = {
                 }
             }
             return check;
-        }  
+        }
         async function checkInFront() {
             let check = Boolean
             for (var y = 3; y >= 0; y--) {
@@ -46,7 +46,7 @@ module.exports = {
                         if (lavachecker === true) continue;
                         const target = bot.blockAt(bot.entity.position.offset(1, y, z))
                         if (target.name != `air`) check = false
-                            
+
                     }
                 } else if (y == 0) {
                     for (var z = -1; z <= 1; z++) {
@@ -59,49 +59,85 @@ module.exports = {
             }
             return check;
         }
-        async function placeNetherrack(y, z) {
-            const target = bot.blockAt(bot.entity.position.offset(0, y, z))
+
+        async function placeNetherrack(x, y, z) {
+            let target
+            if (x > 10 || y > 10 || z > 10) {
+                target = bot.blockAt(new Vec3(x, y ,z))
+            } else if (x < 10 && y < 10 && z < 10) {
+                target = bot.blockAt(bot.entity.position.offset(x, y, z))
+            }
+            console.log(target.position)
             //  bot.inventory.slots.forEach(async (slot) => {
             //console.log(slot.name)
             //if (!slot || slot.name !== 'netherrack') return
             await bot.equip(87, 'hand')
 
             try {
-                console.log(y)
                 bot.placeBlock(target, new Vec3(0, y, z))
+                await bot.equip(278, 'hand')
             } catch (error) {
                 console.log(error.stack)
             }
         }
-        async function lavaPlacer(y, z) {
-            const target1 = bot.blockAt(bot.entity.position.offset(2, y, z - 1))
-            const target2 = bot.blockAt(bot.entity.position.offset(2, y + 1, z))
-            const target3 = bot.blockAt(bot.entity.position.offset(2, y, z + 1))
-            const target4 = bot.blockAt(bot.entity.position.offset(2, y - 1, z))
+        async function lavaPlacer(x, y, z) {
+            let target1
+            let target2
+            let target3
+            let target4
+            if (x > 10 || y > 10 || z > 10) {
+                target1 = bot.blockAt(new Vec3(x, y, z - 1))
+                target2 = bot.blockAt(new Vec3(x, y + 1, z))
+                target3 = bot.blockAt(new Vec3(x, y, z + 1))
+                target4 = bot.blockAt(new Vec3(x, y - 1, z))
+            } else if (x < 10 && y < 10 && z < 10) {
+                target1 = bot.blockAt(bot.entity.position.offset(2, y, z - 1))
+                target2 = bot.blockAt(bot.entity.position.offset(2, y + 1, z))
+                target3 = bot.blockAt(bot.entity.position.offset(2, y, z + 1))
+                target4 = bot.blockAt(bot.entity.position.offset(2, y - 1, z))
+            } else stop = true
             if (!target1 && !target2 && !target3 && !target4) {
                 stop = true
             } else {
-                     if (target1.name === 'lava') placeNetherrack(target1.position.y, target1.position.z)
-                else if (target2.name === 'lava') placeNetherrack(target2.position.y, target2.position.z)
-                else if (target3.name === 'lava') placeNetherrack(target3.position.y, target3.position.z)
-                else if (target4.name === 'lava') placeNetherrack(target4.position.y, target4.position.z)
+                     if (target1.name === 'lava') placeNetherrack(target1.position.x, target1.position.y, target1.position.z)
+                else if (target2.name === 'lava') placeNetherrack(target2.position.x, target2.position.y, target2.position.z)
+                else if (target3.name === 'lava') placeNetherrack(target3.position.x, target3.position.y, target3.position.z)
+                else if (target4.name === 'lava') placeNetherrack(target4.position.x, target4.position.y, target4.position.z)
             }
         }
-        async function checkLava(y, z) {
+        async function checkLava(x, y, z) {
             let check = Boolean
-            const target1 = bot.blockAt(bot.entity.position.offset(2, y, z - 1))
-            const target2 = bot.blockAt(bot.entity.position.offset(2, y + 1, z))
-            const target3 = bot.blockAt(bot.entity.position.offset(2, y, z + 1))
-            const target4 = bot.blockAt(bot.entity.position.offset(2, y - 1, z))
+            let target1
+            let target2
+            let target3
+            let target4
+            if (x > 10 || y > 10 || z > 10) {
+                target1 = bot.blockAt(new Vec3(x, y, z - 1))
+                target2 = bot.blockAt(new Vec3(x, y + 1, z))
+                target3 = bot.blockAt(new Vec3(x, y, z + 1))
+                target4 = bot.blockAt(new Vec3(x, y - 1, z))
+            } else if (x < 10 && y < 10 && z < 10) {
+                target1 = bot.blockAt(bot.entity.position.offset(2, y, z - 1))
+                target2 = bot.blockAt(bot.entity.position.offset(2, y + 1, z))
+                target3 = bot.blockAt(bot.entity.position.offset(2, y, z + 1))
+                target4 = bot.blockAt(bot.entity.position.offset(2, y - 1, z))
+            } else stop = true
             if (!target1 && !target2 && !target3 && !target4) {
                 check = false
                 stop = true
             } else {
-                if (target1.name === 'lava' || target2.name === 'lava' || target3.name === 'lava' || target4.name === 'lava') {
+                if (target1.name === 'lava' ||
+                    target2.name === 'lava' ||
+                    target3.name === 'lava' ||
+                    target4.name === 'lava') {
                     check = true
-                } else if (target1.name !== 'lava' && target2.name !== 'lava' && target3.name !== 'lava' && target4.name !== 'lava') {
-                    check = false
-                }
+                } else
+                    if (target1.name !== 'lava' &&
+                        target2.name !== 'lava' &&
+                        target3.name !== 'lava' &&
+                        target4.name !== 'lava') {
+                        check = false
+                    }
             }
             return check
         }
@@ -109,17 +145,39 @@ module.exports = {
          * 
          * @param {Vec3} vec3 
          */
-
+        async function check1() {
+            const check2 = await checkInFront()
+            if (check2 === false) {
+                setTimeout(async () => {
+                    await dig()
+                    if (stop === true) return
+                    bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
+                }, 500)
+            } else {
+                const check1 = await check()
+                if (check1 === false) {
+                    setTimeout(() => dig(), 500)
+                } else {
+                    //console.clear()
+                    console.log('✔  | Đã đào xong bức tường trước mặt.')
+                    setTimeout(async () => {
+                        await dig()
+                        if (stop === true) return
+                        bot.navigate.to(bot.entity.position.offset(1, 0, 0))
+                    }, 500)
+                }
+            }
+        }
         async function dig(look) {
             if (stop === true) return
-            bot.equip(278, 'hand')
+            await bot.equip(278, 'hand')
             if (look === 'x+') await bot.look(270)
             else if (look === 'x-') await bot.look(90)
             else if (look === 'z+') await bot.look(0)
             else if (look === 'z-') await bot.look(180)
             /*
             const check4 = await checkInFront()
-            if (check4 == false) {
+            if (check4 == false) {  
                 await bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
                 return dig()
             }
@@ -138,8 +196,9 @@ module.exports = {
                                 //thứ 1: tôi nhận ra rằng là do vòng loop này hoạt động nên không thể dùng lavaPlacer (giờ thay vị trí function sao cho nó làm trong vòng loop này để dùng break)
                                 //thứ 2: số y bị lên tới > 300 là số lava bị cộng dồn (vd 119+120+121) nên y quá cao
 
-                                lavaPlacer(y,z)
-                                
+                                await lavaPlacer(posblock.x, posblock.y, posblock.z)
+                                // break;
+
                             } catch (err) {
                                 console.log(err.stack)
                             }
@@ -150,15 +209,14 @@ module.exports = {
                 } else if (y == 0) {
                     for (var z = -1; z <= 1; z++) {
                         const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                        const posblock = target.position
                         if (target.name === 'air') continue
                         if (target && bot.canDigBlock(target)) {
-                            const posblock = target.position
                             console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                             try {
                                 await bot.dig(target)
-                                console.log(posblock)
                                 console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
-                                await lavaPlacer(y, z)  
+                                await lavaPlacer(posblock.x, posblock.y, posblock.z)
                             } catch (err) {
                                 console.log(err.stack)
                             }
@@ -168,26 +226,7 @@ module.exports = {
                     }
                 }
             }
-            const check2 = await checkInFront()
-            if (check2 === false) {
-                setTimeout(async () => {
-                    await dig()
-                    bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
-                }, 500)
-            } else {
-                const check1 = await check()
-                if (check1 === false) {
-                    setTimeout(() => dig(), 500)
-                } else {
-                    //console.clear()
-                    console.log('✔  | Đã đào xong bức tường trước mặt.')
-                    setTimeout(async () => {
-                        await dig()
-                        bot.navigate.to(bot.entity.position.offset(1, 0, 0))
-                    }, 500)
-                }
-
-            }
+            check1()
         }
         if (args[0] == `stop`) {
             stop = true
@@ -197,6 +236,7 @@ module.exports = {
             //await bot.navigate.to(bot.entity.position.offset(-1, 0, 0)) i removed this for stable movenment, can you check again your checkinfront function?
             bot.chat('⛏ | Bắt đầu đào')
             dig()
+            await bot.equip(278, 'hand')
         }
     }
 }
