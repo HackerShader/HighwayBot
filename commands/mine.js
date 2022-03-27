@@ -12,12 +12,14 @@ module.exports = {
      * @param {*} username 
      */
     async execute(bot, message, args, username) {
+        async function dig(look) {
         async function check() {
             let check = Boolean
+            let x 
             for (var y = 3; y >= 0; y--) {
                 if (y != 0) {
                     for (var z = -2; z <= 2; z++) {
-                        const lavachecker = await checkLava(y, z)
+                        const lavachecker = await CheckLavaBLocks(x, y, z)
                         if (lavachecker === true) continue;
                         const target = bot.blockAt(bot.entity.position.offset(2, y, z))
                         if (target.name != `air`) {
@@ -25,7 +27,8 @@ module.exports = {
                         }
                     }
                 } else if (y == 0) {
-                    const lavachecker = await checkLava(y, z)
+                    let x 
+                    const lavachecker = await CheckLavaBLocks(x, y, z)
                     if (lavachecker === true) continue;
                     for (var z = -1; z <= 1; z++) {
                         const target = bot.blockAt(bot.entity.position.offset(2, y, z))
@@ -37,12 +40,14 @@ module.exports = {
             }
             return check;
         }
+
         async function checkInFront() {
             let check = Boolean
+            let x 
             for (var y = 3; y >= 0; y--) {
                 if (y != 0) {
                     for (var z = -2; z <= 2; z++) {
-                        const lavachecker = await checkLava(y, z)
+                        const lavachecker = await CheckLavaBLocks(x, y, z)
                         if (lavachecker === true) continue;
                         const target = bot.blockAt(bot.entity.position.offset(1, y, z))
                         if (target.name != `air`) check = false
@@ -50,7 +55,7 @@ module.exports = {
                     }
                 } else if (y == 0) {
                     for (var z = -1; z <= 1; z++) {
-                        const lavachecker = await checkLava(y, z)
+                        const lavachecker = await CheckLavaBLocks(x, y, z)
                         if (lavachecker === true) continue;
                         const target = bot.blockAt(bot.entity.position.offset(1, y, z))
                         if (target.name != `air`) check = false
@@ -95,9 +100,9 @@ module.exports = {
                 target2 = bot.blockAt(bot.entity.position.offset(2, y + 1, z))
                 target3 = bot.blockAt(bot.entity.position.offset(2, y, z + 1))
                 target4 = bot.blockAt(bot.entity.position.offset(2, y - 1, z))
-            } else stop = true
+            } else 
             if (!target1 && !target2 && !target3 && !target4) {
-                stop = true
+               // stop = true
             } else {
                      if (target1.name === 'lava') placeNetherrack(target1.position.x, target1.position.y, target1.position.z)
                 else if (target2.name === 'lava') placeNetherrack(target2.position.x, target2.position.y, target2.position.z)
@@ -105,7 +110,28 @@ module.exports = {
                 else if (target4.name === 'lava') placeNetherrack(target4.position.x, target4.position.y, target4.position.z)
             }
         }
-        async function checkLava(x, y, z) {
+        async function CheckLavaBLocks(x, y, z) {
+            for(var x = 0; x <= 3; x++) {
+                for(var y = 0; y <= 3; y++) {
+                    for(var z = -3; z <= 3; z++) {
+                        const target = bot.blockAt(bot.entity.position.offset(x, y, z))
+                    }
+                }
+            }
+            
+
+
+
+
+
+
+
+
+
+
+
+
+            
             let check = Boolean
             let target1
             let target2
@@ -121,10 +147,10 @@ module.exports = {
                 target2 = bot.blockAt(bot.entity.position.offset(2, y + 1, z))
                 target3 = bot.blockAt(bot.entity.position.offset(2, y, z + 1))
                 target4 = bot.blockAt(bot.entity.position.offset(2, y - 1, z))
-            } else stop = true
+            } 
             if (!target1 && !target2 && !target3 && !target4) {
                 check = false
-                stop = true
+               // stop = true
             } else {
                 if (target1.name === 'lava' ||
                     target2.name === 'lava' ||
@@ -139,7 +165,9 @@ module.exports = {
                         check = false
                     }
             }
+            
             return check
+
         }
         /**
          * 
@@ -168,7 +196,7 @@ module.exports = {
                 }
             }
         }
-        async function dig(look) {
+      //  async function dig(look) {
             if (stop === true) return
             await bot.equip(278, 'hand')
             if (look === 'x+') await bot.look(270)
@@ -182,6 +210,8 @@ module.exports = {
                 return dig()
             }
             */
+            let x 
+           const lavachecker = CheckLavaBLocks(x, y, z)
             for (var y = 3; y >= 0; y--) {
                 if (y != 0) {
                     for (var z = -2; z <= 2; z++) {
@@ -193,10 +223,8 @@ module.exports = {
                             try {
                                 await bot.dig(target)
                                 console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
-                                //thứ 1: tôi nhận ra rằng là do vòng loop này hoạt động nên không thể dùng lavaPlacer (giờ thay vị trí function sao cho nó làm trong vòng loop này để dùng break)
-                                //thứ 2: số y bị lên tới > 300 là số lava bị cộng dồn (vd 119+120+121) nên y quá cao
-
-                                await lavaPlacer(posblock.x, posblock.y, posblock.z)
+                                //if(lavachecker == true) break;
+                                //await lavaPlacer(posblock.x, posblock.y, posblock.z)
                                 // break;
 
                             } catch (err) {
@@ -216,7 +244,8 @@ module.exports = {
                             try {
                                 await bot.dig(target)
                                 console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
-                                await lavaPlacer(posblock.x, posblock.y, posblock.z)
+                                //if(lavachecker == true) break;
+                                //await lavaPlacer(posblock.x, posblock.y, posblock.z)
                             } catch (err) {
                                 console.log(err.stack)
                             }
