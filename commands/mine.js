@@ -90,7 +90,7 @@ module.exports = {
             let target2
             let target3
             let target4
-            if (x > 10 || y > 10 || z > 10) {
+            if (x > 10 || y > 10 || z >     10) {
                 target1 = bot.blockAt(new Vec3(x, y, z - 1))
                 target2 = bot.blockAt(new Vec3(x, y + 1, z))
                 target3 = bot.blockAt(new Vec3(x, y, z + 1))
@@ -115,10 +115,11 @@ module.exports = {
                 for(var y = 0; y <= 3; y++) {
                     for(var z = -3; z <= 3; z++) {
                         const target = bot.blockAt(bot.entity.position.offset(x, y, z))
+                        
                     }
                 }
             }
-            
+
 
 
 

@@ -65,6 +65,7 @@ function HighwayBot() {
     })
     bot.on('spawn', () => {
         mineflayerViewer(bot, { port: config.localport, firstPerson: true })
+        
     })
 }
 
