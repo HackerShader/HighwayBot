@@ -14,13 +14,15 @@
     "discord.js": "^12.5.3",
     "fs": "^0.0.1-security",
     "minecraft-data": "^2.86.0",
+    "minecraft-server-util": "^5.2.9",
     "mineflayer": "^4.2.0",
     "mineflayer-autocrystal": "^0.7.0",
     "mineflayer-navigate": "0.0.10",
     "mineflayer-pathfinder": "^1.9.1",
     "mineflayer-scaffold": "^1.0.0",
     "mineflayer-tool": "^1.1.0",
-    "mineflayer-web-inventory": "^1.7.0",
+    "mineflayer-tps": "^1.0.1",
+    "mineflayer-web-inventory": "^1.7.1",
     "prismarine-viewer": "^1.22.0",
     "vec3": "^0.1.7"
   }
