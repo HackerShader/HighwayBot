@@ -37,6 +37,7 @@ module.exports = {
             }
             return check;
         }
+        
         async function checkInFront() {
             let check = Boolean
             for (var y = 3; y >= 0; y--) {
