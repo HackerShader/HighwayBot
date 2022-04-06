@@ -12,7 +12,6 @@ const client = new Discord.Client()
 const Vec3 = require('vec3').Vec3;
 client.commands = new Discord.Collection()
 const minecraft = require('minecraft-server-util')
-let stop = Boolean
 const prefix = config.prefix
 const inventoryViewer = require('mineflayer-web-inventory')
 

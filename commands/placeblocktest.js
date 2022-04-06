@@ -1,6 +1,7 @@
 const Vec3 = require('vec3').Vec3;
 module.exports = {
     async execute(bot, message, args, username) {
+        
         bot.equip(87, 'hand')
         const x = bot.entity.position.x
         const y = bot.entity.position.y
@@ -12,13 +13,11 @@ module.exports = {
                         const target = bot.blockAt(bot.entity.position.offset(x, y, z))
                         if(target.name == `lava`) {
                             try {
-                                const lavablock = bot.blockAt(target.position.offset(0,0,0))
-                                if(target.name == `netherrack`) return
-                                else bot.placeBlock(lavablock, new Vec3(x, y, z))
+                                const lavablock = bot.blockAt(target.position.offset(-1,0,0))
+                                await bot.placeBlock(lavablock, new Vec3(1, 0, 0))
                             } catch (error) {
                                 console.log(error)
                             }
-                            
                         }
                     }
                 }
