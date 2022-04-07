@@ -5,6 +5,7 @@ const Vec3 = require('vec3').Vec3;
 
 
 module.exports = {
+    name: 'mine',
     /**
      * 
      * @param {mineflayer.Bot} bot 
@@ -13,18 +14,13 @@ module.exports = {
      * @param {*} username 
      */
     async execute(bot, message, args, username) {
-        const checkInFront = require('./util/checkInFront')(bot);
-        const CheckLava = require('./util/checkLavaBlocks')(bot);
-        const checkc = require('./util/check')(bot);
-        const x = bot.entity.position.x
-        const y = bot.entity.position.y
-        const z = bot.entity.position.z
         /**
          * 
          * @param {Vec3} vec3 
          */
 
         async function dig(look) {
+
             if (stop === true) return
             bot.equip(278, 'hand')
             if (look === 'x+') await bot.look(270)
@@ -69,25 +65,34 @@ module.exports = {
                     }
                 }
             }
-            const check2 = await checkInFront
-            if (check2 === false) {
+            const checkinfront = await require('../util/checkInFront')(bot)
+            const lavacheck = await require('./../util/checkLavaInFront')(bot)
+            if (lavacheck === true) {
+                bot.equip(87, 'hand')
+                await dig()
+                require('../util/placeLavaBlock')(bot)
+            }
+
+
+
+            if (checkinfront === false) {
                 setTimeout(async () => {
                     await dig()
                     bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
                 }, 500)
             } else {
-                const check1 = await checkc
-                if (check1 === false) {
+                const checkwall = await require('../util/check')(bot)
+                console.log(checkwall)
+                if (checkwall === false) {
                     setTimeout(() => dig(), 500)
                 } else {
-                    console.clear()
+                    //console.clear()
                     console.log('✔  | Đã đào xong bức tường trước mặt.')
                     setTimeout(async () => {
                         await dig()
                         bot.navigate.to(bot.entity.position.offset(1, 0, 0))
                     }, 500)
                 }
-
             }
         }
         if (args[0] == `stop`) {

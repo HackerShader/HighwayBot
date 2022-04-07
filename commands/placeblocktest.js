@@ -1,6 +1,7 @@
 const Vec3 = require('vec3').Vec3;
 module.exports = {
-    async execute(bot, message, args, username) {
+    name: 'placeblocktest',
+    async execute(bot, message, args, username)  {
         
         bot.equip(87, 'hand')
         const x = bot.entity.position.x
