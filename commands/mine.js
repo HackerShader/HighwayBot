@@ -66,11 +66,14 @@ module.exports = {
                 }
             }
             const checkinfront = await require('../util/checkInFront')(bot)
-            const lavacheck = await require('./../util/checkLavaInFront')(bot)
+            const lavacheck = await require('../util/checkLavaInFront')(bot)
             if (lavacheck === true) {
-                bot.equip(87, 'hand')
-                await dig()
-                require('../util/placeLavaBlock')(bot)
+                stop = true
+                setTimeout(async () => {
+                    require('../util/placeLavaBlock')(bot)
+                }, 500)     
+            } else if (lavacheck === false) {
+                stop = false
             }
 
 
@@ -82,7 +85,6 @@ module.exports = {
                 }, 500)
             } else {
                 const checkwall = await require('../util/check')(bot)
-                console.log(checkwall)
                 if (checkwall === false) {
                     setTimeout(() => dig(), 500)
                 } else {
