@@ -67,8 +67,9 @@ module.exports = {
             const checkinfront = await require('../util/checkInFront')(bot)
             const lavacheck = await require('../util/checkLava4Wall')(bot)
             if (lavacheck.check === true) {
-                // await dig()
-                require('../util/placelavablock')(bot, dig)
+                bot.equip(87, 'hand')
+                await require('../util/placelavablock')(bot)
+                dig()
                 /*
                 if (lavacheck.position.length == 0) throw 'Invalid array'
                 lavacheck.position.forEach(async (p) => {
