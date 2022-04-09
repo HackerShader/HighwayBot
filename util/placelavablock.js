@@ -2,7 +2,7 @@ const Vec3 = require('vec3').Vec3;
 
 module.exports = async (bot, dig) => {
     for (var x = 1; x <= 4; x++) {
-        for (var y = 0; y <= 4; y++) {
+        for (var y = -1; y <= 4; y++) {
             for (var z = -3; z <= 3; z++) {
                 const target = bot.blockAt(bot.entity.position.offset(x, y, z))
                 if (target.name == `lava`) {

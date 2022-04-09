@@ -65,47 +65,35 @@ module.exports = {
                 }
             }
             const checkinfront = await require('../util/checkInFront')(bot)
-            const lavacheck = await require('../util/checkLava4Wall')(bot)
-            if (lavacheck.check === true) {
+            const scaffoldcheck = await require('../util/scaffoldcheck')(bot)
+            const lavacheck = await require('../util/CheckLavaBLock')(bot)
+            if (scaffoldcheck === true) {
                 bot.equip(87, 'hand')
-                await require('../util/placelavablock')(bot)
+                await require('../util/scaffoldhighway')(bot)
                 dig()
-                /*
-                if (lavacheck.position.length == 0) throw 'Invalid array'
-                lavacheck.position.forEach(async (p) => {
-                    let split = p.split(' ')
-                    let x = split[0]
-                    let y = split[1]    
-                    let z = split[2]
-                    const target = bot.blockAt(bot.entity.position.offset(x, y, z))
-                    if (target.name === 'lava') {
-                        try {
-                            const lavablock = bot.blockAt(target.position.offset(-1, 0, 0))
-                            await bot.placeBlock(lavablock, new Vec3(1, 0, 0))
-                        } catch (error) {
-                            console.log(error)
-                        }
-                    }
-                })
-                */
-
-            } else if (lavacheck.check === false) {
-                if (checkinfront === false) {
-                    setTimeout(async () => {
-                        await dig()
-                        bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
-                    }, 500)
-                } else {
-                    const checkwall = await require('../util/check')(bot)
-                    if (checkwall === false) {
-                        setTimeout(() => dig(), 500)
-                    } else {
-                        //console.clear()
-                        console.log('✔  | Đã đào xong bức tường trước mặt.')
+            } else if (scaffoldcheck === false) {
+                if (lavacheck.check === true) {
+                    bot.equip(87, 'hand')
+                    await require('../util/placelavablock')(bot)
+                    dig()
+                } else if (lavacheck.check === false) {
+                    if (checkinfront === false) {
                         setTimeout(async () => {
                             await dig()
-                            bot.navigate.to(bot.entity.position.offset(1, 0, 0))
+                            bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
                         }, 500)
+                    } else {
+                        const checkwall = await require('../util/check')(bot)
+                        if (checkwall === false) {
+                            setTimeout(() => dig(), 500)
+                        } else {
+                            //console.clear()
+                            console.log('✔  | Đã đào xong bức tường trước mặt.')
+                            setTimeout(async () => {
+                                await dig()
+                                bot.navigate.to(bot.entity.position.offset(1, 0, 0))
+                            }, 500)
+                        }
                     }
                 }
             }
@@ -115,7 +103,6 @@ module.exports = {
             bot.chat('🛑 | Sẽ dừng lại tại vòng lặp tiếp theo')
         } else {
             stop = false
-            //await bot.navigate.to(bot.entity.position.offset(-1, 0, 0)) i removed this for stable movenment, can you check again your checkinfront function?
             bot.chat('⛏ | Bắt đầu đào')
             dig()
         }
