@@ -70,16 +70,11 @@ module.exports = {
             const scaffoldcheck = await require('../util/scaffoldcheck')(bot)
             const lavacheck = await require('../util/CheckLavaBLock')(bot)
             if (scaffoldcheck === true) {
-                setTimeout(async () => {
-                    await bot.equip(87, 'hand')
-                }, 1000);
+                
                 await require('../util/scaffoldhighway')(bot)
                 dig()
             } else if (scaffoldcheck === false) {
                 if (lavacheck.check === true) {
-                    setTimeout(async () => {
-                        await bot.equip(87, 'hand')
-                    }, 1000);
                     await require('../util/placelavablock')(bot)
                     dig()
                 } else if (lavacheck.check === false) {
