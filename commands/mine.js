@@ -21,7 +21,9 @@ module.exports = {
 
         async function dig(look) {
             if (stop === true) return
-            bot.equip(278, 'hand')
+            setTimeout(async () => {
+                await bot.equip(278, 'hand')
+            }, 1000);
             if (look === 'x+') await bot.look(270)
             else if (look === 'x-') await bot.look(90)
             else if (look === 'z+') await bot.look(0)
@@ -68,12 +70,16 @@ module.exports = {
             const scaffoldcheck = await require('../util/scaffoldcheck')(bot)
             const lavacheck = await require('../util/CheckLavaBLock')(bot)
             if (scaffoldcheck === true) {
-                bot.equip(87, 'hand')
+                setTimeout(async () => {
+                    await bot.equip(87, 'hand')
+                }, 1000);
                 await require('../util/scaffoldhighway')(bot)
                 dig()
             } else if (scaffoldcheck === false) {
                 if (lavacheck.check === true) {
-                    bot.equip(87, 'hand')
+                    setTimeout(async () => {
+                        await bot.equip(87, 'hand')
+                    }, 1000);
                     await require('../util/placelavablock')(bot)
                     dig()
                 } else if (lavacheck.check === false) {

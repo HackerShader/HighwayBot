@@ -25,7 +25,7 @@ function HighwayBot() {
     bot.loadPlugin(tpsPlugin)
     mineflayernavigate(bot)
     scaffold(bot)
-    inventoryViewer(bot, { port: config.invport})
+    inventoryViewer(bot, { port: 4000})
     
     commandfiles = fs.readdirSync(__dirname + '/commands').filter(file => file.endsWith('.js'));
     let commands = []
@@ -50,14 +50,14 @@ function HighwayBot() {
         console.log('Bot đã ngắt kết nối bới server. Lý do ' + kick.toString())
     })
     bot.on('end', (reason) => {
-        console.log('Bot đã ngắt kết nối bới server. Lý do ' + reason.toString())
+        console.log('Bot đã ngắt kết nối bới server. Lý do ' + reason)
         setTimeout(() => HighwayBot(), 1000)
     })
     bot.on('spawn', spawn => {
         console.log('Bot spawn !')
     })
     bot.on('spawn', () => {
-        mineflayerViewer(bot, { port: config.localport, firstPerson: true })
+        mineflayerViewer(bot, { port: 3000, firstPerson: true })
     })
 }
 
