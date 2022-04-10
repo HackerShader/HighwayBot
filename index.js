@@ -17,7 +17,7 @@ function HighwayBot() {
     const bot = mineflayer.createBot({
         username: "highwaybot",
         port: config.port,
-        host: "localhost",
+        host: `${config.host}`,
         version: '1.12.2'
     })
 

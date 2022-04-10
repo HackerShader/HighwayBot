@@ -1,0 +1,1 @@
+cls && node ./index.js
