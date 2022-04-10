@@ -25,7 +25,7 @@ function HighwayBot() {
     bot.loadPlugin(tpsPlugin)
     mineflayernavigate(bot)
     scaffold(bot)
-    inventoryViewer(bot, { port: 4000})
+    inventoryViewer(bot, { port: config.invport })
     
     commandfiles = fs.readdirSync(__dirname + '/commands').filter(file => file.endsWith('.js'));
     let commands = []
@@ -57,7 +57,7 @@ function HighwayBot() {
         console.log('Bot spawn !')
     })
     bot.on('spawn', () => {
-        mineflayerViewer(bot, { port: 3000, firstPerson: true })
+        mineflayerViewer(bot, { port: config.localport, firstPerson: true })
     })
 }
 
