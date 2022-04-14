@@ -15,7 +15,7 @@
     "fs": "^0.0.1-security",
     "minecraft-data": "^2.86.0",
     "minecraft-server-util": "^5.2.9",
-    "mineflayer": "^2.41.0",
+    "mineflayer": "^4.2.0",
     "mineflayer-autocrystal": "^0.7.0",
     "mineflayer-navigate": "0.0.10",
     "mineflayer-pathfinder": "^1.9.1",

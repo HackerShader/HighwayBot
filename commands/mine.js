@@ -21,13 +21,13 @@ module.exports = {
 
         async function dig(look) {
             if (stop === true) return
-            setTimeout(async () => {
-                await bot.equip(278, 'hand')
-            }, 1000);
+            //bot.equip(278, 'hand')
+            /*
             if (look === 'x+') await bot.look(270)
             else if (look === 'x-') await bot.look(90)
             else if (look === 'z+') await bot.look(0)
             else if (look === 'z-') await bot.look(180)
+            */
             for (var y = 3; y >= 0; y--) {
                 if (y != 0) {
                     for (var z = -2; z <= 2; z++) {
@@ -37,7 +37,7 @@ module.exports = {
                             const posblock = target.position
                             console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                             try {
-                                await bot.dig(target)
+                                await bot.dig(target, false, new Vec3(-1, 0, 0))
                                 console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                             } catch (err) {
                                 console.log(err.stack)
@@ -55,27 +55,26 @@ module.exports = {
                             const posblock = target.position
                             console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                             try {
-                                await bot.dig(target)
+                                await bot.dig(target, false, new Vec3(-1, 0, 0))
                                 console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                             } catch (err) {
                                 console.log(err.stack)
                             }
-                        } else {
+                        } else {``
                             console.log('✖ | Can\'t dig')
                         }
                     }
                 }
             }
-            const checkinfront = await require('../util/checkInFront')(bot)
-            const scaffoldcheck = await require('../util/scaffoldcheck')(bot)
-            const lavacheck = await require('../util/CheckLavaBLock')(bot)
+            const checkinfront = await require('../util/HighwayTunnel/checkInFront')(bot)
+            const scaffoldcheck = await require('../util/HighwayTunnel/scaffoldcheck')(bot)
+            const lavacheck = await require('../util/HighwayTunnel/CheckLavaBLock')(bot)
             if (scaffoldcheck === true) {
-                
-                await require('../util/scaffoldhighway')(bot)
+                await require('../util/HighwayTunnel/scaffoldhighway')(bot)
                 dig()
             } else if (scaffoldcheck === false) {
                 if (lavacheck.check === true) {
-                    await require('../util/placelavablock')(bot)
+                    await require('../util/HighwayTunnel/placelavablock')(bot)
                     dig()
                 } else if (lavacheck.check === false) {
                     if (checkinfront === false) {
@@ -84,11 +83,11 @@ module.exports = {
                             bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
                         }, 500)
                     } else {
-                        const checkwall = await require('../util/check')(bot)
+                        const checkwall = await require('../util/HighwayTunnel/check')(bot)
                         if (checkwall === false) {
                             setTimeout(() => dig(), 500)
                         } else {
-                            //console.clear()
+                            console.clear()
                             console.log('✔  | Đã đào xong bức tường trước mặt.')
                             setTimeout(async () => {
                                 await dig()
