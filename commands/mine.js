@@ -21,7 +21,7 @@ module.exports = {
 
         async function dig(look) {
             if (stop === true) return
-            //bot.equip(278, 'hand')
+            bot.equip(278, 'hand')
             /*
             if (look === 'x+') await bot.look(270)
             else if (look === 'x-') await bot.look(90)
@@ -62,7 +62,8 @@ module.exports = {
                             } catch (err) {
                                 console.log(err.stack)
                             }
-                        } else {``
+                        } else {
+                            ``
                             console.log('✖ | Can\'t dig')
                         }
                     }
@@ -71,21 +72,21 @@ module.exports = {
             const checkinfront = await require('../util/HighwayTunnel/checkInFront')(bot)
             const scaffoldcheck = await require('../util/HighwayTunnel/scaffoldcheck')(bot)
             const lavacheck = await require('../util/HighwayTunnel/CheckLavaBLock')(bot)
+            const checkwall = await require('../util/HighwayTunnel/check')(bot)
             if (scaffoldcheck === true) {
                 await require('../util/HighwayTunnel/scaffoldhighway')(bot)
                 dig()
             } else if (scaffoldcheck === false) {
-                if (lavacheck.check === true) {
+                if (lavacheck === true) {
                     await require('../util/HighwayTunnel/placelavablock')(bot)
                     dig()
-                } else if (lavacheck.check === false) {
+                } else if (lavacheck === false) {
                     if (checkinfront === false) {
                         setTimeout(async () => {
                             await dig()
                             bot.navigate.to(bot.entity.position.offset(-1, 0, 0))
                         }, 500)
                     } else {
-                        const checkwall = await require('../util/HighwayTunnel/check')(bot)
                         if (checkwall === false) {
                             setTimeout(() => dig(), 500)
                         } else {

@@ -42,10 +42,10 @@ function HighwayBot() {
 
         //execute commands
         try {
-            if(username == `HackerShader`) { //development commands
+            if(username == `VaitoSoi`) { //development commands
                 const command = require(`./commands/${cmd}.js`)
                 command.execute(bot, message, args, username)
-            } else return
+            } else bot.chat('/msg ' + username + ' Nâu :)))')
         } catch (err) {
             console.log(err)
         }
@@ -55,12 +55,12 @@ function HighwayBot() {
     })
     bot.on('end', (reason) => {
         console.log('Bot đã ngắt kết nối bới server. Lý do ' + reason)
-        setTimeout(() => HighwayBot(), 1000)
+        setTimeout(() => HighwayBot(), 10000)
     })
     bot.on('spawn', () => {
         console.log('Bot spawn !')
-        console.log(bot.entity.position.x, bot.entity.position.y, bot.entity.position.z)
-       // mineflayerViewer(bot, { port: config.localport, firstPerson: true })
+        // console.log(bot.entity.position.x, bot.entity.position.y, bot.entity.position.z)
+        // mineflayerViewer(bot, { port: config.localport, firstPerson: true })
     })
 
     bot.on('windowOpen', async (window) => {
