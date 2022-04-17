@@ -18,7 +18,7 @@ module.exports = {
                 } else {
                     try {
                         await bot.toss(87, null, (count-64));
-                        console.log(`${count} netherrack in inventory`)
+
                         break;
                     } catch (err) {
                         console.log(err)
@@ -26,6 +26,10 @@ module.exports = {
                 }
             }
         }
+        if(args[0] == `echest`) {
+            bot.equip(130, 'hand')
+                bot.equip(131, 'offhand')
+
+        }
     }
 }
-

@@ -37,6 +37,7 @@ module.exports = {
                             const posblock = target.position
                             console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                             try {
+                                //check vec3
                                 await bot.dig(target, false, new Vec3(-1, 0, 0))
                                 console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                             } catch (err) {
@@ -55,6 +56,7 @@ module.exports = {
                             const posblock = target.position
                             console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                             try {
+                                //check vec3
                                 await bot.dig(target, false, new Vec3(-1, 0, 0))
                                 console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                             } catch (err) {

@@ -12,12 +12,13 @@ const minecraft = require('minecraft-server-util')
 const prefix = config.prefix
 const inventoryViewer = require('mineflayer-web-inventory')
 
+
 function HighwayBot() {
     const bot = mineflayer.createBot({
         username: "highwaybot",
         host: `${config.host}`,
         port: config.port,
-        version: '1.17.1'
+        version: '1.12.2'
     })
 
     //Plugins loader
@@ -25,7 +26,7 @@ function HighwayBot() {
     bot.loadPlugin(tpsPlugin)
     mineflayernavigate(bot)
     scaffold(bot)
-    //inventoryViewer(bot, { port: config.invport })
+    inventoryViewer(bot, { port: config.invport })
     
     //cmd handler (useless)
     commandfiles = fs.readdirSync(__dirname + '/commands').filter(file => file.endsWith('.js'));
@@ -41,10 +42,10 @@ function HighwayBot() {
 
         //execute commands
         try {
-            //if(username == `HackerShader`) { //development commands
+            if(username == `HackerShader`) { //development commands
                 const command = require(`./commands/${cmd}.js`)
                 command.execute(bot, message, args, username)
-            //} else return
+            } else return
         } catch (err) {
             console.log(err)
         }
@@ -61,7 +62,6 @@ function HighwayBot() {
         console.log(bot.entity.position.x, bot.entity.position.y, bot.entity.position.z)
        // mineflayerViewer(bot, { port: config.localport, firstPerson: true })
     })
-    
 
     bot.on('windowOpen', async (window) => {
         var pin = config.pin    
