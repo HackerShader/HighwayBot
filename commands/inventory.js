@@ -1,3 +1,4 @@
+const {Vec3} = require("vec3");
 module.exports = {
     name: 'inventory',
     async execute(bot, message, args, username) {
@@ -17,7 +18,7 @@ module.exports = {
                     continue;
                 } else {
                     try {
-                        await bot.toss(87, null, (count-64));
+                        await bot.toss(87, null, (count - 64));
 
                         break;
                     } catch (err) {
@@ -27,9 +28,19 @@ module.exports = {
             }
         }
         if(args[0] == `echest`) {
-            bot.equip(130, 'hand')
-                bot.equip(131, 'offhand')
 
+
+            /*
+            let pos = new Vec3(bot.entity.position.x, bot.entity.position.y, bot.entity.position.z);
+            let block = bot.blockAt(pos.offset(-1, 0, 0));
+            if (block.name === 'air') {
+                try {
+                    await bot.placeBlock(block, new Vec3(1, 0, 0));
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+            */
         }
     }
 }

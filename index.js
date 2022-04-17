@@ -16,7 +16,7 @@ const inventoryViewer = require('mineflayer-web-inventory')
 function HighwayBot() {
     const bot = mineflayer.createBot({
         username: "highwaybot",
-        host: `${config.host}`,
+        host: config.host,
         port: config.port,
         version: '1.12.2'
     })
@@ -42,7 +42,7 @@ function HighwayBot() {
 
         //execute commands
         try {
-            if(username == `VaitoSoi`) { //development commands
+            if(username == config.username) { //development commands
                 const command = require(`./commands/${cmd}.js`)
                 command.execute(bot, message, args, username)
             } else bot.chat('/msg ' + username + ' Nâu :)))')

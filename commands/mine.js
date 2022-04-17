@@ -21,7 +21,6 @@ module.exports = {
 
         async function dig(look) {
             if (stop === true) return
-            bot.equip(278, 'hand')
             /*
             if (look === 'x+') await bot.look(270)
             else if (look === 'x-') await bot.look(90)
@@ -77,10 +76,10 @@ module.exports = {
                 await require('../util/HighwayTunnel/scaffoldhighway')(bot)
                 dig()
             } else if (scaffoldcheck === false) {
-                if (lavacheck === true) {
+                if (lavacheck.check === true) {
                     await require('../util/HighwayTunnel/placelavablock')(bot)
                     dig()
-                } else if (lavacheck === false) {
+                } else if (lavacheck.check === false) {
                     if (checkinfront === false) {
                         setTimeout(async () => {
                             await dig()
@@ -93,6 +92,7 @@ module.exports = {
                             console.clear()
                             console.log('✔  | Đã đào xong bức tường trước mặt.')
                             setTimeout(async () => {
+                                bot.equip(278, 'hand')
                                 await dig()
                                 bot.navigate.to(bot.entity.position.offset(1, 0, 0))
                             }, 500)
