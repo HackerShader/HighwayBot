@@ -30,7 +30,7 @@ module.exports = {
         if(args[0] == `echest`) {
 
 
-            /*
+
             let pos = new Vec3(bot.entity.position.x, bot.entity.position.y, bot.entity.position.z);
             let block = bot.blockAt(pos.offset(-1, 0, 0));
             if (block.name === 'air') {
@@ -40,7 +40,7 @@ module.exports = {
                     console.log(err)
                 }
             }
-            */
+
         }
     }
 }
