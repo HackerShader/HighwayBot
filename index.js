@@ -1,7 +1,6 @@
 const mineflayer = require('mineflayer')
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer)
 const pathfinder = require('mineflayer-pathfinder').pathfinder
-const scaffold = require('mineflayer-scaffold')(mineflayer)
 const config = require('./config.json')
 const fs = require('fs')
 var tpsPlugin = require('mineflayer-tps')(mineflayer)
@@ -25,7 +24,6 @@ function HighwayBot() {
     bot.loadPlugin(pathfinder)
     bot.loadPlugin(tpsPlugin)
     mineflayernavigate(bot)
-    scaffold(bot)
     inventoryViewer(bot, { port: config.invport })
     
     //cmd handler (useless)
