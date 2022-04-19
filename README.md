@@ -29,7 +29,7 @@ Disclaimer: This is NOT highwaytools modules of lambda client and a minecraft cl
 Type this command into terminal (require git: https://git-scm.com/)
 
 ```
-git clone https://github.com/HackerShader/statback.git
+git clone https://github.com/HackerShader/HighwayBot.git
 ```
 </details>
 
