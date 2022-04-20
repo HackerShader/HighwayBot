@@ -72,7 +72,6 @@ module.exports = async (bot) => {
                         console.clear()
                         console.log('✔  | Đã đào xong bức tường trước mặt.')
                         setTimeout(async () => {
-                            bot.equip(278, 'hand')
                             await dig()
                             bot.navigate.to(bot.entity.position.offset(1, 0, 0))
                         }, 500)

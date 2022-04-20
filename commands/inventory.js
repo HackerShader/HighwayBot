@@ -28,8 +28,23 @@ module.exports = {
                 }
             }
         }
-        if (args[0] == `echest`) {
-
+        if (args[0] == `dub`) {
+            let pickaxecount = 0;
+            for (let i = 0; i < bot.inventory.slots.length; i++) {
+                if (!bot.inventory.slots[i]) {
+                    continue;
+                } else if (bot.inventory.slots[i].name === 'diamond_pickaxe') {
+                    if(bot.inventory.slots[i].durabilityUsed >= 1400) {
+                        console.log(bot.inventory.slots[i])
+                        console.log('need to repair pickaxe ' + bot.inventory.slots[i].durabilityUsed);
+                        continue;
+                    } else {
+                        bot.equip(bot.inventory.slots[i], 'hand');
+                        console.log(bot.inventory.slots[i].durabilityUsed)
+                        pickaxecount += bot.inventory.slots[i].count;
+                    }
+                }
+            }
         }
     }
 }
