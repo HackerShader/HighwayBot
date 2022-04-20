@@ -29,7 +29,6 @@ module.exports = {
             }
         }
         if (args[0] == `echest`) {
-            //test
 
         }
     }
