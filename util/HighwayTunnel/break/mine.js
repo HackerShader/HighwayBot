@@ -14,11 +14,11 @@ module.exports = async (bot) => {
                     if (target.name === 'air') continue
                     if (target && bot.canDigBlock(target)) {
                         const posblock = target.position
-                        console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                       // console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         try {
                             //check vec3
                             await bot.dig(target, false, new Vec3(-1, 0, 0))
-                            console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                           // console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         } catch (err) {
                             console.log(err.stack)
                         }
@@ -33,11 +33,11 @@ module.exports = async (bot) => {
                     if (target.name === 'air') continue
                     if (target && bot.canDigBlock(target)) {
                         const posblock = target.position
-                        console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                        //console.log(`⌛ | Starting to dig ${target.name} | ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         try {
                             //check vec3
                             await bot.dig(target, false, new Vec3(-1, 0, 0))
-                            console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
+                            //console.log(`✔  | Finished digging ${target.name}| ${posblock.x}, ${posblock.y}, ${posblock.z}`)
                         } catch (err) {
                             console.log(err.stack)
                         }
@@ -69,8 +69,8 @@ module.exports = async (bot) => {
                     if (checkwall === false) {
                         setTimeout(() => dig(), 500)
                     } else {
-                        console.clear()
-                        console.log('✔  | Đã đào xong bức tường trước mặt.')
+                        //console.clear()
+                        //console.log('✔  | Đã đào xong bức tường trước mặt.')
                         setTimeout(async () => {
                             await dig()
                             bot.navigate.to(bot.entity.position.offset(1, 0, 0))

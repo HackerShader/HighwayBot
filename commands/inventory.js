@@ -35,12 +35,11 @@ module.exports = {
                     continue;
                 } else if (bot.inventory.slots[i].name === 'diamond_pickaxe') {
                     if(bot.inventory.slots[i].durabilityUsed >= 1400) {
-                        console.log(bot.inventory.slots[i])
-                        console.log('need to repair pickaxe ' + bot.inventory.slots[i].durabilityUsed);
+                        console.log(`${i} need to repair pickaxe: ${bot.inventory.slots[i].durabilityUsed}`);
                         continue;
                     } else {
                         bot.equip(bot.inventory.slots[i], 'hand');
-                        console.log(bot.inventory.slots[i].durabilityUsed)
+                        console.log(`${i} | ${bot.inventory.slots[i].durabilityUsed}`)
                         pickaxecount += bot.inventory.slots[i].count;
                     }
                 }
