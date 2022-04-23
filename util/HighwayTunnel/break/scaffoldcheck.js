@@ -3,10 +3,9 @@ module.exports = async (bot) => {
         check: false,
     }
     for (var z = -1; z <= 1; z++) {
-        const target = bot.blockAt(bot.entity.position.offset(2, -1, z))
-        if (target.name == `air`) {
-            scaffold.check = true
-        }
+        const target = bot.blockAt(bot.entity.position.offset(2, -1, z));
+        if (target.name != `air`) continue;
+        scaffold.check = true;
     }
-    return scaffold.check
+    return scaffold.check;
 }
