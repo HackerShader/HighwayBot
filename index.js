@@ -2,7 +2,7 @@ const mineflayer = require('mineflayer')
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer)
 const pathfinder = require('mineflayer-pathfinder').pathfinder
 const config = require('./config.json')
-var tpsPlugin = require('mineflayer-tps')(mineflayer)
+const  tpsPlugin = require('mineflayer-tps')(mineflayer)
 const mineflayerViewer = require('prismarine-viewer').mineflayer
 const prefix = config.prefix
 const inventoryViewer = require('mineflayer-web-inventory')
@@ -29,7 +29,7 @@ function HighwayBot() {
 
         //execute commands
         try {
-            if(username == config.username) { //development commands
+            if(username === config.username) { //development commands
                 const command = require(`./commands/${cmd}.js`)
                 command.execute(bot, message, args, username)
             } else bot.chat('/msg ' + username + ' Nâu :)))')
@@ -38,10 +38,10 @@ function HighwayBot() {
         }
     })
     bot.on('kicked', kick => {
-        console.log(`Bot đã ngắt kết nối bới server. Lý do ${kick}`)
+        console.log(`Disconnected. Reason: ${kick}`)
     })
     bot.on('end', (reason) => {
-        console.log('Bot đã ngắt kết nối bới server. Lý do ' + reason)
+        console.log(`Disconnected. Reason: ${reason}`)
         setTimeout(() => HighwayBot(), 10000)
     })
     bot.on('spawn', () => {
@@ -50,8 +50,8 @@ function HighwayBot() {
         // mineflayerViewer(bot, { port: config.localport, firstPerson: true })
     })
 
-    bot.on('windowOpen', async (window) => {
-        var pin = config.pin    
+    bot.on('windowOpen', (window) => {
+        const pin = config.pin
         window.requiresConfirmation = false;
         bot.clickWindow(pin[0], 0, 0);
         bot.clickWindow(pin[1], 0, 0);
