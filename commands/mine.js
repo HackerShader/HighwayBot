@@ -1,8 +1,7 @@
 module.exports = {
     name: 'mine',
-    async execute(bot, message, args, username) {
-        const mine = require('../util/HighwayTunnel/break/mine')(bot)
-        mine
+    async execute(bot) {
+        await require('../util/HighwayTunnel/break/mine')(bot)
     }
 }
 
