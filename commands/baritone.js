@@ -7,7 +7,7 @@ module.exports = {
         const mcData = require('minecraft-data')(bot.version)
         const defaultMove = new Movements(bot, mcData)
         const target = bot.players[username] ? bot.players[username].entity : null
-        if (args[0] == `follow`) {
+        if (args[0] === `follow`) {
             if (!target) return bot.chat('I don\'t see you !')
             const p = target.position
             bot.chat(`/msg ${username} I see you, Coord: ${(p.x).toFixed(0)}, ${(p.y).toFixed(0)}, ${(p.z).toFixed(0)}`)

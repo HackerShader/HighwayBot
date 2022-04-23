@@ -6,8 +6,8 @@ module.exports = async (bot) => {
         const target = bot.blockAt(bot.entity.position.offset(2, -1, z))
         if (target.name == `air`) {
             try {
-                const airblock = bot.blockAt(target.position.offset(-1, 0, 0))
-                await bot.placeBlock(airblock, new Vec3(1, 0, 0))
+                const airblock = bot.blockAt(target.position.offset(1, 0, 0))
+                await bot.placeBlock(airblock, new Vec3(-1, 0, 0))
             } catch (error) {
                 console.log(error)
             }

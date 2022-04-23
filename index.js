@@ -2,12 +2,8 @@ const mineflayer = require('mineflayer')
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer)
 const pathfinder = require('mineflayer-pathfinder').pathfinder
 const config = require('./config.json')
-const fs = require('fs')
 var tpsPlugin = require('mineflayer-tps')(mineflayer)
 const mineflayerViewer = require('prismarine-viewer').mineflayer
-const { info } = require('console')
-const Vec3 = require('vec3').Vec3;
-const minecraft = require('minecraft-server-util')
 const prefix = config.prefix
 const inventoryViewer = require('mineflayer-web-inventory')
 
@@ -25,13 +21,6 @@ function HighwayBot() {
     bot.loadPlugin(tpsPlugin)
     mineflayernavigate(bot)
     inventoryViewer(bot, { port: config.invport })
-    
-    //cmd handler (useless)
-    commandfiles = fs.readdirSync(__dirname + '/commands').filter(file => file.endsWith('.js'));
-    let commands = []
-    for (const val of commandfiles) {
-        commands.push(val.replace('.js', ''))
-    }
 
     bot.on('chat', async (username, message) => {
         if (!message.startsWith(config.prefix)) return
@@ -57,7 +46,7 @@ function HighwayBot() {
     })
     bot.on('spawn', () => {
         console.log('Bot spawn !')
-        // console.log(bot.entity.position.x, bot.entity.position.y, bot.entity.position.z)
+        console.log(bot.entity.position.x, bot.entity.position.y, bot.entity.position.z)
         // mineflayerViewer(bot, { port: config.localport, firstPerson: true })
     })
 
