@@ -5,11 +5,8 @@ module.exports = (client) => {
 
     for (const file of commandFiles) {
         const pull = require(`../commands/${file}`);
-        if (pull) {
-
-        } else {
-            client.command.set(pull.name, pull);
-        }
+        if (pull) continue;
+        client.command.set(pull.name, pull);
     }
-    console.log('Đã load Command!')
+    console.log('Đã load Command!');
 }

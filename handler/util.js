@@ -5,11 +5,8 @@ module.exports = (client) => {
 
     for (const file of utilFiles) {
         const pull = require(`../util/${file}`);
-        if (pull) {
-
-        } else {
-            client.utils.set(pull.name, pull);
-        }
+        if (pull) continue;
+        client.utils.set(pull.name, pull);
     }
-    console.log('Đã load Util!')
+    console.log('Đã load Util!');
 }
