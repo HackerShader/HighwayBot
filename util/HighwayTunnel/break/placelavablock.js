@@ -9,6 +9,7 @@ module.exports = async (bot) => {
                 if (target.name !== `lava`) continue;
                 try {
                     const lavablock = bot.blockAt(target.position.offset(-1, 0, 0));
+                    await bot.lookAt(new Vec3(target.position.x - 1, target.position.y, target.position.z + 0.5 ))
                     await bot.placeBlock(lavablock, new Vec3(1, 0, 0));
                 } catch (error) {
                     console.log(error);

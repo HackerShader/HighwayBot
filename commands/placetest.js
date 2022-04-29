@@ -5,7 +5,9 @@ module.exports = {
     async execute(bot) {
         const target = bot.blockAt(bot.entity.position.offset(2, 0, 0))
         try {
-            await bot.placeBlock(target, new Vec3(1, 0, 0))
+            bot.equip(87, 'hand')
+            await bot.lookAt(new Vec3(target.position.x, target.position.y, target.position.z + 0.5 ))
+            await bot.placeBlock(target, new Vec3(0, -1, 0))
         } catch (error) {
             console.log(error)
         }

@@ -27,10 +27,9 @@ function HighwayBot() {
         const cmd = args.shift().toLowerCase();
         if(username !== config.username) return;
 
-        const command = require(`./commands/${cmd}.js`)
-
         //execute commands
         try {
+            const command = require(`./commands/${cmd}.js`)
             command.execute(bot, message, args, username)
         } catch (err) {
             console.log(err)
