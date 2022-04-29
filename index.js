@@ -47,7 +47,7 @@ function HighwayBot() {
     bot.on('spawn', () => {
         console.log('Bot spawn !')
         console.log(bot.entity.position.x, bot.entity.position.y, bot.entity.position.z)
-        mineflayerViewer(bot, { port: config.localport, firstPerson: true })
+        // mineflayerViewer(bot, { port: config.localport, firstPerson: true })
     })
 
     bot.on('message', msg => {
