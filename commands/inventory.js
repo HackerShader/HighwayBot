@@ -1,8 +1,7 @@
-const { Vec3 } = require("vec3");
-const math = require('mathjs');
+
 module.exports = {
     name: 'inventory',
-    async execute(bot, message, args, username) {
+    async execute(bot, message, args) {
         let count = 0;
         for (let i = 0; i < bot.inventory.slots.length; i++) {
             if (!bot.inventory.slots[i]) continue;
@@ -11,7 +10,7 @@ module.exports = {
         }
         console.log(`${count} netherrack in inventory`);
 
-        if (args[0] == `drop`) {
+        if (args[0] === `drop`) {
             for (let i = 0; i < bot.inventory.slots.length; i++) {
                 if (!bot.inventory.slots[i]) continue;
                 try {
@@ -22,7 +21,7 @@ module.exports = {
                 }
             }
         }
-        if (args[0] == `dub`) {
+        if (args[0] === `dub`) {
             let pickaxecount = 0;
             for (let i = 0; i < bot.inventory.slots.length; i++) {
                 if (!bot.inventory.slots[i]) continue;

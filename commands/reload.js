@@ -2,7 +2,7 @@ const fs = require('fs');
 
 module.exports = {
     name: 'reload',
-    execute(bot, message, args, username)  {
+    execute(bot)  {
         fs.readdirSync('./commands').forEach(file => {
             if (!file.endsWith('.js')) return;
             delete require.cache[require.resolve(`./${file}`)];

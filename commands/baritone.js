@@ -3,11 +3,11 @@ const { GoalNear } = require('mineflayer-pathfinder').goals
 const Vec3 = require('vec3').Vec3;
 module.exports = {
     name: 'baritone',
-    execute(bot, message, args, username)   {
+    execute(bot, message, args, username) {
         const mcData = require('minecraft-data')(bot.version);
         const defaultMove = new Movements(bot, mcData);
         const target = bot.players[username] ? bot.players[username].entity : null;
-        if (args[0] != `follow`) {
+        if (args[0] !== `follow`) {
             bot.pathfinder.setMovements(defaultMove)
             bot.pathfinder.setGoal(new GoalNear(args[0], args[1], args[2], 1))
             bot.chat(`/msg ${username} Goto Coord: ${args[0]}, ${args[1]}, ${args[2]}`)
