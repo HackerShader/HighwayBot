@@ -80,4 +80,5 @@ function HighwayBot() {
         setTimeout(() => { bot.clickWindow(10,0,0) }, 10*1000);
     })
 }
+HighwayBot()
 
