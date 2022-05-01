@@ -6,6 +6,18 @@ const tpsPlugin = require('mineflayer-tps')(mineflayer)
 const mineflayerViewer = require('prismarine-viewer').mineflayer
 const prefix = config.prefix
 const inventoryViewer = require('mineflayer-web-inventory')
+const readline = require("readline");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question(['Username', 'Host', 'concu'], (answer) => {
+    console.log(`${answer}`);
+});
+
+
+
 
 function HighwayBot() {
     const bot = mineflayer.createBot({
@@ -20,6 +32,7 @@ function HighwayBot() {
     bot.loadPlugin(tpsPlugin)
     mineflayernavigate(bot)
     inventoryViewer(bot, { port: config.invport })
+
 
     bot.on('chat', async (username, message) => {
         if (!message.startsWith(config.prefix)) return;
@@ -68,4 +81,3 @@ function HighwayBot() {
     })
 }
 
-HighwayBot()  
