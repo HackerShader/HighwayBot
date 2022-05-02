@@ -25,6 +25,7 @@
     "mineflayer-tps": "^1.0.1",
     "mineflayer-web-inventory": "^1.7.1",
     "prismarine-viewer": "^1.22.0",
+    "prompt": "^1.3.0",
     "vec3": "^0.1.7"
   }
 }
