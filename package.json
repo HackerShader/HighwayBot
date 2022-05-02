@@ -1,6 +1,6 @@
 {
   "name": "highwaybot",
-  "version": "Build 03302022",
+  "version": "Build 05022022",
   "description": "highwaytool for 2y2c.org",
   "main": "index.js",
   "scripts": {
