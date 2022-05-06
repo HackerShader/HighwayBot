@@ -2,7 +2,7 @@ const fs = require('fs')
 module.exports = {
     name: "help",
     description: "Displays all commands or info about a specific command.",
-    exec() {
+    execute() {
         console.log(`List of commands:\n| Miscellaneous:`)
         fs.readdirSync('cmd').forEach(file => {
             if (!file.endsWith('.js')) return;

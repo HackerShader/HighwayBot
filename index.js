@@ -24,9 +24,9 @@ function HighwayBot() {
 
     bot.on('chat', async (username, message) => {
         if (!message.startsWith(config.prefix)) return;
-        const args = message.slice(prefix.length).trim().split(/ +/);
+        const args = message.slice(prefix.length).trim().split(/ +/g);
         const cmd = args.shift().toLowerCase();
-        if(username !== config.username) return;
+        // if(username !== config.username) return;
 
         //execute commands
         try {
@@ -47,7 +47,7 @@ function HighwayBot() {
 
     bot.on('spawn', () => {
         console.log('Bot spawn !')
-        console.log(bot.entity.position.x, bot.entity.position.y, bot.entity.position.z)
+        // console.log(Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z))
         // mineflayerViewer(bot, { port: config.localport, firstPerson: true })
     })
 
@@ -69,3 +69,4 @@ function HighwayBot() {
     })
 }
 HighwayBot()
+// require('./cmd')()
