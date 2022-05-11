@@ -19,6 +19,6 @@ module.exports = {
         bot.pathfinder.setMovements(defaultMove)
         bot.pathfinder.setGoal(new GoalNear(p.x, p.y, p.z, 1))
         const positionrolate = new Vec3(p.x, p.y, p.z)
-        bot.lookAt(positionrolate)
+        bot.lookAt(positionrolate);
     }
 }

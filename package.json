@@ -1,7 +1,8 @@
 {
   "name": "highwaybot",
-  "version": "Build 05022022",
-  "description": "highwaytool for 2y2c.org",
+  "version": "pre-build develoment",
+  "build": "05092022",
+  "description": "HighwayBot for 2y2c.org",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
