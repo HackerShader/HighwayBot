@@ -1,5 +1,4 @@
 const prompt = require('prompt');
-const exec = require("child_process").exec;
 
 console.log(`Welcome to HighwayBot installer!\nThis installer will help you to install HighwayBot on your computer. We will need some information to proceed.`);
 prompt.start();
@@ -7,7 +6,7 @@ console.log('This HighwayBot still in development. Please using the key access t
 function Input() {
     prompt.get(['key'], (err, result) => {
         if (err) return;
-        if (result.key !== `051523mfdi0oi321r0jie3`) {
+        if (result.key !== `0`) {
             console.log(`X | Key Access: Invalid key. please try again.`);
             Input()
         } else privacyandtermcondition()

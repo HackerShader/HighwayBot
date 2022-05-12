@@ -1,6 +1,5 @@
 const prompt = require('prompt')
 const packages = require('./package.json')
-const exec = require('child_process').exec;
 
 console.log(`Welcome to HighwayBot controller\nHighwayBot version: ${packages.version}\nType \'help\' to see a list of commands\n`)
 
