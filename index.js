@@ -7,18 +7,21 @@ const mineflayerViewer = require('prismarine-viewer').mineflayer
 const prefix = config.prefix
 const inventoryViewer = require('mineflayer-web-inventory')
 
+
+
 function HighwayBot() {
     const bot = mineflayer.createBot({
         username: "highwaybot",
         host: config.host,
         port: config.port,
-        version: '1.12.2'
+        version: '1.12.2',
     })
 
     //Plugins loader
     bot.loadPlugin(pathfinder)
     bot.loadPlugin(tpsPlugin)
     mineflayernavigate(bot)
+
     inventoryViewer(bot, { port: config.invport })
 
 
