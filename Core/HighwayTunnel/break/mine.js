@@ -65,10 +65,10 @@ module.exports = async (bot) => {
                 }
             }
         }
-        const checkinfront = await require('./checkInFront')(bot);
-        const scaffoldcheck = await require('./scaffoldcheck')(bot);
-        const lavacheck = await require('./CheckLavaBLock')(bot);
-        const checkwall = await require('./check')(bot);
+        const checkinfront = await require('../check/checkInFront')(bot);
+        const scaffoldcheck = await require('../check/scaffoldcheck')(bot);
+        const lavacheck = await require('../check/CheckLavaBLock')(bot);
+        const checkwall = await require('../check/check')(bot);
         if (scaffoldcheck === true) {
             await require('./scaffoldhighway')(bot)
             await dig()
