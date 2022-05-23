@@ -1,9 +1,11 @@
-const prompt = require('prompt')
 const packages = require('./package.json')
-
-console.log(`Welcome to HighwayBot controller\nHighwayBot version: ${packages.version}\nType \'help\' to see a list of commands\n`)
+const fs = require('fs')
+const {absDependencies} = require("mathjs");
+const childprocess = require('child_process').exec
 
 async function promptcallback() {
+    await console.log(`Welcome to HighwayBot controller\nHighwayBot version: ${packages.version}\nType \'help\' to see a list of commands\n`)
+    const prompt = require('prompt')
     prompt.start()
     prompt.get('commands', function (err, result) {
         try {
@@ -21,4 +23,23 @@ async function promptcallback() {
     })
 }
 
-promptcallback()
+function callprompt() {
+    setTimeout(() => {
+        promptcallback();
+    }, 10000)
+}
+
+function createpackage() {
+    childprocess(`npm install prompt`, (err, stdout, stderr) => {
+        if (err) console.log(`${file}: ${err}`)
+    })
+    callprompt()
+}
+
+fs.readdirSync('./').forEach(file => {
+    if (file.endsWith('.js')) return;
+    if (file === 'node_modules') {
+        return promptcallback()
+    } else return createpackage()
+
+})

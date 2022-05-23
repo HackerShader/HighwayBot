@@ -1,7 +1,7 @@
 const fs = require('fs')
 const exec = require('child_process').exec
 
-console.log('\n\nnstallation log')
+console.log('\n\nInstallation log')
 console.log('Creating directory...')
 
 function createDir() {
