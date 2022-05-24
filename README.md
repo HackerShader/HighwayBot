@@ -1,6 +1,6 @@
 
 <p align="center">
-    <img src="https://media.discordapp.net/attachments/745095165554851922/961644986099712051/unknown.png?width=550&height=350" style="width: 50%">
+    <img src="https://cdn.discordapp.com/attachments/745095165554851922/978514447716990976/unknown.png" style="width: 80%">
 </p>
 
 # **Highway Builder JS Bot**
