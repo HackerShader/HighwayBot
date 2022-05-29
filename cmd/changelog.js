@@ -2,7 +2,7 @@ const package = require('./../package.json')
 
 module.exports = {
     name: "changelog",
-    description: "see the changelog of highwaybot",
+    description: "See the changelog of highwaybot",
     execute() {
         console.log(
             `Change logs of ${package.version} ${package.build}` +

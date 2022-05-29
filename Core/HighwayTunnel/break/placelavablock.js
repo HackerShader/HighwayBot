@@ -4,10 +4,6 @@ const Vec3 = require('vec3').Vec3
     , mineflayer = require('mineflayer')
     , status = require('../../console/status.json')
 
-/**
- * 
- * @param {mineflayer.Bot} bot 
- */
 module.exports = async (bot) => {
     bot.equip(87, 'hand')
     for (let x = 1; x <= 4; x++) {
