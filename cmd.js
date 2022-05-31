@@ -1,37 +1,35 @@
-const packages = require('./package.json')
 const fs = require('fs')
-const childprocess = require('child_process').exec
+const exec = require('child_process').exec
 
-
-
-console.log(`Welcome to HighwayBot controller\nHighwayBot version: ${packages.version}\nType \'help\' to see a list of commands\n`)
-async function promptcallback() {
+console.log(`Welcome to HighwayBot controller\nType \'help\' to see a list of commands\n`)
+async function callback() {
     const prompt = require('prompt')
     prompt.start()
     prompt.get('commands', function (err, result) {
+        if (!result) return;
+        const toLowerCase = result.commands.toLowerCase()
         try {
-            if (!result.commands) return promptcallback();
-            const command = require(`./cmd/${result.commands}.js`)
+            if (!toLowerCase) return callback();
+            const command = require(`./cmd/${toLowerCase}.js`)
+            if (toLowerCase === `install`) return require('./cmd/install.js').execute();
             command.execute()
-            if (result.commands === `install`) {
-                require('./cmd/install.js').execute()
-            } else promptcallback()
+            callback()
         } catch (err) {
-            if (!result) return;
-            console.log(`${result.commands}: command not found`)
-            promptcallback()
+            console.log(`${toLowerCase}: command not found`)
+            callback()
         }
     })
 }
 
 async function main() {
     if (fs.existsSync('./node_modules')) {
-        promptcallback()
+        callback()
     } else {
         console.log('This is the first time you run this program, please wait while installing dependencies...')
-        childprocess(`npm install prompt`, async (err, stdout, stderr) => {
+        exec(`npm install prompt`, async (err, stdout, stderr) => {
             if (err) console.log(`${file}: ${err}`)
-            await promptcallback()
+            await console.log('Dependencies installed')
+            await callback()
         })
     }
 }
