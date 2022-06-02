@@ -8,6 +8,6 @@ module.exports = {
             `Change logs of ${package.version} ${package.build}` +
             `\n+ Improving command user interface` +
             `\n+ Rewrite ./util`);
-
+            `\n+ New custom installer`
     }
 }

@@ -7,7 +7,7 @@ function Input() {
     prompt.get(['key'], (err, result) => {
         if (err) return;
         if (result.key !== `0`) {
-            console.log(`X | Key Access: Invalid key. please try again.`);
+            console.log(`[X] Key Access: Invalid key. please try again.`);
             Input()
         } else privacyandtermcondition()
     })
@@ -19,7 +19,7 @@ function Input() {
                 console.log('Thank you for your cooperation.\nPlease wait for the installation process...');
                 require('./createfile')
             } else {
-                console.log('X | Installer has been terminated. Reason: You did not agree to the terms and conditions.');
+                console.log('[X] Installer has been terminated. Reason: You did not agree to the terms and conditions.');
                 process.exit()
             }
         })
