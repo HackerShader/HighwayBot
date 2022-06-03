@@ -6,10 +6,11 @@ module.exports = async (bot) => {
                     const target = bot.blockAt(bot.entity.position.offset(2, y, z))
                     if ((z === -2 || z === 2) && y === 0 && target) continue;
                     if (target.name !== 'air') return require('./../break/minerewrite')(bot)
-                    bot.navigate.to(bot.entity.position.offset(2, 0, 0));
+                    await bot.navigate.to(bot.entity.position.offset(2, 0, 0));
                 }
             }
         }
     }
+    //await bot.navigate.to(bot.entity.position.offset(2, 0, 0));
     await check()
 }

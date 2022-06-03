@@ -14,5 +14,4 @@ module.exports = async (bot) => {
         }
     }
     await mine()
-    await require('./../check/check')(bot)
 }
