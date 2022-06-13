@@ -11,7 +11,7 @@ async function callback() {
         try {
             if (!toLowerCase) return callback();
             const command = require(`./cmd/${toLowerCase}.js`)
-            if (toLowerCase === `install`) return require('./cmd/install.js').execute();
+            if (toLowerCase === `install` || toLowerCase === `update`) return require(`./cmd/${toLowerCase}.js`).execute();
             command.execute()
             callback()
         } catch (err) {
@@ -25,11 +25,15 @@ async function main() {
     if (fs.existsSync('./node_modules')) {
         callback()
     } else {
-        console.log('This is the first time you run this program, please wait while installing dependencies...')
-        exec(`npm install prompt`, async (err, stdout, stderr) => {
-            if (err) console.log(`${file}: ${err}`)
-            await console.log('Dependencies installed')
-            await callback()
+        console.log('[Notification] This is the first time you run this program, please wait while installing dependencies...')
+        await exec(`npm install prompt`, async (err, stdout, stderr) => {
+            if (err) console.log(`${file}: ${err}`)  
+            await exec(`npm install fs-extra`, async (err, stdout, stderr) => {
+                if (err) console.log(`${file}: ${err}`)
+                await console.log('[Notification] Dependencies installed')
+                await callback()
+        
+            })
         })
     }
 }

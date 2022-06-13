@@ -1,7 +1,9 @@
+const exec = require('child_process').exec
+const fs = require('fs')
 module.exports = {
     name: "update",
     description: "Update the bot",
-    execute() {
-        console.log('Updating...')
+    async execute() {
+        require('./update/update')
     }
 }

@@ -17,7 +17,9 @@ function Input() {
             if (err) return;
             if (result.confirm.toLowerCase() === 'y' || result.confirm.toLowerCase() === 'yes') {
                 console.log('Thank you for your cooperation.\nPlease wait for the installation process...');
-                require('./createfile')
+                setTimeout(() => {
+                    require('./createfile')
+                }, 3000)
             } else {
                 console.log('[X] Installer has been terminated. Reason: You did not agree to the terms and conditions.');
                 process.exit()
