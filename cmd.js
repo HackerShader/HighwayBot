@@ -1,5 +1,6 @@
 const fs = require('fs')
 const exec = require('child_process').exec
+const editJsonFile = require('edit-json-file')
 
 console.log(`Welcome to HighwayBot controller\nType \'help\' to see a list of commands\n`)
 async function callback() {
@@ -25,27 +26,21 @@ async function main() {
     if (fs.existsSync('./node_modules')) {
         callback()
     } else {
+        //write package,json file 
+        
         console.log('[Notification] This is the first time you run this program, please wait while installing dependencies...')
         await exec(`npm install prompt`, async (err, stdout, stderr) => {
-            if (err) console.log(`${file}: ${err}`)  
-            await exec(`npm install fs-extra`, async (err, stdout, stderr) => {
-                if (err) console.log(`${file}: ${err}`)
-                await console.log('[Notification] Dependencies installed')
-                await callback()
-        
+            if (err) console.log(`${file}: ${err}`)
+            await exec('npm i edit-json-file', async (err, stdout, stderr) => {
+                if (err) return console.log(err)
+                await exec(`npm install fs-extra`, async (err, stdout, stderr) => {
+                    if (err) console.log(`${file}: ${err}`)
+                    await console.log('[Notification] Dependencies installed')
+                    await callback()
+
+                })
             })
         })
     }
 }
 main()
-
-
-
-
-
-
-
-
-
-
-
