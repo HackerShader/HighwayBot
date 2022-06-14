@@ -14,7 +14,6 @@ async function checkUpdate() {
 }
 async function callback() {
     const prompt = require('prompt')
-
     prompt.start()
     prompt.get('commands', function (err, result) {
         if (!result) return;

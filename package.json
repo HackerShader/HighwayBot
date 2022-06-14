@@ -2,7 +2,7 @@
   "name": "highwaybot",
   "version": "pre-build develoment",
   "build": "05122022",
-  "description": "HighwayBot for 2y2c.org",
+  "description": "A bot can be used to build a highway with 24/7 online",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
