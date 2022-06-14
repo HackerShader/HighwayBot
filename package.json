@@ -1,6 +1,6 @@
 {
   "name": "highwaybot",
-  "version": "pre-build develoment",
+  "version": "pre-build development",
   "build": "05122022",
   "description": "A bot can be used to build a highway with 24/7 online",
   "main": "index.js",
