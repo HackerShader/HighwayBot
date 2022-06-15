@@ -4,7 +4,6 @@ const editJsonFile = require('edit-json-file')
 const package = require('./../../package.json')
 
 async function Update() {
-    //if (package.version === undefined && package.build === undefined) return console.log('[X] HighwayBot not installed')   if (package.version === undefined) return console.log('[X] HighwayBot not installed')
     await console.log('[Update | Pending] Starting update...')
     await exec('git clone https://github.com/HackerShader/HighwayBot', async (err, stdout, stderr) => {
         if (err) return console.log(err);
@@ -12,7 +11,7 @@ async function Update() {
         await console.log('[Update | Pending] Applying all changes from the repository...')  
         await fs.copy('./HighwayBot', './')
         await fs.removeSync('./HighwayBot')
-        await console.log('[Update | Done] Replaced the files')
+        await console.log('[Update | Done] Replaced the files') 
         await exec('git rev-parse HEAD', async (err, stdout, stderr) => {
             if (err) return console.log(err);
             await console.log(`[Update | Done] HighwayBot updated to build ${stdout.substring(0, 7)}`)
