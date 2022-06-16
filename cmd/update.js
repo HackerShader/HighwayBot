@@ -4,4 +4,4 @@ module.exports = {
     async execute() {
         require('./update/update')
     }
-}
+}       

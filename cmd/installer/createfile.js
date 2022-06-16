@@ -31,7 +31,7 @@ async function CreatePackage() {
     fs.writeFileSync('./package.json.new', '{\n' +
         '  "name": "highwaybot",\n' +
         '  "version": "pre-build develoment",\n' +
-        '  "build": "05122022",\n' +
+        '  "build": "",\n' +
         '  "description": "HighwayBot for 2y2c.org",\n' +
         '  "main": "index.js",\n' +
         '  "scripts": {\n' +

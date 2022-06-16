@@ -4,6 +4,7 @@ const editJsonFile = require('edit-json-file')
 const package = require('./../../package.json')
 
 async function Update() {
+    if (package.version === undefined && package.build === undefined) return console.log('[X] HighwayBot not installed, Please launch the bot again [node ./cmd.js]')
     await console.log('[Update | Pending] Starting update...')
     await exec('git clone https://github.com/HackerShader/HighwayBot', async (err, stdout, stderr) => {
         if (err) return console.log(err);

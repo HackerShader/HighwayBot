@@ -7,8 +7,6 @@ const mineflayerViewer = require('prismarine-viewer').mineflayer
 const prefix = config.prefix
 const inventoryViewer = require('mineflayer-web-inventory')
 
-
-
 function HighwayBot() {
     const bot = mineflayer.createBot({
         username: "highwaybot",
