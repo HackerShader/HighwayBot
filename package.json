@@ -1,8 +1,8 @@
 {
   "name": "highwaybot",
-  "version": "pre-build development",
+  "version": "pre-build develoment",
   "build": "05122022",
-  "description": "A bot can be used to build a highway with 24/7 online",
+  "description": "HighwayBot for 2y2c.org",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,7 +15,6 @@
     "child_process": "^1.0.2",
     "discord.js": "^12.5.3",
     "edit-json-file": "^1.7.0",
-    "fs": "^0.0.1-security",
     "fs-extra": "^10.1.0",
     "linebyline": "^1.3.0",
     "mathjs": "^10.4.3",

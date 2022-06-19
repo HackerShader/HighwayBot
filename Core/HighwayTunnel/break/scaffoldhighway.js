@@ -1,13 +1,8 @@
 const Vec3 = require('vec3').Vec3
     , log = require('../../console/console.js')
     , edit = require('../../console/edit')
-    , mineflayer = require('mineflayer')
     , status = require('../../console/status.json')
 
-/**
- * 
- * @param {mineflayer.Bot} bot 
- */
 module.exports = async (bot) => {
     bot.equip(87, 'hand');
     for (let z = -1; z <= 1; z++) {

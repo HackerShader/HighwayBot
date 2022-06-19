@@ -2,66 +2,24 @@ let stop = Boolean
 const Vec3 = require('vec3').Vec3
     , log = require('../../console/console.js')
     , edit = require('../../console/edit')
-    , mineflayer = require('mineflayer')
     , status = require('../../console/status.json')
 
-/**
- * 
- * @param {mineflayer.Bot} bot 
- */
+
 module.exports = async (bot) => {
     async function dig() {
         if (stop === true) return
-        for (let y = 3; y >= 0; y--) {
-            if (y !== 0) {
+        for (let x = -3; x <= 2; x++) {
+            for (let y = 3; y >= 0; y--) {
                 for (let z = -2; z <= 2; z++) {
-                    const target = bot.blockAt(bot.entity.position.offset(2, y, z))
+                    const target = bot.blockAt(bot.entity.position.offset(x, y, z))
                         , pos = `${Math.round(bot.entity.position.x)} ${Math.round(bot.entity.position.y)} ${Math.round(bot.entity.position.z)}`
                         , pos2 = `${target.position.x} ${target.position.y} ${target.position.z}`
-                    if (target.name === 'air') continue;
-                    if (target && bot.canDigBlock(target)) {
-                        try {
-                            log(pos, pos2, '⛏ | Digging', true)
-                            await bot.dig(target, false, new Vec3(-1, 0, 0))
-                            log(pos, pos2, '✅ | Done', true)
-                            edit('mine', Number(status.mine) + 1)
-                        } catch (err) {
-                            log(pos, pos2, '🛑 | Error: ' + err, true)
-                            edit('mine-err', Number(status['mine-err']) + 1)
-                            edit('error', status.error.push(err))
-                        }
-                        continue;
-                    } else {
-                        log(pos, pos2, '🛑 | Error: Can\t dig block!', true)
-                        edit('mine-err', Number(status['mine-err']) + 1)
-                        edit('error', status.error.push(`${pos} | Can't dig!`))
-                    }
-                }
-                continue;
-            }
-            if (y === 0) {
-                for (let z = -1; z <= 1; z++) {
-                    const targetdown = bot.blockAt(bot.entity.position.offset(2, y, z))
-                        , pos = `${Math.round(bot.entity.position.x)} ${Math.round(bot.entity.position.y)} ${Math.round(bot.entity.position.z)}`
-                        , pos2 = `${targetdown.position.x} ${targetdown.position.y} ${targetdown.position.z}`
-                    if (targetdown.name === 'air') continue;
-                    if (targetdown && bot.canDigBlock(targetdown)) {
-                        try {
-                            log(pos, pos2, '⛏ | Digging', true)
-                            await bot.dig(targetdown, false, new Vec3(-1, 0, 0))
-                            log(pos, pos2, '✅ | Done', true)
-                            edit('mine', Number(status.mine) + 1)
-                        } catch (err) {
-                            log(pos, pos2, '🛑 | Error: ' + err, true)
-                            edit('mine-err', Number(status['mine-err']) + 1)
-                            edit('error', status.error.push(err))
-                        }
-                        continue;
-                    } else {
-                        log(pos, pos2, '🛑 | Error: Can\t dig block!', true)
-                        edit('mine-err', Number(status['mine-err']) + 1)
-                        edit('error', status.error.push(`${pos} | Can't dig!`))
-                    }
+                    if (target.name === 'air' || !bot.canDigBlock(target) || !target) continue;
+                    if ((z === -2 || z === 2) && y === 0 && target) continue;
+                    log(pos, pos2, '⛏ | Digging', true)
+                    await bot.dig(target, false, new Vec3(-1, 0, 0))
+                    log(pos, pos2, '✅ | Done', true)
+                    edit('mine', Number(status.mine) + 1)
                 }
             }
         }
@@ -92,7 +50,7 @@ module.exports = async (bot) => {
         }
 
         setTimeout(async () => {
-            bot.equip(278, 'hand')
+            await require('../inventory/itemsaver')(bot);
             await dig();
             bot.navigate.to(bot.entity.position.offset(1, 0, 0));
         }, 500);

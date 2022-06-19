@@ -1,3 +1,3 @@
 module.exports = async (bot) => {
-    await require('./check/check')(bot)
+    await require('./break/mine')(bot)
 }
