@@ -5,7 +5,7 @@ module.exports = {
     description: "Execute HighwayBot main file",
     execute() {
         if (!fs.existsSync('./index.js')) return console.log('[X] HighwayBot not installed')
-        exec('node index.js', (err, stdout, stderr) => {
+        exec('node index.js', (err, stdout) => {
             if (err) {
                 console.error(err)
                 return;

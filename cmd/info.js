@@ -1,16 +1,16 @@
 module.exports = {
     name: "info",
-    description: "HighwayBot infomation",
+    description: "HighwayBot information",
     execute() {
-        const package = require("../package.json");
-        if (package.build === undefined) return console.log("[X] HighwayBot not installed");
+        const info = require("../package.json");
+        if (info.build === undefined) return console.log("[X] HighwayBot not installed");
         console.log(
-        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'   + ` | HighwayBot ${package.version}` + 
-        '\n@@@@@@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@@@@@@' + ` | Build: ${package.build}` +
-        '\n@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@' + ` | Author: ${package.author}` +
+        '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'  +  ` | HighwayBot ${info.version}` +
+        '\n@@@@@@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@@@@@@' + ` | Build: ${info.build}` +
+        '\n@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@' + ` | Author: ${info.author}` +
         '\n@@@@@@@@@@@@@@  &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&  @@@@@@@@@@@@@@' + ` | installed at: update soon` +
-        '\n@@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@' + ` | License: ${package.license}` +
-        '\n@@@@@@@@&  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  %@@@@@@@@' + ` | Main file: ${package.main}` +
+        '\n@@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@' + ` | License: ${info.license}` +
+        '\n@@@@@@@@&  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  %@@@@@@@@' + ` | Main file: ${info.main}` +
         '\n@@@@@@@  @@@@@@@@@@@@@@@@@     **@@@@@@@@@@@*@@@@@@@@@@@@@@@@@  @@@@@@@' + ` | ` +
         '\n@@@@@  @@@@@@@@@@@@@@@@@@                       @@@@@@@@@@@@@@@@  @@@@@' + ` | ` +
         '\n@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            @@@@@@@@@@@@@@@@@@  @@@@' + ` | ` +
