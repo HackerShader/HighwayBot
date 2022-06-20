@@ -28,11 +28,11 @@ async function main() {
     } else {
         fs.writeFileSync('./commandconfig.json', '{\n}')
         console.log('[Notification] This is the first time you run this program, please wait while installing dependencies...')
-        await exec(`npm install prompt`, async (err, stdout, stderr) => {
+        await exec(`npm install prompt`, async (err) => {
             if (err) console.log(`${file}: ${err}`)
-            await exec('npm i edit-json-file', async (err, stdout, stderr) => {
+            await exec('npm i edit-json-file', async (err) => {
                 if (err) return console.log(err)
-                await exec(`npm install fs-extra`, async (err, stdout, stderr) => {
+                await exec(`npm install fs-extra`, async (err) => {
                     if (err) console.log(`${file}: ${err}`)
                     await console.log('[Notification] Dependencies installed')
                     await callback()
