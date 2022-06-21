@@ -3,25 +3,18 @@
     <img src="https://cdn.discordapp.com/attachments/745095165554851922/978514447716990976/unknown.png" style="width: 80%">
 </p>
 
-[![CodeQL](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml/badge.svg)](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml)
-# **Highway Builder JS Bot**
-Highwaytools of lambda client but it can be a bot and hosting with 24/24 free (heroku support)
 
-Disclaimer: This is NOT highwaytools modules of lambda client and a minecraft client, this is a bot written in Javascript languages with mineflayer plugins, it can do highway tasks like mine tunnel, place, inv manager, etc... 
+# **Highway Builder JS Bot**
+| Action   |                                                                                              Status                                                                                             |
+|--------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| CodeQL | [![CodeQL](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml) |
+A different way to digging and building Highway Nether in every Anarchy server!
 # Installation
 
 <details> 
     <summary>Casual Installation</summary>
 
-> Download Installation file in release page: https://github.com/HackerShader/HighwayBot/releases
-
-> Create a workspace folder (if you want)
-
-> Execute the installation file and choose the location 
-
-> Wait until it has completed
-
-> Run a batch file (runbot.bat) in workspace folder to run bot
+> Rewriting...
 
 </details>
 
@@ -52,12 +45,9 @@ git clone https://github.com/HackerShader/HighwayBot.git
 
 > Follow this table 
 
-| Options               | Your choices                                   |
-| --------------------- |:----------------------------------------------:|
-| Deployment method     | Github                                         |
-| Repository            | Your repository name                           |
-| Automatic deploys     | Enable automatic deploys                       |
-| Manual deploy         | Choose main branch (your choices)/Deploy Branch|
+| Action                 |                     Status                      |
+|-------------------|:-----------------------------------------------:|
+||
 
 > Create "Procfile" in your repository
 
