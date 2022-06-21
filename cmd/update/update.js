@@ -17,7 +17,7 @@ async function Update() {
             if (err) return console.log(err);
             await console.log(`[Update | Done] HighwayBot updated to build ${stdout.substring(0, 7)}`)
             await console.log('[Notification] Please launch the bot again to apply the changes [node ./cmd.js]')
-            const edit = editJsonFile('./info.json')
+            const edit = editJsonFile('./package.json')
             edit.set('build', `${stdout.substring(0, 7)}`)
             edit.save()            
         })
