@@ -5,7 +5,7 @@ const fs = require('fs-extra')
 
 console.log(`Welcome to HighwayBot installer!\nThis installer will help you to install HighwayBot on your computer. We will need some information to proceed.`);
 prompt.start();
-console.log('This HighwayBot still in development. There\'ll 2 ways to install HighwayBot:\n1. Install HighwayBot from the official GitHub repository (Only for developers) (Require \'git\')\n2. Install HighwayBot from the release installer (Recommended for users)\n\nPlease choose the way you want to install HighwayBot:');
+console.log('This HighwayBot still in development. There\'ll 2 ways to install HighwayBot:\n1. Install HighwayBot from the official GitHub repository (Only for developers) (Require \'git\')\n2. Install HighwayBot from the release installer (Recommended for users)\n3. Cancel the installation\n\nPlease choose the way you want to install HighwayBot.');
 function Input() {
     prompt.get(['method'], (err, result) => {
         if (err) return;
@@ -32,6 +32,10 @@ function Input() {
         if (result.method === '2') {
             console.log('You choose to install HighwayBot from the release installer.');
             return privacyandtermcondition();
+        }
+        if (result.method === '3') {
+            console.log('[X] Exited the Installation')
+            process.exit(0)
         } else {
             console.log('Please choose the way you want to install HighwayBot.');
             return Input();
