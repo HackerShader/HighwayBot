@@ -28,12 +28,12 @@ module.exports = async (bot) => {
         const lavacheck = await require('../check/CheckLavaBLock')(bot);
         const checkwall = await require('../check/check')(bot);
         if (scaffoldcheck === true) {
-            await require('./scaffoldhighway')(bot)
+            await require('../place/scaffoldhighway')(bot)
             await dig()
             return;
         }
         if (lavacheck.check === true) {
-            await require('./placelavablock')(bot);
+            await require('../place/placelavablock')(bot);
             await dig();
             return;
         }
