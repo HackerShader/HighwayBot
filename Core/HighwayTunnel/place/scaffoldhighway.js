@@ -9,7 +9,7 @@ module.exports = async (bot) => {
         const target = bot.blockAt(bot.entity.position.offset(2, -1, z))
             , pos = `${Math.round(bot.entity.position.x)} ${Math.round(bot.entity.position.y)} ${Math.round(bot.entity.position.z)}`
             , pos2 = `${target.position.x} ${target.position.y} ${target.position.z}`
-        if (target.name !== `air`) continue
+        if (target.name !== `air`) continue;
         else {
             try {
                 const airblock = bot.blockAt(target.position.offset(-1, 0, 0));

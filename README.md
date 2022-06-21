@@ -3,6 +3,7 @@
     <img src="https://cdn.discordapp.com/attachments/745095165554851922/978514447716990976/unknown.png" style="width: 80%">
 </p>
 
+[![CodeQL](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml/badge.svg)](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml)
 # **Highway Builder JS Bot**
 Highwaytools of lambda client but it can be a bot and hosting with 24/24 free (heroku support)
 
