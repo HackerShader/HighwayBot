@@ -7,13 +7,13 @@ console.log(`Welcome to HighwayBot installer!\nThis installer will help you to i
 prompt.start();
 console.log('This HighwayBot still in development. There\'ll 2 ways to install HighwayBot:\n1. Install HighwayBot from the official GitHub repository (Only for developers) (Require \'git\')\n2. Install HighwayBot from the release installer (Recommended for users)\n3. Cancel the installation\n\nPlease choose the way you want to install HighwayBot.');
 function Input() {
-    prompt.get(['method'], async (err, result) => {
+    prompt.get(['method'], (err, result) => {
         if (err) return;
         if (result.method === '1') {
             console.log('You choose to install HighwayBot from the official GitHub repository.\nPlease wait while we are downloading the repository...');
-            async function cloner() {
-                await console.log('[Pending] Cloning the repository...');
-                await exec('git clone https://github.com/HackerShader/HighwayBot', async (err) => {
+                function cloner() {
+                console.log('[Pending] Cloning the repository...');
+                exec('git clone https://github.com/HackerShader/HighwayBot', async (err) => {
                     if (err) return console.log(err);
                     await console.log("[Done] Cloned the HighwayBot repository")  
                     await fs.copy('./HighwayBot', './')

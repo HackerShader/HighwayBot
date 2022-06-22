@@ -3,7 +3,7 @@ const exec = require('child_process').exec
 
 console.log(`Welcome to HighwayBot controller\nType \'help\' to see a list of commands\n`)
 
-async function callback() {
+function callback() {
     const prompt = require('prompt')
     prompt.start()
     prompt.get('commands', function (result) {
