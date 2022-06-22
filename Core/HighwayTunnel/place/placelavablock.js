@@ -19,7 +19,7 @@ module.exports = async (bot) => {
                         bot.lookAt(new Vec3(block.position.x - 1, block.position.y, block.position.z + 0.5))
                         await bot.placeBlock(lavablock, new Vec3(1, 0, 0));
                         log(pos, pos2, '✅ | Done', true)
-                        edit('place', Number(status.place) + 1)
+                        edit('place', Number(status.place++))
                     } catch (error) {
                         log(pos, pos2, '🛑 | Error: ' + error, true)
                         edit('place-err', Number(status['place-err']) + 1)

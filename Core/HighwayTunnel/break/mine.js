@@ -19,7 +19,7 @@ module.exports = async (bot) => {
                     log(pos, pos2, '⛏ | Digging', true)
                     await bot.dig(target, false, new Vec3(-1, 0, 0))
                     log(pos, pos2, '✅ | Done', true)
-                    edit('mine', Number(status.mine) + 1)
+                    edit('mine', Number(status.mine++))
                 }
             }
         }
