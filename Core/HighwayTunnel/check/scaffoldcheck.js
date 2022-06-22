@@ -1,5 +1,5 @@
-module.exports = async (bot) => {
-    let scaffold = {
+module.exports = (bot) => {
+    const scaffold = {
         check: false,
     }
     for (let z = -1; z <= 1; z++) {

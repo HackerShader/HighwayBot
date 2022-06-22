@@ -6,6 +6,6 @@ module.exports = (name, value) => {
         file.set(`${name}`, `${value}`)
         file.save()
     } catch (error) {
-
+        console.log(error)
     }
 }

@@ -1,6 +1,6 @@
 const fs = require('fs-extra')
 
-module.exports = async () => {  
+module.exports = () => {
     fs.readdirSync('./config').forEach(file => {
         delete require.cache[require.resolve(`./../../config/${file}`)]
     })

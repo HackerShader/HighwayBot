@@ -1,4 +1,4 @@
-module.exports = async (bot) => {
+module.exports = (bot) => {
     let checkwall = Boolean;
     for (let y = 3; y >= 0; y--) {
         if (y !== 0) {

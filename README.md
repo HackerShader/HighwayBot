@@ -8,10 +8,10 @@
 
 A different way to digging and building Highway Nether in every Anarchy server!
 
-| Action   |                                                                                              Status                                                                                             |
-|--------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Action   |                                                                                       Status                                                                                        |
+|--------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | CodeQL | [![CodeQL](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml) |
-| Deno | [![Deno](https://github.com/HackerShader/HighwayBot/actions/workflows/deno.yml/badge.svg?branch=main)](https://github.com/HackerShader/HighwayBot/actions/workflows/deno.yml) |
+| Deno |    [![Deno](https://github.com/HackerShader/HighwayBot/actions/workflows/deno.yml/badge.svg?branch=main)](https://github.com/HackerShader/HighwayBot/actions/workflows/deno.yml)    |
 
 # Installation
 

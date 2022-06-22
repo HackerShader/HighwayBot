@@ -1,6 +1,6 @@
 module.exports = {
     name: 'inventory',
-    async execute(bot, message, args) {
+    async execute(bot, args) {
         let count = 0;
         for (let i = 0; i < bot.inventory.slots.length; i++) {
             if (!bot.inventory.slots[i]) continue;

@@ -3,7 +3,7 @@ const fs = require('fs-extra')
 module.exports = {
     name: "config",
     description: "Configure the HighwayBot config",
-    async execute(args) {
+    execute(args) {
         const info = require("../package.json");
         if (info.build === undefined) return console.log('[X] HighwayBot not installed]')
         if (!fs.existsSync('./config')) fs.mkdirSync('./config')
@@ -24,7 +24,7 @@ module.exports = {
         }
         try {
             require(`./config/${args[1]}`)(args[2], args[3])
-        } catch (err) {
+        } catch {
             console.log(`[Config | Error] ${args[1]} is not a available key`)
         }
     }

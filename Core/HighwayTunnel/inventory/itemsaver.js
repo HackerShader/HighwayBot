@@ -1,4 +1,4 @@
-module.exports = async (bot) => {
+module.exports = (bot) => {
     let count = 0;
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;

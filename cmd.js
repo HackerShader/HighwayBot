@@ -6,7 +6,7 @@ console.log(`Welcome to HighwayBot controller\nType \'help\' to see a list of co
 async function callback() {
     const prompt = require('prompt')
     prompt.start()
-    prompt.get('commands', function (err, result) {
+    prompt.get('commands', function (result) {
         if (!result) return;
         const toLowerCase = result.commands.toLowerCase()
         const args = toLowerCase.split(' ')
@@ -16,29 +16,27 @@ async function callback() {
             if (toLowerCase === `install` || toLowerCase === `update`) return require(`./cmd/${toLowerCase}.js`).execute();
             command.execute(args)
             callback()
-        } catch (err) {
+        } catch {
             console.log(`${args[0]}: command not found`)
             callback()
         }
     })
 }
-async function main() {
-    if (fs.existsSync('./node_modules')) {
-        callback()
-    } else {
-        fs.writeFileSync('./commandconfig.json', '{\n}')
-        console.log('[Notification] This is the first time you run this program, please wait while installing dependencies...')
-        await exec(`npm install prompt`, async (err) => {
-            if (err) console.log(`${file}: ${err}`)
-            await exec('npm i edit-json-file', async (err) => {
-                if (err) return console.log(err)
-                await exec(`npm install fs-extra`, async (err) => {
-                    if (err) console.log(`${file}: ${err}`)
-                    await console.log('[Notification] Dependencies installed')
-                    await callback()
-                })
+
+if (fs.existsSync('./node_modules')) {
+    await callback()
+} else {
+    fs.writeFileSync('./commandconfig.json', '{\n}')
+    console.log('[Notification] This is the first time you run this program, please wait while installing dependencies...')
+    await exec(`npm install prompt`, async (err) => {
+        if (err) console.log(`${err}`)
+        await exec('npm i edit-json-file', async (err) => {
+            if (err) return console.log(err)
+            await exec(`npm install fs-extra`, async (err) => {
+                if (err) console.log(`${err}`)
+                await console.log('[Notification] Dependencies installed')
+                await callback()
             })
         })
-    }
+    })
 }
-main()

@@ -62,7 +62,7 @@ async function CreatePackage() {
         '    "prompt": "^1.3.0",\n' +
         '    "vec3": "^0.1.7"\n' +
         '  }\n' +
-        '}', 'utf8', async (err) => {
+        '}', 'utf8', (err) => {
         if (err) return console.log(err);
     })
     await console.log('[Done] Installed default package.json')

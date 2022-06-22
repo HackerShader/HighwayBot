@@ -3,7 +3,7 @@ const mineflayernavigate = require('mineflayer-navigate')(mineflayer)
 const pathfinder = require('mineflayer-pathfinder').pathfinder
 const config = require('./config.json')
 const tpsPlugin = require('mineflayer-tps')(mineflayer)
-const mineflayerViewer = require('prismarine-viewer').mineflayer
+//const mineflayerViewer = require('prismarine-viewer').mineflayer
 const prefix = config.prefix
 const inventoryViewer = require('mineflayer-web-inventory')
 
@@ -25,7 +25,7 @@ function HighwayBot() {
     inventoryViewer(bot, { port: config.invport })
 
 
-    bot.on('chat', async (username, message) => {
+    bot.on('chat', (username, message) => {
         if (!message.startsWith(config.prefix)) return;
         const args = message.slice(prefix.length).trim().split(/ +/g);
         const cmd = args.shift().toLowerCase();

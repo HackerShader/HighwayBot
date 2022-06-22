@@ -1,5 +1,5 @@
-module.exports = async (bot) => {
-    let thing = {
+module.exports = (bot) => {
+    const thing = {
         check: false,
     }
     for (let x = -1; x <= 4; x++) {

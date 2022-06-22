@@ -1,18 +1,9 @@
 const Movements = require('mineflayer-pathfinder').Movements
 const { GoalNear } = require('mineflayer-pathfinder').goals
 const Vec3 = require('vec3').Vec3;
-const { Bot } = require('mineflayer')
 module.exports = {
     name: 'baritone',
-    /**
-     * 
-     * @param {Bot} bot 
-     * @param {*} message 
-     * @param {*} args 
-     * @param {*} username 
-     * @returns 
-     */
-    execute(bot, message, args, username) {
+    execute(bot, args, username) {
         const mcData = require('minecraft-data')(bot.version);
         const defaultMove = new Movements(bot, mcData);
         const target = bot.players[username] ? bot.players[username].entity : null;
