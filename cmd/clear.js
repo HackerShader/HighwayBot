@@ -1,7 +1,7 @@
 module.exports = {
     name: "clear",
     description: "Clear the console",
-    execute() {
+    async execute() {
         console.clear()
         console.log('Console cleared')
     }
