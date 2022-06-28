@@ -4,7 +4,7 @@ const Vec3 = require('vec3').Vec3
     , status = require('../../console/status.json')
 
 module.exports = async (bot) => {
-    bot.equip(87, 'hand');
+    bot.equip(4, 'hand');
     for (let z = -1; z <= 1; z++) {
         const target = bot.blockAt(bot.entity.position.offset(2, -1, z))
             , pos = `${Math.round(bot.entity.position.x)} ${Math.round(bot.entity.position.y)} ${Math.round(bot.entity.position.z)}`

@@ -23,7 +23,18 @@ function HighwayBot() {
     mineflayernavigate(bot)
 
     inventoryViewer(bot, { port: config.invport })
+    bot.on('windowOpen', async (window) => {
+        const pin = config.pin
+        window.requiresConfirmation = false;
+        await bot.clickWindow(pin[0], 0, 0);
+        await bot.clickWindow(pin[1], 0, 0);
+        await bot.clickWindow(pin[2], 0, 0);
+        await bot.clickWindow(pin[3], 0, 0);
 
+        setTimeout(() => { bot.chat('/5s5m') }, 10*1000);
+
+        setTimeout(() => { bot.clickWindow(13,0,0) }, 13*1000);
+    })
 
     bot.on('chat', (username, message) => {
         if (!message.startsWith(config.prefix)) return;
@@ -50,7 +61,7 @@ function HighwayBot() {
 
     bot.on('spawn', () => {
         console.log('Bot spawn !')
-        // console.log(Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z))
+        console.log(Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z))
         // mineflayerViewer(bot, { port: config.localport, firstPerson: true })
     })
 
@@ -58,18 +69,7 @@ function HighwayBot() {
         console.log(msg.toString());
     });
 
-    bot.on('windowOpen', async (window) => {
-        const pin = config.pin
-        window.requiresConfirmation = false;
-        await bot.clickWindow(pin[0], 0, 0);
-        await bot.clickWindow(pin[1], 0, 0);
-        await bot.clickWindow(pin[2], 0, 0);
-        await bot.clickWindow(pin[3], 0, 0);
 
-        setTimeout(() => { bot.chat('/2y2c') }, 7*1000);
-    
-        setTimeout(() => { bot.clickWindow(10,0,0) }, 10*1000);
-    })
 }
 HighwayBot()
 // require('./cmd')()

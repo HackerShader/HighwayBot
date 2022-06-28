@@ -4,7 +4,7 @@ const Vec3 = require('vec3').Vec3
     , status = require('../../console/status.json')
 
 module.exports = async (bot) => {
-    bot.equip(87, 'hand')
+    bot.equip(4, 'hand')
     for (let x = 1; x <= 4; x++) {
         for (let y = -1; y <= 4; y++) {
             for (let z = -3; z <= 3; z++) {

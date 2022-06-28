@@ -7,10 +7,10 @@ module.exports = {
         const mcData = require('minecraft-data')(bot.version);
         const defaultMove = new Movements(bot, mcData);
         const target = bot.players[username] ? bot.players[username].entity : null;
-        if (args[0] === `goto`) {
+        if (args[1] === `goto`) {
             bot.pathfinder.setMovements(defaultMove)
-            bot.pathfinder.setGoal(new GoalNear(args[0], args[1], args[2], 1))
-            bot.chat(`/msg ${username} Goto Coord: ${args[0]}, ${args[1]}, ${args[2]}`)
+            bot.pathfinder.setGoal(new GoalNear(args[2], args[3], args[4], 1))
+            bot.chat(`/msg HackerShader Goto Coord: ${args[2]}, ${args[3]}, ${args[4]}`)
             return;
         } else {
             if (!target) return bot.chat('I don\'t see you !')
