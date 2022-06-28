@@ -38,9 +38,9 @@ function HighwayBot() {
 
     bot.on('chat', (username, message) => {
         if (!message.startsWith(config.prefix)) return;
-        const args = message.slice(prefix.length).trim().split(/ +/g);
-        const cmd = args.shift().toLowerCase();
-        // if(username !== config.username) return;
+        const args = message.slice(prefix.length).trim().split(' ');
+        const cmd = args[0].toLowerCase();
+        if(username !== config.username) return;
 
         //execute commands
         try {

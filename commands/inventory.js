@@ -1,15 +1,17 @@
 module.exports = {
     name: 'inventory',
-    async execute(bot, args) {
+    async execute(bot, message, args) {
         let count = 0;
         for (let i = 0; i < bot.inventory.slots.length; i++) {
             if (!bot.inventory.slots[i]) continue;
             if (bot.inventory.slots[i].name !== `netherrack`) continue;
             count += bot.inventory.slots[i].count;
         }
-        console.log(`${count}`);
+        console.log(`${count} netherrack items in inventory`);
 
-        if (args[0] === `drop`) {
+
+
+        if (args[1] === `drop`) {
             for (let i = 0; i < bot.inventory.slots.length; i++) {
                 if (!bot.inventory.slots[i]) continue;
                 try {
@@ -19,6 +21,9 @@ module.exports = {
                     console.log(err);
                 }
             }
+        }
+        if (args[1] === `equip`) {
+
         }
     }
 }

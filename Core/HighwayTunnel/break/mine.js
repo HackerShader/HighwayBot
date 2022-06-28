@@ -3,7 +3,7 @@ const Vec3 = require('vec3').Vec3
     , log = require('../../console/console.js')
     , edit = require('../../console/edit')
     , status = require('../../console/status.json')
-
+const config = require('./../../../config.json')
 
 module.exports = async (bot) => {
     async function dig() {
@@ -17,15 +17,16 @@ module.exports = async (bot) => {
                     if (target.name === 'air' || !bot.canDigBlock(target) || !target) continue;
                     if ((z === -2 || z === 2) && y === 0 && target) continue;
                     log(pos, pos2, '⛏ | Digging', true)
-                    await bot.dig(target, false, new Vec3(-1, 0, 0))
+                    await bot.dig(target, true, new Vec3(-1, 0, 0))
+                    await bot.swingArm('right', true)
                     log(pos, pos2, '✅ | Done', true)
                     edit('mine', Number(status.mine++))
                 }
             }
         }
         const checkinfront = await require('../check/checkInFront')(bot);
-        const scaffoldcheck = await require('../check/scaffoldcheck')(bot);
-        const lavacheck = await require('../check/CheckLavaBLock')(bot);
+        const scaffoldcheck = require('../check/scaffoldcheck')(bot);
+        const lavacheck = require('../check/CheckLavaBLock')(bot);
         const checkwall = await require('../check/check')(bot);
         if (scaffoldcheck === true) {
             await require('../place/scaffoldhighway')(bot)
@@ -56,7 +57,7 @@ module.exports = async (bot) => {
         }, 500);
     }
     stop = false
-    bot.chat('⛏ | Bắt đầu đào')
+    bot.chat(`/msg ${config.username} | Starting Dig`)
     await dig()
 }
 
