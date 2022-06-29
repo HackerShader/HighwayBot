@@ -7,6 +7,7 @@ const config = require('./../../../config.json')
 
 module.exports = async (bot) => {
     async function dig() {
+        await require('../inventory/itemsaver')(bot);
         if (stop === true) return
         for (let x = -3; x <= 2; x++) {
             for (let y = 3; y >= 0; y--) {
@@ -17,8 +18,10 @@ module.exports = async (bot) => {
                     if (target.name === 'air' || !bot.canDigBlock(target) || !target) continue;
                     if ((z === -2 || z === 2) && y === 0 && target) continue;
                     log(pos, pos2, '⛏ | Digging', true)
+
                     await bot.dig(target, true, new Vec3(-1, 0, 0))
-                    await bot.swingArm('right', true)
+
+                    //await bot.swingArm('right', true)
                     log(pos, pos2, '✅ | Done', true)
                     edit('mine', Number(status.mine++))
                 }
@@ -28,6 +31,7 @@ module.exports = async (bot) => {
         const scaffoldcheck = require('../check/scaffoldcheck')(bot);
         const lavacheck = require('../check/CheckLavaBLock')(bot);
         const checkwall = await require('../check/check')(bot);
+        /*
         if (scaffoldcheck === true) {
             await require('../place/scaffoldhighway')(bot)
             await dig()
@@ -38,24 +42,36 @@ module.exports = async (bot) => {
             await dig();
             return;
         }
+        */
+        if (scaffoldcheck === true || lavacheck.check === true) {
+            bot.equip(87, 'hand');
+            await require('../place/scaffoldhighway')(bot);
+            await require('../place/placelavablock')(bot);
+            await dig();
+            return;
+        }
         if (checkinfront === false) {
             setTimeout(async () => {
                 await dig();
                 bot.navigate.to(bot.entity.position.offset(-1, 0, 0));
-            }, 500);
+            }, 800);
             return;
         }
+        setTimeout(async () => {
+            await dig();
+            bot.navigate.to(bot.entity.position.offset(1, 0, 0));
+        }, 800);
+
+        /*
         if (checkwall === false) {
             setTimeout(() => dig(), 500)
             return;
         }
+        */
 
-        setTimeout(async () => {
-            await require('../inventory/itemsaver')(bot);
-            await dig();
-            bot.navigate.to(bot.entity.position.offset(1, 0, 0));
-        }, 500);
+
     }
+
     stop = false
     bot.chat(`/msg ${config.username} | Starting Dig`)
     await dig()

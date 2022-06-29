@@ -31,9 +31,9 @@ function HighwayBot() {
         await bot.clickWindow(pin[2], 0, 0);
         await bot.clickWindow(pin[3], 0, 0);
 
-        setTimeout(() => { bot.chat('/5s5m') }, 10*1000);
+        setTimeout(() => { bot.chat('/5s5m') }, 5*1000);
 
-        setTimeout(() => { bot.clickWindow(13,0,0) }, 13*1000);
+        setTimeout(() => { bot.clickWindow(13,0,0) }, 6*1000);
     })
 
     bot.on('chat', (username, message) => {
