@@ -5,4 +5,3 @@ module.exports = {
         bot.chat(`/msg ${username} Player online: ${Object.values(bot.players).map(name => name.username).length}`);
     }    
 }
-

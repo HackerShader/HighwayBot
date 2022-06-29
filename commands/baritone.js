@@ -11,7 +11,6 @@ module.exports = {
             bot.pathfinder.setMovements(defaultMove)
             bot.pathfinder.setGoal(new GoalNear(args[1], args[2], args[3], 1))
             bot.chat(`/msg HackerShader Goto Coord: ${args[1]}, ${args[2]}, ${args[3]}`)
-            return;
         } /*else {
             if (!target) return bot.chat('I don\'t see you !')
             const p = target.position

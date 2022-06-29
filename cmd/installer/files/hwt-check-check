@@ -1,6 +1,7 @@
-const fs = require('fs');
-fs.readdirSync('util/HighwayTunnel/break')
-fs.writeFileSync('util/HighwayTunnel/break/check.js', 'module.exports = async (bot) => {\n' +
+const fs = require('fs-extra');
+fs.readdirSync('Core')
+fs.writeFileSync('Core/HighwayTunnel/check/check.js',
+    'module.exports = (bot) => {\n' +
     '    let checkwall = Boolean;\n' +
     '    for (let y = 3; y >= 0; y--) {\n' +
     '        if (y !== 0) {\n' +
@@ -22,4 +23,5 @@ fs.writeFileSync('util/HighwayTunnel/break/check.js', 'module.exports = async (b
     '        }\n' +
     '    }\n' +
     '    return checkwall;\n' +
-    '}');
+    '}\n'
+)

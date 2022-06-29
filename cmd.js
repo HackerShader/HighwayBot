@@ -13,7 +13,7 @@ async function callback() {
         try {
             if (!toLowerCase) return callback();
             const command = require(`./cmd/${args[0]}.js`)
-            if (toLowerCase === `install` || toLowerCase === `update`) return require(`./cmd/${toLowerCase}.js`).execute();
+            if (toLowerCase === `install` || toLowerCase === `update` || toLowerCase === `runbot`) return require(`./cmd/${toLowerCase}.js`).execute();
             command.execute(args)
             callback()
         } catch (err) {

@@ -6,10 +6,13 @@ console.log('[Pending] Creating directory...')
 
 function createDir() {
     fs.mkdirSync('commands', {recursive: true})
-    fs.mkdirSync('util', {recursive: true})
-    fs.mkdirSync('util/HighwayTunnel', {recursive: true})
-    fs.mkdirSync('util/HighwayTunnel/break', {recursive: true})
-    fs.mkdirSync('util/console', {recursive: true})
+    fs.mkdirSync('Core', {recursive: true})
+    fs.mkdirSync('Core/console', {recursive: true})
+    fs.mkdirSync('Core/HighwayTunnel', {recursive: true})
+    fs.mkdirSync('Core/HighwayTunnel/break', {recursive: true})
+    fs.mkdirSync('Core/HighwayTunnel/check', {recursive: true})
+    fs.mkdirSync('Core/HighwayTunnel/inventory', {recursive: true})
+    fs.mkdirSync('Core/HighwayTunnel/place', {recursive: true})
 }
 
 try {
@@ -30,9 +33,9 @@ async function CreatePackage() {
     console.log('[Pending] Creating package.json...')
     fs.writeFileSync('./package.json.new', '{\n' +
         '  "name": "highwaybot",\n' +
-        '  "version": "pre-build develoment",\n' +
-        '  "build": "",\n' +
-        '  "description": "HighwayBot for 2y2c.org",\n' +
+        '  "version": "Pre-Release",\n' +
+        '  "build": "062922",\n' +
+        '  "description": "A different way to digging and building Highway Nether in every Anarchy server!",\n' +
         '  "main": "index.js",\n' +
         '  "scripts": {\n' +
         '    "test": "echo \\"Error: no test specified\\" && exit 1",\n' +
@@ -45,7 +48,7 @@ async function CreatePackage() {
         '    "child_process": "^1.0.2",\n' +
         '    "discord.js": "^12.5.3",\n' +
         '    "edit-json-file": "^1.7.0",\n' +
-        '    "fs": "^0.0.1-security",\n' +
+        '    "fs-extra": "^10.1.0",\n' +
         '    "linebyline": "^1.3.0",\n' +
         '    "mathjs": "^10.4.3",\n' +
         '    "minecraft-data": "^2.86.0",\n' +
@@ -62,7 +65,7 @@ async function CreatePackage() {
         '    "prompt": "^1.3.0",\n' +
         '    "vec3": "^0.1.7"\n' +
         '  }\n' +
-        '}', 'utf8', (err) => {
+        '}\n', 'utf8', (err) => {
         if (err) return console.log(err);
     })
     await console.log('[Done] Installed default package.json')
@@ -72,7 +75,7 @@ async function CreatePackage() {
     await exec('npm install package.json', async (err, stdout) => {
         if (err) return console.log(err);
         console.log(stdout)
-        await console.log('[Done] HighwayBot installed. Please execute again controller to start the bot')
+        await console.log('[Done] HighwayBot installed. Please execute again controller to start the bot [node ./cmd.js]')
 
     })
 }

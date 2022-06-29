@@ -1,6 +1,7 @@
-const fs = require('fs');
-fs.readdirSync('util/HighwayTunnel/break')
-fs.writeFileSync('util/HighwayTunnel/break/checkInFront.js', 'module.exports = async (bot) => {\n' +
+const fs = require('fs-extra');
+fs.readdirSync('Core')
+fs.writeFileSync('Core/HighwayTunnel/check/checkInFront.js',
+    'module.exports = (bot) => {\n' +
     '    let checkInFront = Boolean\n' +
     '    for (let y = 3; y >= 0; y--) {\n' +
     '        if (y !== 0) {\n' +
@@ -20,4 +21,5 @@ fs.writeFileSync('util/HighwayTunnel/break/checkInFront.js', 'module.exports = a
     '        }\n' +
     '    }\n' +
     '    return checkInFront;\n' +
-    '}');
+    '}'
+)

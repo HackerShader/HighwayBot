@@ -3,11 +3,10 @@ const mineflayernavigate = require('mineflayer-navigate')(mineflayer)
 const pathfinder = require('mineflayer-pathfinder').pathfinder
 const config = require('./config.json')
 const tpsPlugin = require('mineflayer-tps')(mineflayer)
-//const mineflayerViewer = require('prismarine-viewer').mineflayer
 const prefix = config.prefix
 const inventoryViewer = require('mineflayer-web-inventory')
 
-
+console.log(`HighwayBot is starting, please wait... \nPrefix: ${prefix}\nAvailable commands: ${prefix}mine, ${prefix}infoserver, ${prefix}inventory, ${prefix}reload`)
 
 function HighwayBot() {
     const bot = mineflayer.createBot({
@@ -21,8 +20,9 @@ function HighwayBot() {
     bot.loadPlugin(pathfinder)
     bot.loadPlugin(tpsPlugin)
     mineflayernavigate(bot)
-
     inventoryViewer(bot, { port: config.invport })
+
+    //advanced login
     bot.on('windowOpen', async (window) => {
         const pin = config.pin
         window.requiresConfirmation = false;
@@ -31,9 +31,9 @@ function HighwayBot() {
         await bot.clickWindow(pin[2], 0, 0);
         await bot.clickWindow(pin[3], 0, 0);
 
-        setTimeout(() => { bot.chat('/5s5m') }, 5*1000);
+        setTimeout(() => { bot.chat('/cmd') }, 5*1000);
 
-        setTimeout(() => { bot.clickWindow(13,0,0) }, 6*1000);
+        setTimeout(() => { bot.clickWindow(0,0,0) }, 6*1000);
     })
 
     bot.on('chat', (username, message) => {
@@ -61,8 +61,7 @@ function HighwayBot() {
 
     bot.on('spawn', () => {
         console.log('Bot spawn !')
-        console.log(Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z))
-        // mineflayerViewer(bot, { port: config.localport, firstPerson: true })
+        console.log('Position of bot:' + Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z))
     })
 
     bot.on('message', msg => {
@@ -72,4 +71,3 @@ function HighwayBot() {
 
 }
 HighwayBot()
-// require('./cmd')()

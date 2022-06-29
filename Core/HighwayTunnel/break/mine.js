@@ -30,19 +30,6 @@ module.exports = async (bot) => {
         const checkinfront = await require('../check/checkInFront')(bot);
         const scaffoldcheck = require('../check/scaffoldcheck')(bot);
         const lavacheck = require('../check/CheckLavaBLock')(bot);
-        const checkwall = await require('../check/check')(bot);
-        /*
-        if (scaffoldcheck === true) {
-            await require('../place/scaffoldhighway')(bot)
-            await dig()
-            return;
-        }
-        if (lavacheck.check === true) {
-            await require('../place/placelavablock')(bot);
-            await dig();
-            return;
-        }
-        */
         if (scaffoldcheck === true || lavacheck.check === true) {
             bot.equip(87, 'hand');
             await require('../place/scaffoldhighway')(bot);
@@ -61,20 +48,8 @@ module.exports = async (bot) => {
             await dig();
             bot.navigate.to(bot.entity.position.offset(1, 0, 0));
         }, 800);
-
-        /*
-        if (checkwall === false) {
-            setTimeout(() => dig(), 500)
-            return;
-        }
-        */
-
-
     }
-
     stop = false
     bot.chat(`/msg ${config.username} | Starting Dig`)
     await dig()
 }
-
-

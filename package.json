@@ -1,7 +1,7 @@
 {
   "name": "highwaybot",
-  "version": "pre-build development",
-  "build": "",
+  "version": "Pre-Release",
+  "build": "062922",
   "description": "A different way to digging and building Highway Nether in every Anarchy server!",
   "main": "index.js",
   "scripts": {

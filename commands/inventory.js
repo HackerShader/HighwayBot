@@ -9,8 +9,6 @@ module.exports = {
         }
         console.log(`${count} netherrack items in inventory`);
 
-
-
         if (args[1] === `drop`) {
             for (let i = 0; i < bot.inventory.slots.length; i++) {
                 if (!bot.inventory.slots[i]) continue;

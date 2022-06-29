@@ -1,39 +1,33 @@
-const fs = require('fs');
-fs.readdirSync('util/HighwayTunnel/break')
-fs.writeFileSync('util/HighwayTunnel/break/placelavablock.js', 'const Vec3 = require(\'vec3\').Vec3\n' +
+const fs = require('fs-extra');
+fs.readdirSync('Core')
+fs.writeFileSync('Core/HighwayTunnel/place/placelavablock.js',
+    'const Vec3 = require(\'vec3\').Vec3\n' +
     '    , log = require(\'../../console/console.js\')\n' +
     '    , edit = require(\'../../console/edit\')\n' +
-    '    , mineflayer = require(\'mineflayer\')\n' +
     '    , status = require(\'../../console/status.json\')\n' +
     '\n' +
-    '/**\n' +
-    ' * \n' +
-    ' * @param {mineflayer.Bot} bot \n' +
-    ' */\n' +
     'module.exports = async (bot) => {\n' +
-    '    bot.equip(87, \'hand\')\n' +
     '    for (let x = 1; x <= 4; x++) {\n' +
     '        for (let y = -1; y <= 4; y++) {\n' +
     '            for (let z = -3; z <= 3; z++) {\n' +
-    '                const target = bot.blockAt(bot.entity.position.offset(x, y, z))\n' +
+    '                const block = bot.blockAt(bot.entity.position.offset(x, y, z))\n' +
     '                    , pos = `${Math.round(bot.entity.position.x)} ${Math.round(bot.entity.position.y)} ${Math.round(bot.entity.position.z)}`\n' +
-    '                    , pos2 = `${target.position.x} ${target.position.y} ${target.position.z}`\n' +
-    '                if (target.name !== `lava`) continue;\n' +
+    '                    , pos2 = `${block.position.x} ${block.position.y} ${block.position.z}`\n' +
+    '                if (block.name !== `lava`) continue;\n' +
     '                else {\n' +
     '                    try {\n' +
-    '                        const lavablock = bot.blockAt(target.position.offset(-1, 0, 0))\n' +
+    '                        const lavablock = bot.blockAt(block.position.offset(-1, 0, 0))\n' +
     '                        log(pos, pos2, \'⛏ | Placing\', true)\n' +
-    '                        bot.lookAt(new Vec3(target.position.x - 1, target.position.y, target.position.z + 0.5))\n' +
+    '                        bot.lookAt(new Vec3(block.position.x - 1, block.position.y, block.position.z + 0.5))\n' +
     '                        await bot.placeBlock(lavablock, new Vec3(1, 0, 0));\n' +
     '                        log(pos, pos2, \'✅ | Done\', true)\n' +
-    '                        edit(\'place\', Number(status.place) + 1)\n' +
+    '                        edit(\'place\', Number(status.place++))\n' +
     '                    } catch (error) {\n' +
     '                        log(pos, pos2, \'🛑 | Error: \' + error, true)\n' +
-    '                        edit(\'place-err\', Number(status[\'place-err\']) + 1)\n' +
-    '                        edit(\'error\', status.error.push(error))\n' +
     '                    }\n' +
     '                }\n' +
     '            }\n' +
     '        }\n' +
     '    }\n' +
-    '}')
+    '}\n'
+)
