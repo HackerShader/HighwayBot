@@ -7,7 +7,6 @@ const config = require('./../../../config.json')
 
 module.exports = async (bot) => {
     async function dig() {
-        await require('../inventory/itemsaver')(bot);
         if (stop === true) return
         for (let x = -3; x <= 2; x++) {
             for (let y = 3; y >= 0; y--) {
@@ -45,6 +44,7 @@ module.exports = async (bot) => {
             return;
         }
         setTimeout(async () => {
+            await require('../inventory/itemsaver')(bot);
             await dig();
             bot.navigate.to(bot.entity.position.offset(1, 0, 0));
         }, 800);

@@ -71,7 +71,7 @@ async function CreatePackage() {
     await console.log('\x1b[32m[Done] Installed default package.json\x1b[0m')
     await fs.unlinkSync('./package.json')
     await fs.renameSync('./package.json.new', './package.json')
-    await console.log('[Pending] Installing main dependencies...')
+    await console.log('\x1b[33m[Pending] Installing main dependencies...\x1b[0m')
     await exec('npm install package.json', async (err, stdout) => {
         if (err) return console.log(err);
         console.log(stdout)

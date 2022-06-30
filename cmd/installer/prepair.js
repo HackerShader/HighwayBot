@@ -53,7 +53,7 @@ async function Input() {
     function privacyandtermcondition() {
         console.log('This installer has been created by HighwayBot team.'+
         '\nWe are not responsible for any damage caused by this installer in pre-build development.'+
-        '\nDo you want to continue? (Y|n)');
+        '\nDo you want to continue? (Y / N)');
         prompt.get(['confirm'], (err, result) => {
             if (err) return;
             if (result.confirm.toLowerCase() === 'n' || result.confirm.toLowerCase() === 'no') {
