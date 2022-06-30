@@ -53,7 +53,7 @@ async function Input() {
                     require('./createfile')
                 }, 3000)
             } else {
-                console.log('[X] Installer has been terminated. Reason: You did not agree to the terms and conditions.');
+                console.log('\x1b[31m[X] Installer has been terminated. Reason: You did not agree to the terms and conditions.\x1b[0m');
                 process.exit()
             }
         })

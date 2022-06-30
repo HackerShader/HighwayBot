@@ -133,3 +133,6 @@ dist
 .pnp.*
 temp.js
 
+# Other things :v
+config/
+commandconfig.json

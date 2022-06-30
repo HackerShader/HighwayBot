@@ -2,7 +2,7 @@ const fs = require('fs-extra')
 const exec = require('child_process').exec
 
 console.log('\n------[Installation log]------')
-console.log('[Pending] Creating directory...')
+console.log('\x1b[33m[Pending] Creating directory...\x1b[0m')
 
 function createDir() {
     fs.mkdirSync('commands', {recursive: true})
@@ -20,17 +20,17 @@ try {
 } catch (err) {
     console.log(err)
 }
-console.log('[Done] Directory created')
-console.log('[Pending] Creating files...')
+console.log('\x1b[32m[Done] Directory created\x1b[0m')
+console.log('\x1b[33m[Pending] Creating files...\x1b[0m')
 fs.readdirSync('./cmd/installer/files').forEach(file => {
     require(`./files/${file}`)
-    console.log(`[File] [${file}] created`)
+    console.log(`\x1b[32m[File] [${file}] created\x1b[0m`)
 })
 
 
 
 async function CreatePackage() {
-    console.log('[Pending] Creating package.json...')
+    console.log('\x1b[33m[Pending] Creating package.json...\x1b[0m')
     fs.writeFileSync('./package.json.new', '{\n' +
         '  "name": "highwaybot",\n' +
         '  "version": "Pre-Release",\n' +
@@ -68,15 +68,14 @@ async function CreatePackage() {
         '}\n', 'utf8', (err) => {
         if (err) return console.log(err);
     })
-    await console.log('[Done] Installed default package.json')
+    await console.log('\x1b[32m[Done] Installed default package.json\x1b[0m')
     await fs.unlinkSync('./package.json')
     await fs.renameSync('./package.json.new', './package.json')
     await console.log('[Pending] Installing main dependencies...')
     await exec('npm install package.json', async (err, stdout) => {
         if (err) return console.log(err);
         console.log(stdout)
-        await console.log('[Done] HighwayBot installed. Please execute again controller to start the bot [node ./cmd.js]')
-
+        await console.log('\x1b[32m[Done] HighwayBot installed. Please execute again controller to start the bot [node ./cmd.js]\x1b[0m')
     })
 }
 

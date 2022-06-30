@@ -25,7 +25,7 @@ module.exports = {
         try {
             require(`./config/${args[1]}`)(args[2], args[3])
         } catch {
-            console.log(`[Config | Error] ${args[1]} is not a available key`)
+            console.log(`\x1b[31m[Config | Error] ${args[1]} is not a available key\x1b[0m`)
         }
     }
 }
