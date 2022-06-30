@@ -9,6 +9,9 @@ module.exports = {
             const cmd = require(`./${file}`)
             console.log(`|  | ${cmd.name} - ${cmd.description}`)
         })
-        console.log(`|\n| Social / Contact\n|  | Discord: https://discord.gg/YSZPRkKNzh\n|  | Github: https://github.com/HackerShader/HighwayBot`)
+        console.log(`|` +
+            `\n| Social / Contact` +
+            `\n|  | Discord: https://discord.gg/YSZPRkKNzh` +
+            `\n|  | Github: https://github.com/HackerShader/HighwayBot`)
     }
 }

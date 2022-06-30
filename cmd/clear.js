@@ -3,6 +3,6 @@ module.exports = {
     description: "Clear the console",
     async execute() {
         console.clear()
-        console.log('Console cleared')
+        console.log('\x1b[32m✔ Console cleared\x1b[30m')
     }
 }

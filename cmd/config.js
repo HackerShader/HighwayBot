@@ -5,7 +5,7 @@ module.exports = {
     description: "Configure the HighwayBot config",
     execute(args) {
         const info = require("../package.json");
-        if (info.build === undefined) return console.log('[X] HighwayBot not installed]')
+        if (info.build === undefined) return console.log('\x1b[31m[X] HighwayBot not installed!\x1b[0m')
         if (!fs.existsSync('./config')) fs.mkdirSync('./config')
         if (!fs.existsSync('./config/default.json')) fs.writeFileSync('./config/default.json', '{\n}')
         if (!args[1]) {

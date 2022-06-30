@@ -4,7 +4,7 @@ module.exports = {
     name: "changelog",
     description: "See the changelog of HighwayBot",
     execute() {
-        if (info.version === undefined && info.build === undefined) return console.log('[X] HighwayBot not installed')
+        if (info.version === undefined && info.build === undefined) return console.log('\x1b[0m[X] HighwayBot not installed!\x1b[0m')
         console.log(
             `Change logs of ${info.version} ${info.build}` +
             `\nAdded/Improved:` +
