@@ -20,7 +20,7 @@ module.exports = {
                 }
             }
         }
-        if (args[1] === `equip`) {
+        if (args[1] === `net`) {
 
         }
     }

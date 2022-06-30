@@ -30,7 +30,7 @@ module.exports = async (bot) => {
         const scaffoldcheck = require('../check/scaffoldcheck')(bot);
         const lavacheck = require('../check/CheckLavaBLock')(bot);
         if (scaffoldcheck === true || lavacheck.check === true) {
-            bot.equip(87, 'hand');
+            await require('../inventory/equip-block')(bot);
             await require('../place/scaffoldhighway')(bot);
             await require('../place/placelavablock')(bot);
             await dig();
@@ -40,14 +40,14 @@ module.exports = async (bot) => {
             setTimeout(async () => {
                 await dig();
                 bot.navigate.to(bot.entity.position.offset(-1, 0, 0));
-            }, 800);
+            }, 600);
             return;
         }
         setTimeout(async () => {
             await require('../inventory/itemsaver')(bot);
             await dig();
             bot.navigate.to(bot.entity.position.offset(1, 0, 0));
-        }, 800);
+        }, 600);
     }
     stop = false
     bot.chat(`/msg ${config.username} | Starting Dig`)

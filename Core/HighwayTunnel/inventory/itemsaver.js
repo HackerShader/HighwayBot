@@ -1,4 +1,5 @@
 const mineflayer = require('mineflayer')
+const {pi} = require("mathjs");
 
 /**
  * Giữ các item khỏi việc bị mất
@@ -6,7 +7,7 @@ const mineflayer = require('mineflayer')
  */
 module.exports = (bot) => {
     let count = 0;
-    let temp = new Number;
+    let PickaxeSlots = new Number;
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;
         if (bot.inventory.slots[i].name !== 'diamond_pickaxe') continue;
@@ -14,10 +15,10 @@ module.exports = (bot) => {
             console.log(`${i} need to repair pickaxe: ${bot.inventory.slots[i].durabilityUsed}`);
             continue;
         }
-        temp = i
+        PickaxeSlots = i
         console.log(`${i} | ${bot.inventory.slots[i].durabilityUsed}`);
         count += bot.inventory.slots[i].count;
     }
-    console.log(temp)
-    bot.equip(bot.inventory.slots[temp], 'hand')
+    console.log(PickaxeSlots);
+    bot.equip(bot.inventory.slots[PickaxeSlots], 'hand')
 }
