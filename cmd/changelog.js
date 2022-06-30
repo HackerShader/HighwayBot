@@ -15,7 +15,7 @@ module.exports = {
             `\n\t> Improved Highway scaffold` + `\x1b[0m` +
             `\x1b[33m` + `\nModified:` +
             `\n\t> Reconstructed ./Core` +
-            `\n\t> console log of mine.js` + `\x1b[0m`
+            `\n\t> Console log of mine.js` + `\x1b[0m`
         )
     }
 }
