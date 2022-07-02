@@ -5,5 +5,4 @@ module.exports = (args, args2) => {
     if (!fs.existsSync(`./config/${args}.json`)) return console.log(`\x1b[31m[Config | Rename | Error] Config [${args}] does not exist\x1b[0m`)
     fs.renameSync(`./config/${args}.json`, `./config/${args2}.json`)
     return console.log(`\x1b[32m[Config | Rename | Done] Config [${args}] renamed to [${args2}]\x1b[0m`)
-
 } 
