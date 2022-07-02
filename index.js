@@ -65,6 +65,7 @@ function HighwayBot() {
 
     bot.on('spawn', () => {
         console.log('Bot spawn !');
+        require('./Core/Player/Movenment/velocity')(bot);
         console.log('Position of bot:' + Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z));
     });
 
