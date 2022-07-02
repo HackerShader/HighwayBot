@@ -8,10 +8,12 @@
 
 A different way to digging and building Highway Nether in every Anarchy server!
 
-| Action |                                                                                       Status                                                                                        |
-|--------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| CodeQL | [![CodeQL](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml) |
-| Status | In development                                                                                                                                                                 |
+| Action |                                                                                        Status                                                                                         |
+|--------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| CodeQL |  [![CodeQL](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/HackerShader/HighwayBot/actions/workflows/codeql.yml)  |
+| Codacy | [![Codacy Security Scan](https://github.com/HackerShader/HighwayBot/actions/workflows/codacy.yml/badge.svg)](https://github.com/HackerShader/HighwayBot/actions/workflows/codacy.yml) |
+| Njsscan |  [![njsscan sarif](https://github.com/HackerShader/HighwayBot/actions/workflows/njsscan.yml/badge.svg)](https://github.com/HackerShader/HighwayBot/actions/workflows/njsscan.yml)     |
+| Status |                                                                                    In development                                                                                     |
 
 
 # Installation
