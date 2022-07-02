@@ -1,8 +1,6 @@
-
 <p align="center">
     <img src="https://cdn.discordapp.com/attachments/745095165554851922/978514447716990976/unknown.png" style="width: 80%">
 </p>
-
 
 # **Highway Builder JS Bot**
 
@@ -14,7 +12,6 @@ A different way to digging and building Highway Nether in every Anarchy server!
 | Codacy | [![Codacy Security Scan](https://github.com/HackerShader/HighwayBot/actions/workflows/codacy.yml/badge.svg)](https://github.com/HackerShader/HighwayBot/actions/workflows/codacy.yml) |
 | Njsscan |  [![njsscan sarif](https://github.com/HackerShader/HighwayBot/actions/workflows/njsscan.yml/badge.svg)](https://github.com/HackerShader/HighwayBot/actions/workflows/njsscan.yml)     |
 | Status |                                                                                    In development                                                                                     |
-
 
 # Installation
 
@@ -32,11 +29,12 @@ Type this command into terminal (require git: https://git-scm.com/)
 ```
 git clone https://github.com/HackerShader/HighwayBot.git
 ```
+
 </details>
 
 <details>
     <summary>Hosting</summary>
-    
+
 ### Heroku method
 
 > Go to [Heroku](https://www.heroku.com) Website
@@ -50,7 +48,7 @@ git clone https://github.com/HackerShader/HighwayBot.git
 > Push the Source code of highwaybot to your **private repository**
 >> IF you don't have github account, create them and repository with option: **private**
 
-> Follow this table 
+> Follow this table
 
 | Action                 |                     Status                      |
 |-------------------|:-----------------------------------------------:|
@@ -60,11 +58,12 @@ git clone https://github.com/HackerShader/HighwayBot.git
 
 > Input "worker node ./index.js" in Procfile
 
-> Go to resources pages and 
+> Go to resources pages and
 
 </details>
 
 # Contributor
+
 ## Main developer: [HackerShader](https://github.com/HackerShader)
 
 ### Support

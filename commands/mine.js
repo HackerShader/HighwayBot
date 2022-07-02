@@ -3,6 +3,6 @@ module.exports = {
     async execute(bot) {
         await require('./../Core/HighwayTunnel/highwaybuildtool')(bot);
     }
-}
+};
 
 

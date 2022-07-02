@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('commands')
+fs.readdirSync('commands');
 fs.writeFileSync('commands/infoserver.js',
     'module.exports = {\n' +
     '    name: \'infoserver\',\n' +
@@ -8,4 +8,4 @@ fs.writeFileSync('commands/infoserver.js',
     '        bot.chat(`/msg ${username} Player online: ${Object.values(bot.players).map(name => name.username).length}`);\n' +
     '    }    \n' +
     '}'
-)
+);

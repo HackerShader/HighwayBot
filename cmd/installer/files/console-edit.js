@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('Core')
+fs.readdirSync('Core');
 fs.writeFileSync('Core/console/edit.js',
     'const editJsonFile = require("edit-json-file")\n' +
     '\n' +
@@ -12,4 +12,4 @@ fs.writeFileSync('Core/console/edit.js',
     '        console.log(error)\n' +
     '    }\n' +
     '}'
-)
+);

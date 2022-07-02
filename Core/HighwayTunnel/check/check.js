@@ -20,4 +20,4 @@ module.exports = (bot) => {
         }
     }
     return checkwall;
-}
+};

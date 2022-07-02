@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('Core')
+fs.readdirSync('Core');
 fs.writeFileSync('Core/HighwayTunnel/place/scaffoldhighway.js',
     'const Vec3 = require(\'vec3\').Vec3\n' +
     '    , log = require(\'../../console/console.js\')\n' +
@@ -27,4 +27,4 @@ fs.writeFileSync('Core/HighwayTunnel/place/scaffoldhighway.js',
     '        }\n' +
     '    }\n' +
     '}\n'
-)
+);

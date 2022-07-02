@@ -8,4 +8,4 @@ fs.writeFileSync('config.json',
     '    "pin": [0, 0, 0, 0],\n' +
     '    "username": "Your minecraft account name"\n' +
     '}\n'
-)
+);

@@ -3,8 +3,8 @@ module.exports = async (bot) => {
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;
         if (bot.inventory.slots[i].name !== 'netherrack') continue;
-        NetherrackSlots = i
+        NetherrackSlots = i;
     }
-    console.log(NetherrackSlots)
-    bot.equip(bot.inventory.slots[NetherrackSlots], 'hand')
-}
+    console.log(NetherrackSlots);
+    bot.equip(bot.inventory.slots[NetherrackSlots], 'hand');
+};

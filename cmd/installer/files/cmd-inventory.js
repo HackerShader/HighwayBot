@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('commands')
+fs.readdirSync('commands');
 fs.writeFileSync('commands/inventory.js',
     'module.exports = {\n' +
     '    name: \'inventory\',\n' +
@@ -28,4 +28,4 @@ fs.writeFileSync('commands/inventory.js',
     '        }\n' +
     '    }\n' +
     '}\n'
-)
+);

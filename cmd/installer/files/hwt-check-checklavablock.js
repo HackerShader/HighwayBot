@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('Core')
+fs.readdirSync('Core');
 fs.writeFileSync('Core/HighwayTunnel/check/CheckLavaBlock.js',
     'module.exports = (bot) => {\n' +
     '    const thing = {\n' +
@@ -16,4 +16,4 @@ fs.writeFileSync('Core/HighwayTunnel/check/CheckLavaBlock.js',
     '    }\n' +
     '    return thing;\n' +
     '}'
-)
+);

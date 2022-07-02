@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('commands')
+fs.readdirSync('commands');
 fs.writeFileSync('commands/reload.js',
     'const fs = require(\'fs\');\n' +
     '\n' +
@@ -19,4 +19,4 @@ fs.writeFileSync('commands/reload.js',
     '        });\n' +
     '    }\n' +
     '}'
-)
+);

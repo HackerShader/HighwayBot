@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('Core')
+fs.readdirSync('Core');
 fs.writeFileSync('Core/HighwayTunnel/break/mine.js',
     'let stop = Boolean\n' +
     'const Vec3 = require(\'vec3\').Vec3\n' +
@@ -56,4 +56,4 @@ fs.writeFileSync('Core/HighwayTunnel/break/mine.js',
     '    bot.chat(`/msg ${config.username} | Starting Dig`)\n' +
     '    await dig()\n' +
     '}'
-)
+);

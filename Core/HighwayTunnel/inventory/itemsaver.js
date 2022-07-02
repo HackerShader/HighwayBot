@@ -9,10 +9,10 @@ module.exports = (bot) => {
             continue;
         }
 
-        PickaxeSlots = i
+        PickaxeSlots = i;
         console.log(`${i} | ${bot.inventory.slots[i].durabilityUsed}`);
         count += bot.inventory.slots[i].count;
     }
     console.log(PickaxeSlots);
-    bot.equip(bot.inventory.slots[PickaxeSlots], 'hand')
-}
+    bot.equip(bot.inventory.slots[PickaxeSlots], 'hand');
+};

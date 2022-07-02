@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('commands')
+fs.readdirSync('commands');
 fs.writeFileSync('commands/baritone.js',
     'const Movements = require(\'mineflayer-pathfinder\').Movements\n' +
     'const { GoalNear } = require(\'mineflayer-pathfinder\').goals\n' +
@@ -17,4 +17,4 @@ fs.writeFileSync('commands/baritone.js',
     '        }\n' +
     '    }\n' +
     '}'
-)
+);

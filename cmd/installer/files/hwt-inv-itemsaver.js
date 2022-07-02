@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('Core')
+fs.readdirSync('Core');
 fs.writeFileSync('Core/HighwayTunnel/inventory/itemsaver.js',
     'module.exports = (bot) => {\n' +
     '    let count = 0;\n' +
@@ -18,4 +18,4 @@ fs.writeFileSync('Core/HighwayTunnel/inventory/itemsaver.js',
     '    console.log(concu)\n' +
     '    bot.equip(bot.inventory.slots[concu], \'hand\')\n' +
     '}\n'
-)
+);

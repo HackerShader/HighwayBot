@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('Core')
+fs.readdirSync('Core');
 fs.writeFileSync('Core/HighwayTunnel/check/check.js',
     'module.exports = (bot) => {\n' +
     '    let checkwall = Boolean;\n' +
@@ -24,4 +24,4 @@ fs.writeFileSync('Core/HighwayTunnel/check/check.js',
     '    }\n' +
     '    return checkwall;\n' +
     '}\n'
-)
+);

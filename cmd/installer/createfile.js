@@ -1,36 +1,35 @@
-const fs = require('fs-extra')
-const exec = require('child_process').exec
+const fs = require('fs-extra');
+const exec = require('child_process').exec;
 
-console.log('\n------[Installation log]------')
-console.log('\x1b[33m[Pending] Creating directory...\x1b[0m')
+console.log('\n------[Installation log]------');
+console.log('\x1b[33m[Pending] Creating directory...\x1b[0m');
 
 function createDir() {
-    fs.mkdirSync('commands', {recursive: true})
-    fs.mkdirSync('Core', {recursive: true})
-    fs.mkdirSync('Core/console', {recursive: true})
-    fs.mkdirSync('Core/HighwayTunnel', {recursive: true})
-    fs.mkdirSync('Core/HighwayTunnel/break', {recursive: true})
-    fs.mkdirSync('Core/HighwayTunnel/check', {recursive: true})
-    fs.mkdirSync('Core/HighwayTunnel/inventory', {recursive: true})
-    fs.mkdirSync('Core/HighwayTunnel/place', {recursive: true})
+    fs.mkdirSync('commands', {recursive: true});
+    fs.mkdirSync('Core', {recursive: true});
+    fs.mkdirSync('Core/console', {recursive: true});
+    fs.mkdirSync('Core/HighwayTunnel', {recursive: true});
+    fs.mkdirSync('Core/HighwayTunnel/break', {recursive: true});
+    fs.mkdirSync('Core/HighwayTunnel/check', {recursive: true});
+    fs.mkdirSync('Core/HighwayTunnel/inventory', {recursive: true});
+    fs.mkdirSync('Core/HighwayTunnel/place', {recursive: true});
 }
 
 try {
-    createDir()
+    createDir();
 } catch (err) {
-    console.log(err)
+    console.log(err);
 }
-console.log('\x1b[32m[Done] Directory created\x1b[0m')
-console.log('\x1b[33m[Pending] Creating files...\x1b[0m')
+console.log('\x1b[32m[Done] Directory created\x1b[0m');
+console.log('\x1b[33m[Pending] Creating files...\x1b[0m');
 fs.readdirSync('./cmd/installer/files').forEach(file => {
-    require(`./files/${file}`)
-    console.log(`\x1b[32m[File] [${file}] created\x1b[0m`)
-})
-
+    require(`./files/${file}`);
+    console.log(`\x1b[32m[File] [${file}] created\x1b[0m`);
+});
 
 
 async function CreatePackage() {
-    console.log('\x1b[33m[Pending] Creating package.json...\x1b[0m')
+    console.log('\x1b[33m[Pending] Creating package.json...\x1b[0m');
     fs.writeFileSync('./package.json.new', '{\n' +
         '  "name": "highwaybot",\n' +
         '  "version": "Pre-Release",\n' +
@@ -67,16 +66,16 @@ async function CreatePackage() {
         '  }\n' +
         '}\n', 'utf8', (err) => {
         if (err) return console.log(err);
-    })
-    await console.log('\x1b[32m[Done] Installed default package.json\x1b[0m')
-    await fs.unlinkSync('./package.json')
-    await fs.renameSync('./package.json.new', './package.json')
-    await console.log('\x1b[33m[Pending] Installing main dependencies...\x1b[0m')
+    });
+    await console.log('\x1b[32m[Done] Installed default package.json\x1b[0m');
+    await fs.unlinkSync('./package.json');
+    await fs.renameSync('./package.json.new', './package.json');
+    await console.log('\x1b[33m[Pending] Installing main dependencies...\x1b[0m');
     await exec('npm install package.json', async (err, stdout) => {
         if (err) return console.log(err);
-        console.log(stdout)
-        await console.log('\x1b[32m[Done] HighwayBot installed. Please execute again controller to start the bot [node ./cmd.js]\x1b[0m')
-    })
+        console.log(stdout);
+        await console.log('\x1b[32m[Done] HighwayBot installed. Please execute again controller to start the bot [node ./cmd.js]\x1b[0m');
+    });
 }
 
-CreatePackage()
+CreatePackage();

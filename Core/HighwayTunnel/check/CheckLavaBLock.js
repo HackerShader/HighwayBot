@@ -1,7 +1,7 @@
 module.exports = (bot) => {
     const thing = {
         check: false,
-    }
+    };
     for (let x = -1; x <= 4; x++) {
         for (let y = -1; y <= 4; y++) {
             for (let z = -3; z <= 3; z++) {
@@ -12,4 +12,4 @@ module.exports = (bot) => {
         }
     }
     return thing;
-}
+};

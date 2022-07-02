@@ -73,4 +73,4 @@ fs.writeFileSync('./index.js',
     '\n' +
     '}\n' +
     'HighwayBot()\n'
-)
+);

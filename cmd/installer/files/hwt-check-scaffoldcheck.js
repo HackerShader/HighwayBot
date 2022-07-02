@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-fs.readdirSync('Core')
+fs.readdirSync('Core');
 fs.writeFileSync('Core/HighwayTunnel/check/scaffoldcheck.js',
     'module.exports = (bot) => {\n' +
     '    const scaffold = {\n' +
@@ -15,4 +15,4 @@ fs.writeFileSync('Core/HighwayTunnel/check/scaffoldcheck.js',
     '    }\n' +
     '    return scaffold.check;\n' +
     '}'
-)
+);
