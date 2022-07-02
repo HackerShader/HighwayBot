@@ -16,12 +16,12 @@ module.exports = async (bot) => {
                         , pos2 = `${target.position.x} ${target.position.y} ${target.position.z}`
                     if (target.name === 'air' || !bot.canDigBlock(target) || !target) continue;
                     if ((z === -2 || z === 2) && y === 0 && target) continue;
-                    log(pos, pos2, '⛏ | Digging', false)
+                    log(pos, pos2, '⛏ | Digging', true)
 
                     await bot.dig(target, true, new Vec3(-1, 0, 0))
 
                     //await bot.swingArm('right', true)
-                    log(pos, pos2, '✅ | Done', false)
+                    log(pos, pos2, '✅ | Done', true)
                     edit('mine', Number(status.mine++))
                 }
             }
