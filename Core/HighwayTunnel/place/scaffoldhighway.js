@@ -12,10 +12,10 @@ module.exports = async (bot) => {
                 pos = `${Math.round(bot.entity.position.x)} ${Math.round(bot.entity.position.y)} ${Math.round(bot.entity.position.z)}`
                 , pos2 = `${target.position.x} ${target.position.y} ${target.position.z}`
             if (target.name !== `air`) continue;
-            const airblock = bot.blockAt(target.position.offset(-1, 0, 0));
+            const airlock = bot.blockAt(target.position.offset(-1, 0, 0));
             log(pos, pos2, '⛏ | Placing', true)
             try {
-                await bot.placeBlock(airblock, new Vec3(1, 0, 0));
+                await bot.placeBlock(airlock, new Vec3(1, 0, 0));
                 log(pos, pos2, '✅ | Done', true)
                 edit('place', Number(status.place++))
             } catch (error) {

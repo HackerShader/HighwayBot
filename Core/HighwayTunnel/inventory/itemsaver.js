@@ -1,13 +1,6 @@
-const mineflayer = require('mineflayer')
-const {pi} = require("mathjs");
-
-/**
- * Giữ các item khỏi việc bị mất
- * @param {mineflayer.Bot} bot 
- */
 module.exports = (bot) => {
     let count = 0;
-    let PickaxeSlots = new Number;
+    let PickaxeSlots = 0;
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;
         if (bot.inventory.slots[i].name !== 'diamond_pickaxe') continue;

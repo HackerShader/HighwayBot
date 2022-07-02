@@ -1,5 +1,5 @@
 module.exports = async (bot) => {
-    let NetherrackSlots = new Number;
+    let NetherrackSlots = 0;
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;
         if (bot.inventory.slots[i].name !== 'netherrack') continue;

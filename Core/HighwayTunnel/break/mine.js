@@ -16,16 +16,17 @@ module.exports = async (bot) => {
                         , pos2 = `${target.position.x} ${target.position.y} ${target.position.z}`
                     if (target.name === 'air' || !bot.canDigBlock(target) || !target) continue;
                     if ((z === -2 || z === 2) && y === 0 && target) continue;
-                    log(pos, pos2, '⛏ | Digging', true)
+                    log(pos, pos2, '⛏ | Digging', false)
 
                     await bot.dig(target, true, new Vec3(-1, 0, 0))
 
                     //await bot.swingArm('right', true)
-                    log(pos, pos2, '✅ | Done', true)
+                    log(pos, pos2, '✅ | Done', false)
                     edit('mine', Number(status.mine++))
                 }
             }
         }
+        await require('../inventory/cleaner')(bot)
         const checkinfront = await require('../check/checkInFront')(bot);
         const scaffoldcheck = require('../check/scaffoldcheck')(bot);
         const lavacheck = require('../check/CheckLavaBLock')(bot);

@@ -8,20 +8,19 @@ module.exports = async (bot) => {
         for (let y = -1; y <= 4; y++) {
             for (let z = -3; z <= 3; z++) {
                 const block = bot.blockAt(bot.entity.position.offset(x, y, z))
-                    , pos = `${Math.round(bot.entity.position.x)} ${Math.round(bot.entity.position.y)} ${Math.round(bot.entity.position.z)}`
+                    ,
+                    pos = `${Math.round(bot.entity.position.x)} ${Math.round(bot.entity.position.y)} ${Math.round(bot.entity.position.z)}`
                     , pos2 = `${block.position.x} ${block.position.y} ${block.position.z}`
                 if (block.name !== `lava`) continue;
-                else {
-                    try {
-                        const lavablock = bot.blockAt(block.position.offset(-1, 0, 0))
-                        log(pos, pos2, '⛏ | Placing', true)
-                        bot.lookAt(new Vec3(block.position.x - 1, block.position.y, block.position.z + 0.5))
-                        await bot.placeBlock(lavablock, new Vec3(1, 0, 0));
-                        log(pos, pos2, '✅ | Done', true)
-                        edit('place', Number(status.place++))
-                    } catch (error) {
-                        log(pos, pos2, '🛑 | Error: ' + error, true)
-                    }
+                try {
+                    const lavablock = bot.blockAt(block.position.offset(-1, 0, 0))
+                    log(pos, pos2, '⛏ | Placing', true)
+                    bot.lookAt(new Vec3(block.position.x - 1, block.position.y, block.position.z + 0.5))
+                    await bot.placeBlock(lavablock, new Vec3(1, 0, 0));
+                    log(pos, pos2, '✅ | Done', true)
+                    edit('place', Number(status.place++))
+                } catch (error) {
+                    log(pos, pos2, '🛑 | Error: ' + error, true)
                 }
             }
         }
