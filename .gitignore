@@ -133,3 +133,6 @@ dist
 .pnp.*
 temp.js
 
+# Private config :))
+
+config/vaito.json

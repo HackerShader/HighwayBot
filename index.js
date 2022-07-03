@@ -8,14 +8,16 @@ const prefix = config.prefix;
 const inventoryViewer = require('mineflayer-web-inventory');
 const autoeat = require("mineflayer-auto-eat")
 
-console.log(`HighwayBot is starting, please wait... \nPrefix: ${prefix}\nAvailable commands: ${prefix}mine, ${prefix}infoserver, ${prefix}inventory, ${prefix}reload`);
+console.log(`HighwayBot is starting, please wait...` +
+    `\nPrefix: ${prefix}` +
+    `\nAvailable commands: ${prefix}mine, ${prefix}infoserver, ${prefix}inventory, ${prefix}reload`);
 
 function HighwayBot() {
     const bot = mineflayer.createBot({
         username: config.username,
         host: config.ip,
         port: config.port,
-        version: '1.12.2',
+        version: '1.16.5',
     });
 
     //Plugins loader
@@ -80,4 +82,4 @@ function HighwayBot() {
     });
 }
 
-HighwayBot();
+HighwayBot()
