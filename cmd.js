@@ -10,11 +10,13 @@ async function callback() {
         if (!result) return;
         const toLowerCase = result.commands.toLowerCase();
         const args = toLowerCase.split(' ');
+        const noLowerArgs = result.commands.split(' ')
         try {
             if (!toLowerCase) return callback();
             const command = require(`./cmd/${args[0]}.js`);
             if (toLowerCase === `install` || toLowerCase === `update` || toLowerCase === `runbot`) return require(`./cmd/${toLowerCase}.js`).execute();
-            await command.execute(args)
+            if (args[0] === 'config' && args[1] === 'edit') await command.execute(noLowerArgs)
+            else await command.execute(args)
             callback();
         } catch (err) {
             console.log(`\x1b[31m${args[0]}: Command not found\x1b[0m`);

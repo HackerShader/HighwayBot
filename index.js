@@ -2,7 +2,7 @@
 const mineflayer = require('mineflayer');
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer);
 const pathfinder = require('mineflayer-pathfinder').pathfinder;
-const config = require('./config.json');
+const config = require(require('./path.json').config);
 const tpsPlugin = require('mineflayer-tps')(mineflayer);
 const prefix = config.prefix;
 const inventoryViewer = require('mineflayer-web-inventory');
@@ -12,8 +12,8 @@ console.log(`HighwayBot is starting, please wait... \nPrefix: ${prefix}\nAvailab
 
 function HighwayBot() {
     const bot = mineflayer.createBot({
-        username: "highwaybot",
-        host: config.host,
+        username: config.username,
+        host: config.ip,
         port: config.port,
         version: '1.12.2',
     });
@@ -23,7 +23,7 @@ function HighwayBot() {
     bot.loadPlugin(tpsPlugin);
     bot.loadPlugin(autoeat);
     mineflayernavigate(bot);
-    inventoryViewer(bot, {port: config.invport});
+    inventoryViewer(bot, { port: config.invport });
 
     //advanced login
     bot.on('windowOpen', async (window) => {
@@ -35,7 +35,7 @@ function HighwayBot() {
         await bot.clickWindow(pin[3], 0, 0);
 
         setTimeout(() => {
-            bot.chat('/5s5m');
+            bot.chat('/2y2c');
         }, 5 * 1000);
 
         setTimeout(() => {

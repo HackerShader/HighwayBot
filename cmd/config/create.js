@@ -6,9 +6,9 @@ module.exports = (args) => {
         '    "username": "player",\n' +
         '    "password": null,\n' +
         '    "ip": "example.com",\n' +
-        '    "port": 25565,\n' +
-        '    "pin": [0, 0, 0, 0],\n' +
-        '    "invport": 8000,\n' +
+        '    "port": "25565",\n' +
+        '    "pin": "0000",\n' +
+        '    "invport": "8000",\n' +
         '    "prefix": "2w!"\n' +
         '}'
     );
@@ -19,11 +19,11 @@ module.exports = (args) => {
         '    "username": "",\n' +
         '    "password": null,\n' +
         '    "ip": "",\n' +
-        '    "port": 25565,\n' +
-        '    "pin": [0, 0, 0, 0],\n' +
-        '    "invport": 8000,\n' +
+        '    "port": "25565",\n' +
+        '    "pin": "0000",\n' +
+        '    "invport": "8000",\n' +
         '    "prefix": ""\n' +
         '}'
     );
-    console.log(`\x1b[32m[Config | Create | Done] Created empty config [${args}]. Use 'config edit ${args}' to edit this config.\x1b[0m`);
+    console.log(`\x1b[32m[Config | Create | Done] Created empty config [${args}]. Use 'config edit' to edit config.\x1b[0m`);
 };
