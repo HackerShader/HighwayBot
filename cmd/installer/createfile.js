@@ -71,7 +71,7 @@ async function CreatePackage() {
     await fs.unlinkSync('./package.json');
     await fs.renameSync('./package.json.new', './package.json');
     await console.log('\x1b[33m[Pending] Installing main dependencies...\x1b[0m');
-    await exec('npm install package.json', async (err, stdout) => {
+    await exec('npm install', async (err, stdout) => {
         if (err) return console.log(err);
         console.log(stdout);
         await console.log('\x1b[32m[Done] HighwayBot installed. Please execute again controller to start the bot [node ./cmd.js]\x1b[0m');
