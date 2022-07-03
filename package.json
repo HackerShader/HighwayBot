@@ -20,7 +20,7 @@
     "mathjs": "^10.4.3",
     "minecraft-data": "^2.221.0",
     "minecraft-protocol": "^1.34.0",
-    "mineflayer": "^4.2.0",
+    "mineflayer": "^4.3.0",
     "mineflayer-auto-eat": "^2.3.3",
     "mineflayer-navigate": "0.0.10",
     "mineflayer-pathfinder": "^1.9.1",

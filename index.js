@@ -2,11 +2,12 @@
 const mineflayer = require('mineflayer');
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer);
 const pathfinder = require('mineflayer-pathfinder').pathfinder;
-const config = require(require('./path.json').config);
+const config = require('./config.json');
 const tpsPlugin = require('mineflayer-tps')(mineflayer);
 const prefix = config.prefix;
 const inventoryViewer = require('mineflayer-web-inventory');
-const autoeat = require("mineflayer-auto-eat")
+const autoeat = require("mineflayer-auto-eat");
+const fs = require('fs-extra');
 
 console.log(`HighwayBot is starting, please wait...` +
     `\nPrefix: ${prefix}` +
@@ -14,10 +15,10 @@ console.log(`HighwayBot is starting, please wait...` +
 
 function HighwayBot() {
     const bot = mineflayer.createBot({
-        username: config.username,
+        username: 'highwaybot',
         host: config.ip,
         port: config.port,
-        version: '1.16.5',
+        version: '1.12.2',
     });
 
     //Plugins loader
@@ -25,7 +26,7 @@ function HighwayBot() {
     bot.loadPlugin(tpsPlugin);
     bot.loadPlugin(autoeat);
     mineflayernavigate(bot);
-    inventoryViewer(bot, { port: config.invport });
+    inventoryViewer(bot, {port: config.invport});
 
     //advanced login
     bot.on('windowOpen', async (window) => {
@@ -70,10 +71,12 @@ function HighwayBot() {
 
     bot.on('spawn', () => {
         console.log('Bot spawn !');
-        require('./Core/Player/Utility/autoeat')(bot);
-        require('./Core/Player/Movenment/velocity')(bot);
-        require('./Core/Player/Utility/autolog')(bot);
-
+        fs.readdirSync('./Core/Player').forEach(folder => {
+            fs.readdirSync(`./Core/Player/${folder}`).forEach(file => {
+                if (!file.endsWith('.js')) return;
+                require(`./Core/Player/${folder}/${file}`)(bot);
+            });
+        });
         console.log('Position of bot: ' + Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z));
     });
 
@@ -82,4 +85,4 @@ function HighwayBot() {
     });
 }
 
-HighwayBot()
+HighwayBot();

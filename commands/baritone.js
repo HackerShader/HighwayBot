@@ -4,7 +4,7 @@ const Vec3 = require('vec3').Vec3;
 module.exports = {
     name: 'baritone',
     execute(bot, message, args, username) {
-        console.log(args);
+
         const mcData = require('minecraft-data')(bot.version);
         const defaultMove = new Movements(bot, mcData);
         const target = bot.players[username] ? bot.players[username].entity : null;
