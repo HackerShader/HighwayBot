@@ -12,6 +12,7 @@
   "author": "HackerShader#5959",
   "license": "ISC",
   "dependencies": {
+    "ascii-table": "^0.0.9",
     "child_process": "^1.0.2",
     "edit-json-file": "^1.7.0",
     "fs-extra": "^10.1.0",

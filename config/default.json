@@ -1,2 +1,9 @@
 {
+    "username": "player",
+    "password": null,
+    "ip": "example.com",
+    "port": 25565,
+    "pin": [0, 0, 0, 0],
+    "invport": 8000,
+    "prefix": "2w!"
 }
