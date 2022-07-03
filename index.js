@@ -1,3 +1,4 @@
+//Packages
 const mineflayer = require('mineflayer');
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer);
 const pathfinder = require('mineflayer-pathfinder').pathfinder;
@@ -5,6 +6,7 @@ const config = require('./config.json');
 const tpsPlugin = require('mineflayer-tps')(mineflayer);
 const prefix = config.prefix;
 const inventoryViewer = require('mineflayer-web-inventory');
+const autoeat = require("mineflayer-auto-eat")
 
 console.log(`HighwayBot is starting, please wait... \nPrefix: ${prefix}\nAvailable commands: ${prefix}mine, ${prefix}infoserver, ${prefix}inventory, ${prefix}reload`);
 
@@ -19,6 +21,7 @@ function HighwayBot() {
     //Plugins loader
     bot.loadPlugin(pathfinder);
     bot.loadPlugin(tpsPlugin);
+    bot.loadPlugin(autoeat);
     mineflayernavigate(bot);
     inventoryViewer(bot, {port: config.invport});
 
@@ -65,15 +68,16 @@ function HighwayBot() {
 
     bot.on('spawn', () => {
         console.log('Bot spawn !');
+        require('./Core/Player/Utility/autoeat')(bot);
         require('./Core/Player/Movenment/velocity')(bot);
-        console.log('Position of bot:' + Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z));
+        require('./Core/Player/Utility/autolog')(bot);
+
+        console.log('Position of bot: ' + Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z));
     });
 
     bot.on('message', msg => {
         console.log(msg.toString());
     });
-
-
 }
 
 HighwayBot();
