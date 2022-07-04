@@ -13,6 +13,6 @@ module.exports = {
             }
             console.log(stdout);
         });*/
-        require('../index')()
+        require('../index')();
     }
 };
