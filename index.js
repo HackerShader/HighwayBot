@@ -12,7 +12,6 @@ const fs = require('fs-extra');
 console.log(`HighwayBot is starting, please wait...` +
     `\nPrefix: ${prefix}` +
     `\nAvailable commands: ${prefix}mine, ${prefix}infoserver, ${prefix}inventory, ${prefix}reload`);
-
 function HighwayBot() {
     const bot = mineflayer.createBot({
         username: 'highwaybot',
@@ -30,7 +29,7 @@ function HighwayBot() {
 
     //advanced login
     bot.on('windowOpen', async (window) => {
-        const pin = config.pin;
+        const pin = config.pin.split('');
         window.requiresConfirmation = false;
         await bot.clickWindow(pin[0], 0, 0);
         await bot.clickWindow(pin[1], 0, 0);

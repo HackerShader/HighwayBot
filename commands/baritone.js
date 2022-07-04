@@ -1,6 +1,7 @@
 const Movements = require('mineflayer-pathfinder').Movements;
 const {GoalNear} = require('mineflayer-pathfinder').goals;
 const Vec3 = require('vec3').Vec3;
+/*
 module.exports = {
     name: 'baritone',
     execute(bot, message, args, username) {
@@ -23,3 +24,4 @@ module.exports = {
         }
     }
 };
+*/
