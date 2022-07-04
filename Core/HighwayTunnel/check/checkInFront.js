@@ -1,5 +1,5 @@
 module.exports = (bot) => {
-    let checkInFront = Boolean;
+    let checkInFront = new Boolean(true);
     for (let y = 3; y >= 0; y--) {
         if (y !== 0) {
             for (let z = -2; z <= 2; z++) {

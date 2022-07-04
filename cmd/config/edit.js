@@ -24,8 +24,9 @@ module.exports = (args) => {
             if (Number.isNaN(test))
                 return console.log(`\x1b[31m[Config | Edit | Error] [${key}] key must be a number\x1b[0m`);
         }
-        value = value.toString();
         if (key === 'password' && value.toLowerCase() === 'null') value = null;
+        if (key === 'version' && !require('../../Core/Game/version.json').includes(value))
+            return console.log(`\x1b[31m[Config | Edit | Error] Invalid version (1.8 -> 1.18 only)\x1b[0m`);
         file.set(key, value);
     });
     file.save();
