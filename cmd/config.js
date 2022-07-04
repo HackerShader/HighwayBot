@@ -7,17 +7,6 @@ module.exports = {
         const info = require("../package.json");
         if (info.build === undefined) return console.log('\x1b[31m[X] HighwayBot not installed!\x1b[0m');
         if (!fs.existsSync('./config')) fs.mkdirSync('./config');
-        /* if (!fs.existsSync('./config/default.json')) fs.writeFileSync(`./config/default.json`,
-            '{\n' +
-            '    "username": "player",\n' +
-            '    "password": null,\n' +
-            '    "ip": "example.com",\n' +
-            '    "port": 25565,\n' +
-            '    "pin": [0, 0, 0, 0],\n' +
-            '    "invport": 8000,\n' +
-            '    "prefix": "2w!"\n' +
-            '}'
-        ); */
         if (!args[1]) {
             return console.log(
                 `[Config] Usage: config <config> <key>` +
