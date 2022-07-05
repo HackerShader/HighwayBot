@@ -14,7 +14,7 @@ module.exports = async (bot) => {
         try {
             await eval(`bot.equip(botInvSlots[totem_count], 'off-hand');`);
             console.log("Equipped totem");
-        } catch(e) { console.log("Equip failed") }
+        } catch(e) { console.log("Equip failed") };
     }
     function collect(player, entity) {
         let itemId = entity.metadata[entity.metadata.length-1].blockId;
@@ -28,7 +28,7 @@ module.exports = async (bot) => {
         let availableOffhand = bot.inventory.slots[45]?.name == 'totem_of_undying';
         let offhandTotem = bot.inventory.slots.filter(i=>i&&i.slot==45&&i.name=='totem_of_undying').length > 0;
 
-        if(!offhandTotem&&!availableOffhand) try { eval(`bot.unequip('off-hand');`) } catch {}
+        if(!offhandTotem&&!availableOffhand) try { eval(`bot.unequip('off-hand');`) } catch {};
         if(!offhandTotem&&hasTotem) return equipTotem();
         if(!offhandTotem&&bot.health < 8) quit('low health');
     });
