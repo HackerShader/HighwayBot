@@ -1,10 +1,12 @@
 module.exports = async (bot) => {
-    let NetherrackSlots = 0;
+    let blockSlots = 0;
+    let block = 'netherrack';
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;
-        if (bot.inventory.slots[i].name !== 'netherrack') continue;
-        NetherrackSlots = i;
+        if (bot.inventory.slots[i].name !== block) continue;
+        blockSlots = i;
     }
-    console.log(NetherrackSlots);
-    bot.equip(bot.inventory.slots[NetherrackSlots], 'hand');
+    console.log(blockSlots);
+    let hasBlock = bot.inventory.slots[blockSlots];
+    if(hasBlock) bot.equip(hasBlock, 'hand');
 };

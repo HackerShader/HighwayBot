@@ -14,5 +14,7 @@ module.exports = (bot) => {
         count += bot.inventory.slots[i].count;
     }
     console.log(PickaxeSlots);
-    bot.equip(bot.inventory.slots[PickaxeSlots], 'hand');
+    let checkPickaxe = bot.inventory.slots[PickaxeSlots];
+    if(checkPickaxe && checkPickaxe !== 0) bot.equip(checkPickaxe, 'hand');
+    else console.log('Thinking... I didn\'t have any pickaxe');
 };

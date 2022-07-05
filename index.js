@@ -15,7 +15,7 @@ console.log(`HighwayBot is starting, please wait...` +
 function HighwayBot() {
     const bot = mineflayer.createBot({
         username: 'highwaybot',
-        host: config.ip,
+        host: config.host,
         port: config.port,
         version: '1.12.2',
     });
@@ -68,7 +68,7 @@ function HighwayBot() {
         setTimeout(() => HighwayBot(), 10000);
     });
 
-    bot.on('spawn', () => {
+    bot.once('spawn', () => {
         console.log('Bot spawn !');
         fs.readdirSync('./Core/Player').forEach(folder => {
             fs.readdirSync(`./Core/Player/${folder}`).forEach(file => {

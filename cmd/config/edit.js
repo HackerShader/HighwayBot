@@ -4,7 +4,6 @@ module.exports = (args) => {
     if (!args[2]) return console.log(`[Config | Edit] Usage: config edit <filename> <key1>:<value1> <key2>:<value2>...`);
     if (!fs.existsSync(`./config/${args[2]}.json`)) return console.log(`\x1b[31m[Config | Edit | Error] Config [${args[2]}] don't exists\x1b[0m`);
     const file = require('edit-json-file')(`./config/${args[2]}.json`);
-    // đã gán giá trị ở đây nên ko xài được dòng 18
     let configName = args[2];
     let success = false;
     args.slice(3).forEach((args) => {
