@@ -5,7 +5,7 @@ module.exports = async (bot) => {
 
     bot.on('health', () => {
         console.log(`Health: ${bot.health}, Food: ${bot.food}`);
-        if (bot.health < 10) {
+        if (bot.health < 5) {
             quit();
         }
     });

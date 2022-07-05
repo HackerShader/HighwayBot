@@ -1,3 +1,9 @@
+const mineflayer = require('mineflayer')
+
+/**
+ * 
+ * @param {mineflayer.Bot} bot 
+ */
 module.exports = (bot) => {
     let count = 0;
     let PickaxeSlots = 0;

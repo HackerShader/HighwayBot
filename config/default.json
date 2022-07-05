@@ -1,7 +1,7 @@
 {
     "username": "player",
     "password": null,
-    "ip": "localhost",
+    "host": "localhost",
     "port": "25565",
     "pin": "0000",
     "invport": "8000",
