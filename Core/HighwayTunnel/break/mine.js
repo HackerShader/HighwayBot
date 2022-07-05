@@ -1,8 +1,8 @@
 let stop = Boolean;
 const Vec3 = require('vec3').Vec3;
 const config = require('./../../../config.json');
-const log = require('../../Console/log')
-const { Bot } = require('mineflayer')
+const log = require('../../Console/log');
+const {Bot} = require('mineflayer');
 
 /**
  * Dig command
@@ -19,7 +19,7 @@ module.exports = async (bot) => {
                         , pos2 = `${target.position.x} ${target.position.y} ${target.position.z}`;
                     if (target.name === 'air' || !bot.canDigBlock(target) || !target) continue;
                     if ((z === -2 || z === 2) && y === 0 && target) continue;
-                    log(target.name, pos2, 'dig', true)
+                    log(target.name, pos2, 'dig', true);
                     await bot.dig(target, true, new Vec3(-1, 0, 0));
                     //await bot.swingArm('right', true)
                     log(target.name, pos2, '✅ | Done', true);

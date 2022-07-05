@@ -29,10 +29,10 @@ module.exports = (args) => {
         if (key === 'version' && !require('../../Core/Game/version.json').includes(value))
             return console.log(`\x1b[31m[Config | Edit | Error] Invalid version (1.8 -> 1.18 only)\x1b[0m`);
         let value2 = parseInt(value);
-        if(!value2) value2 = value;
+        if (!value2) value2 = value;
         file.set(key, value2);
         file.save();
         success = true;
     });
-    if(success) console.log(`\x1b[32m[Config | Edit | Done] Edited [${args[2]}] config.\x1b[0m`);
+    if (success) console.log(`\x1b[32m[Config | Edit | Done] Edited [${args[2]}] config.\x1b[0m`);
 };

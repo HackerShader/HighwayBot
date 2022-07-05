@@ -26,8 +26,8 @@ module.exports = {
             if (args[1].toLowerCase() === 'edit') require(`./config/edit`)(args);
             else require(`./config/${args[1]}`)(args[2], args[3]);
         } catch (e) {
-            const file = fs.readdirSync('./cmd/config/')
-            if (!file.includes(args[1])) console.log(`\x1b[31m[Config | Error] ${args[1]} is not a available key\x1b[0m`)
+            const file = fs.readdirSync('./cmd/config/');
+            if (!file.includes(args[1])) console.log(`\x1b[31m[Config | Error] ${args[1]} is not a available key\x1b[0m`);
             else console.log(e.name + ': ' + e.message);
         }
     }
