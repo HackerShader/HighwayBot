@@ -28,9 +28,10 @@ module.exports = (args) => {
         if (key === 'password' && value.toLowerCase() === 'null') value = null;
         if (key === 'version' && !require('../../Core/Game/version.json').includes(value))
             return console.log(`\x1b[31m[Config | Edit | Error] Invalid version (1.8 -> 1.18 only)\x1b[0m`);
-        let value2 = parseInt(value);
-        if (!value2) value2 = value;
-        file.set(key, value2);
+        // Not need :v
+        // let value2 = parseInt(value);
+        // if (!value2) value2 = value;
+        file.set(key, value);
         file.save();
         success = true;
     });

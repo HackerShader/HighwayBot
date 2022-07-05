@@ -2,7 +2,7 @@
 const mineflayer = require('mineflayer');
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer);
 const pathfinder = require('mineflayer-pathfinder').pathfinder;
-const config = require('./config.json');
+const config = require(`./config/${require('./path.json').config}`);
 const tpsPlugin = require('mineflayer-tps')(mineflayer);
 const prefix = config.prefix;
 const inventoryViewer = require('mineflayer-web-inventory');
@@ -17,7 +17,7 @@ function HighwayBot() {
         username: 'highwaybot',
         host: config.host,
         port: config.port,
-        version: '1.12.2',
+        version: config.version,
     });
 
     //Plugins loader
@@ -25,7 +25,7 @@ function HighwayBot() {
     bot.loadPlugin(tpsPlugin);
     bot.loadPlugin(autoeat);
     mineflayernavigate(bot);
-    inventoryViewer(bot, {port: config.invport});
+    inventoryViewer(bot, { port: config.invport });
 
     //advanced login
     bot.on('windowOpen', async (window) => {
@@ -49,7 +49,7 @@ function HighwayBot() {
         if (!message.startsWith(config.prefix)) return;
         const args = message.slice(prefix.length).trim().split(' ');
         const cmd = args[0].toLowerCase();
-        if (username !== config.username) return;
+        //if (username !== config.username) return;
 
         //execute commands
         try {

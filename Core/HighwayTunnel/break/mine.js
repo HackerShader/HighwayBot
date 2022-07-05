@@ -1,8 +1,8 @@
 let stop = Boolean;
 const Vec3 = require('vec3').Vec3;
-const config = require('./../../../config.json');
+const config = require(`../../../config/${require('../../../path.json').config}`);
 const log = require('../../Console/log');
-const {Bot} = require('mineflayer');
+const { Bot } = require('mineflayer');
 
 /**
  * Dig command
@@ -22,7 +22,7 @@ module.exports = async (bot) => {
                     log(target.name, pos2, 'dig', true);
                     await bot.dig(target, true, new Vec3(-1, 0, 0));
                     //await bot.swingArm('right', true)
-                    log(target.name, pos2, '✅ | Done', true);
+                    log(target.name, pos2, 'done', true);
                 }
             }
         }
@@ -52,6 +52,6 @@ module.exports = async (bot) => {
     }
 
     stop = false;
-    bot.chat(`/msg ${config.username} | Starting Dig`);
+    //bot.chat(`/msg ${config.username} | Starting Dig`);
     await dig();
 };

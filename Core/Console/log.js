@@ -1,8 +1,8 @@
-const vec3 = require('vec3').Vec3;
+const Vec3 = require('vec3').Vec3;
 /**
  * Log progress status
- * @param {dig | place | done | String} blockName The block's name
- * @param {vec3 | String} blockPos The block's position
+ * @param {"dig" | "place" | "done" | "error" | String} blockName The block's name
+ * @param {Vec3 | String} blockPos The block's position
  * @param {String} status The status
  * @param {Boolean} clear Clear the console
  */
