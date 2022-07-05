@@ -1,9 +1,9 @@
 module.exports = async (bot) => {
-    let block = 'netherrack';
     let blockSlots = 0;
+    let block = 'netherrack';
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;
-        if (bot.inventory.slots[i].name == block) continue;
+        if (bot.inventory.slots[i].name !== block) continue;
         blockSlots = i;
     }
     console.log(blockSlots);
