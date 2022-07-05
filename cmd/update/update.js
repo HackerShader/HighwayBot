@@ -3,7 +3,7 @@ const exec = require('child_process').exec;
 const editJsonFile = require('edit-json-file');
 const info = require('./../../package.json');
 
-async function Update() {
+(async() => {
     if (info.version === undefined && info.build === undefined) return console.log('\x1b[31m[X] HighwayBot not installed, Please launch the bot again [node ./cmd.js | ./start.bat]\x1b[0m');
     await console.log('\x1b[33m[Update | Pending] Starting update...\x1b[0m');
     await exec('git clone https://github.com/HackerShader/HighwayBot', async (err) => {
@@ -22,6 +22,4 @@ async function Update() {
             edit.save();
         });
     });
-}
-
-Update();
+})

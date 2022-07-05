@@ -10,13 +10,14 @@ config.json
 package-lock.json
 .idea
 .vscode
-Core/console/status.json
+
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Runtime data
 pids
+
 *.pid
 *.seed
 *.pid.lock
@@ -133,6 +134,7 @@ dist
 .pnp.*
 temp.js
 
-# Private config :))
-
-config/vaito.json
+# Ignore some json file
+Core/console/status.json
+commandconfig.json
+config/
