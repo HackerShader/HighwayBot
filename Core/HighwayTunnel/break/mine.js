@@ -2,7 +2,7 @@ let stop = Boolean;
 const Vec3 = require('vec3').Vec3;
 const config = require(`../../../config/${require('../../../path.json').config}`);
 const log = require('../../Console/log');
-const { Bot } = require('mineflayer');
+const {Bot} = require('mineflayer');
 
 /**
  * Dig command

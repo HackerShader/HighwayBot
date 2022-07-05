@@ -137,4 +137,4 @@ temp.js
 # Ignore some json file
 Core/console/status.json
 commandconfig.json
-config/
+/config/

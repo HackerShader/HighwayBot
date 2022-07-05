@@ -1,9 +1,9 @@
-const mineflayer = require('mineflayer')
+const mineflayer = require('mineflayer');
 
 /**
- * 
- * @param {mineflayer.Bot} bot 
- * @returns 
+ *
+ * @param {mineflayer.Bot} bot
+ * @returns
  */
 module.exports = async (bot) => {
     let count = 0;

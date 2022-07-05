@@ -1,4 +1,4 @@
-const Vec3 = require('vec3').Vec3
+const Vec3 = require('vec3').Vec3;
 const log = require('../../Console/log');
 
 module.exports = async (bot) => {

@@ -1,8 +1,8 @@
 {
-    "username": "player",
+    "username": "HighwayBot",
     "password": null,
     "host": "localhost",
-    "port": "25565",
+    "port": 36433,
     "pin": "0000",
     "invport": "8000",
     "prefix": "2w!",

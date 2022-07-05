@@ -1,8 +1,8 @@
-const mineflayer = require('mineflayer')
+const mineflayer = require('mineflayer');
 
 /**
- * 
- * @param {mineflayer.Bot} bot 
+ *
+ * @param {mineflayer.Bot} bot
  */
 module.exports = (bot) => {
     let count = 0;
@@ -21,6 +21,6 @@ module.exports = (bot) => {
     }
     console.log(PickaxeSlots);
     let checkPickaxe = bot.inventory.slots[PickaxeSlots];
-    if(checkPickaxe && checkPickaxe !== 0) bot.equip(checkPickaxe, 'hand');
+    if (checkPickaxe && checkPickaxe !== 0) bot.equip(checkPickaxe, 'hand');
     else console.log('Thinking... I didn\'t have any pickaxe');
 };
