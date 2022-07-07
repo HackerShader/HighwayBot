@@ -3,7 +3,7 @@ module.exports = {
     description: "HighwayBot information",
     execute() {
         const info = require("../package.json");
-        if (info.build === undefined) return console.log("\x1b[31m[X] HighwayBot not installed!\x1b1m");
+        if (info.build === undefined) return console.log("\x1b[31m[X] HighwayBot not installed!\x1b1");
         console.log(
             '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + ` | HighwayBot ${info.version}` +
             '\n@@@@@@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@@@@@@' + ` | Build: ${info.build}` +

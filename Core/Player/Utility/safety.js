@@ -51,4 +51,5 @@ module.exports = async (bot) => {
     // No more crystal
     bot.on('spawn', () => checkCrystal());
     bot.on('move', () => checkCrystal());
+
 };

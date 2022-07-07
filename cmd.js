@@ -8,8 +8,8 @@ async function callback() {
     prompt.start();
     prompt.get('commands', async function (err, result) {
         if (!result) return;
-        const toLowerCase = result.commands.toLowerCase();
-        const args = toLowerCase.split(' ');
+        const toLowerCase = result.commands.trim().toLowerCase();
+        const args = toLowerCase.split(' ')
         const noLowerArgs = result.commands.split(' ');
         try {
             if (!toLowerCase) return callback();
