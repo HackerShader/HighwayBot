@@ -32,8 +32,8 @@ async function CreatePackage() {
     console.log('\x1b[33m[Pending] Creating package.json...\x1b[0m');
     fs.writeFileSync('./package.json.new', '{\n' +
         '  "name": "highwaybot",\n' +
-        '  "version": "Pre-Release",\n' +
-        '  "build": "062922",\n' +
+        '  "version": "Pre-build Development",\n' +
+        '  "build": "",\n' +
         '  "description": "A different way to digging and building Highway Nether in every Anarchy server!",\n' +
         '  "main": "index.js",\n' +
         '  "scripts": {\n' +
@@ -44,20 +44,18 @@ async function CreatePackage() {
         '  "author": "HackerShader#5959",\n' +
         '  "license": "ISC",\n' +
         '  "dependencies": {\n' +
+        '    "ascii-table": "^0.0.9",\n' +
         '    "child_process": "^1.0.2",\n' +
-        '    "discord.js": "^12.5.3",\n' +
         '    "edit-json-file": "^1.7.0",\n' +
         '    "fs-extra": "^10.1.0",\n' +
         '    "linebyline": "^1.3.0",\n' +
         '    "mathjs": "^10.4.3",\n' +
-        '    "minecraft-data": "^2.86.0",\n' +
+        '    "minecraft-data": "^3.5.1",\n' +
         '    "minecraft-protocol": "^1.34.0",\n' +
-        '    "minecraft-server-util": "^5.2.9",\n' +
-        '    "mineflayer": "^4.2.0",\n' +
-        '    "mineflayer-autocrystal": "^0.7.0",\n' +
+        '    "mineflayer": "^4.3.0",\n' +
+        '    "mineflayer-auto-eat": "^2.3.3",\n' +
         '    "mineflayer-navigate": "0.0.10",\n' +
-        '    "mineflayer-pathfinder": "^1.9.1",\n' +
-        '    "mineflayer-tool": "^1.1.0",\n' +
+        '    "mineflayer-pathfinder": "^2.2.0",\n' +
         '    "mineflayer-tps": "^1.0.1",\n' +
         '    "mineflayer-web-inventory": "^1.7.1",\n' +
         '    "prismarine-viewer": "^1.22.0",\n' +
