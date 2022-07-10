@@ -23,7 +23,7 @@
     "mineflayer": "^4.3.0",
     "mineflayer-auto-eat": "^2.3.3",
     "mineflayer-navigate": "0.0.10",
-    "mineflayer-pathfinder": "^1.9.1",
+    "mineflayer-pathfinder": "^2.2.0",
     "mineflayer-tps": "^1.0.1",
     "mineflayer-web-inventory": "^1.7.1",
     "prismarine-viewer": "^1.22.0",
