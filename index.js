@@ -12,6 +12,7 @@ const fs = require('fs-extra');
 console.log(`HighwayBot is starting, please wait...` +
     `\nPrefix: ${prefix}` +
     `\nAvailable commands: ${prefix}mine, ${prefix}infoserver, ${prefix}inventory, ${prefix}reload`);
+
 function HighwayBot() {
     const bot = mineflayer.createBot({
         username: 'highwaybot',
@@ -25,7 +26,7 @@ function HighwayBot() {
     bot.loadPlugin(tpsPlugin);
     bot.loadPlugin(autoeat);
     mineflayernavigate(bot);
-    inventoryViewer(bot, { port: config.invport });
+    inventoryViewer(bot, {port: config.invport});
 
     bot.on('chat', (username, message) => {
         if (!message.startsWith(config.prefix)) return;

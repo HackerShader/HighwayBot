@@ -1,15 +1,14 @@
 let stop = Boolean;
 const Vec3 = require('vec3').Vec3;
-//const config = require(`../../../config/${require('../../../path.json').config}`);
+const config = require(`../../../config/${require('../../../path.json').config}`);
 const log = require('../../Console/log');
-const {Bot} = require('mineflayer');
+const data = require('../../console/status.json');
 
-/**
- * Dig command
- * @param {Bot} bot Mineflayer bot
- */
 module.exports = async (bot) => {
     async function dig() {
+        await require('../inventory/itemsaver')(bot);
+        let sum = 0;
+        let blockcount = await require('../check/minecalc')(bot);
         if (stop === true) return;
         for (let x = -3; x <= 2; x++) {
             for (let y = 3; y >= 0; y--) {
@@ -18,10 +17,12 @@ module.exports = async (bot) => {
                         , pos = `${target.position.x} ${target.position.y} ${target.position.z}`;
                     if (target.name === 'air' || !bot.canDigBlock(target) || !target) continue;
                     if ((z === -2 || z === 2) && y === 0 && target) continue;
-                    log(target.name, pos, 'dig', true);
-                    await bot.dig(target, true, new Vec3(-1, 0, 0));
-                    //await bot.swingArm('right', true)
-                    log(target.name, pos, 'done', true);
+                    let Progress_dig = sum++;
+                    const Blockpercentage = Number(100 / Number(blockcount));
+                    log(target.name, pos, 'dig', true, Number(Progress_dig * Blockpercentage).toFixed(3));
+                    await bot.dig(target, false, new Vec3(-1, 0, 0));
+                    data.mine++;
+                    log(target.name, pos, 'done', true, Number(100));
                 }
             }
         }
@@ -44,13 +45,12 @@ module.exports = async (bot) => {
             return;
         }
         setTimeout(async () => {
-            await require('../inventory/itemsaver')(bot);
             await dig();
             bot.navigate.to(bot.entity.position.offset(1, 0, 0));
         }, 600);
     }
 
     stop = false;
-    //bot.chat(`/msg ${config.username} | Starting Dig`);
+    bot.chat(`/msg ${config.username} | Starting Dig`);
     await dig();
 };

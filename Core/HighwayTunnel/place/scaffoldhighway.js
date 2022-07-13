@@ -1,5 +1,6 @@
 const Vec3 = require('vec3').Vec3;
 const log = require('../../Console/log');
+const data = require('../../console/status.json');
 
 module.exports = async (bot) => {
     for (let y = -1; y <= 0; y++) {
@@ -12,6 +13,7 @@ module.exports = async (bot) => {
             log(target.name, pos, 'place', true);
             try {
                 await bot.placeBlock(airlock, new Vec3(1, 0, 0));
+                data.place++;
                 log(target.name, pos, 'done', true);
             } catch (error) {
             }

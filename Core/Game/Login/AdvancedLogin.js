@@ -16,4 +16,4 @@ module.exports = (bot) => {
             bot.clickWindow(13, 0, 0);
         }, 6 * 1000);
     });
-}
+};

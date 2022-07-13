@@ -13,7 +13,8 @@ module.exports = async (bot) => {
             totem_count = i;
         }
         try {
-            await eval(`bot.equip(botInvSlots[totem_count], 'off-hand');`);
+            //risky, but it works
+            await bot.equip(botInvSlots[totem_count], 'off-hand');
             console.log("Equipped totem");
         } catch (e) {
             console.log("Equip failed");
@@ -28,7 +29,7 @@ module.exports = async (bot) => {
         let offhandTotem = bot.inventory.slots.filter(i => i && i.slot === 45 && i.name === 'totem_of_undying').length > 0;
 
         if (!offhandTotem && !availableOffhand) try {
-            eval(`bot.unequip('off-hand');`);
+            bot.unequip('off-hand');
         } catch {
         }
         if (!offhandTotem && hasTotem) return equipTotem();

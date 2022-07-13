@@ -1,8 +1,7 @@
-
-/*
 const Vec3 = require('vec3').Vec3;
 
 module.exports = async (bot) => {
+    /*
     let invslots = 0;
     let item = 'end_crystal';
     for (let i = 0; i < bot.inventory.slots.length; i++) {
@@ -33,5 +32,6 @@ module.exports = async (bot) => {
             }
         })
     }, 50);
-}
-*/
+
+     */
+};
