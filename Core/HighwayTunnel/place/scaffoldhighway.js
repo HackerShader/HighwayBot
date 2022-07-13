@@ -14,7 +14,7 @@ module.exports = async (bot) => {
             try {
                 await bot.placeBlock(airlock, new Vec3(1, 0, 0));
                 data.place++;
-                log(target.name, pos, 'done', true);
+                log(target.name, pos, 'done', true, '100');
             } catch (error) {
             }
         }
