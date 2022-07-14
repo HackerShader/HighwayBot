@@ -10,7 +10,7 @@ const autoeat = require("mineflayer-auto-eat");
 const fs = require('fs-extra');
 
 console.log(`[HighwayBot] Launching...` +
-    `\n             Version: ${require('./package.json').version}` +
+    `\n             Version: ${require('./package.json').version} ${require('./package.json').build}` +
     `\n             Prefix: ${prefix}` +
     `\n             server: ${config.ip}:${config.port}` +
     `\n             Owner: ${config.username}` +
