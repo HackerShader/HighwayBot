@@ -6,6 +6,7 @@ module.exports = (args) => {
     const file = require('edit-json-file')(`./config/${args[2]}.json`);
     let configName = args[2];
     let success = false;
+    //Improve Object editing
     args.slice(3).forEach((args) => {
         let key, value, i = 0;
         args.split('').forEach((c) => {

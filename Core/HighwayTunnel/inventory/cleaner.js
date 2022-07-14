@@ -7,11 +7,15 @@ const mineflayer = require('mineflayer');
  */
 module.exports = async (bot) => {
     let count = 0;
+
+    //count netherrack
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;
         if (bot.inventory.slots[i].name !== `netherrack`) continue;
         count += bot.inventory.slots[i].count;
     }
+
+    //drop netherrack
     if (count <= 512) return;
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;

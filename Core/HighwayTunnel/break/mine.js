@@ -1,15 +1,14 @@
-let stop = Boolean;
 const Vec3 = require('vec3').Vec3;
-const config = require(`../../../config/${require('../../../path.json').config}`);
 const log = require('../../Console/log');
-const data = require('../../console/status.json');
+const data = require('../../data/status.json');
 
 module.exports = async (bot) => {
     async function dig() {
+        delete require.cache[require.resolve('../../data/status.json')];
+        if (require('../../data/status.json').stop === true) return;
         await require('../inventory/itemsaver')(bot);
         let sum = 0;
         let blockcount = await require('../check/minecalc')(bot);
-        if (stop === true) return;
         for (let x = -3; x <= 2; x++) {
             for (let y = 3; y >= 0; y--) {
                 for (let z = -2; z <= 2; z++) {
@@ -50,7 +49,5 @@ module.exports = async (bot) => {
         }, 600);
     }
 
-    stop = false;
-    bot.chat(`/msg ${config.username} | Starting Dig`);
     await dig();
 };

@@ -1,27 +1,25 @@
-const Movements = require('mineflayer-pathfinder').Movements;
-const {GoalNear} = require('mineflayer-pathfinder').goals;
-const Vec3 = require('vec3').Vec3;
-/*
+const config = require(`../config/${require('../path.json').config}`);
+const fs = require('fs-extra');
 module.exports = {
     name: 'baritone',
-    execute(bot, message, args, username) {
-
-        const mcData = require('minecraft-data')(bot.version);
-        const defaultMove = new Movements(bot, mcData);
-        const target = bot.players[username] ? bot.players[username].entity : null;
-        if (args[1] === `goto`) {
-            bot.pathfinder.setMovements(defaultMove);
-            bot.pathfinder.setGoal(new GoalNear(args[2], args[3], args[4], 1));
-            bot.chat(`/msg HackerShader Goto Coord: ${args[2]}, ${args[3]}, ${args[4]}`);
-        } else if (args[1] === `follow`) {
-            if (!target) return bot.chat('I don\'t see you !');
-            const p = target.position;
-            bot.chat(`/msg ${username} I see you, Coord: ${(p.x).toFixed(0)}, ${(p.y).toFixed(0)}, ${(p.z).toFixed(0)}`);
-            bot.pathfinder.setMovements(defaultMove);
-            bot.pathfinder.setGoal(new GoalNear(p.x, p.y, p.z, 1));
-            const positionrolate = new Vec3(p.x, p.y, p.z);
-            bot.lookAt(positionrolate);
+    execute(bot, args, username) {
+        let BaritoneCommands = '';
+        if (!args[1]) {
+            fs.readdirSync('./Core/Baritone/').forEach(file => {
+                if (file.endsWith('.js')) {
+                    let Baritonefile = file.split('.')[0];
+                    BaritoneCommands += `${Baritonefile}, `;
+                }
+            });
+            bot.chat(`/msg ${config.username} [Baritone] Commands: ${BaritoneCommands}`);
+            return;
+        }
+        try {
+            require(`./../Core/Baritone/${args[1]}`)(bot, args, username);
+        } catch (err) {
+            if (err.code === 'MODULE_NOT_FOUND') {
+                bot.chat(`/msg ${config.username} [Baritone] | Error: ${args[1]} is not a valid command`);
+            } else bot.chat(`/msg ${config.username} [Baritone] | Error: ${err}`);
         }
     }
 };
-*/

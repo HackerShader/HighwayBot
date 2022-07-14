@@ -7,22 +7,30 @@ const editJsonFile = require("edit-json-file");
 module.exports = (bot) => {
     let count = 0;
     let PickaxeSlots = 0;
-    const edit = editJsonFile('./Core/console/status.json');
+    const edit = editJsonFile('./Core/data/status.json');
+    edit.set('PickaxeBroken', []);
+    edit.save();
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;
         if (bot.inventory.slots[i].name !== 'diamond_pickaxe') continue;
         if (bot.inventory.slots[i].durabilityUsed >= 1400) {
-            edit.set(`PickaxeBroken${i.toString()}`, {
-                slot: PickaxeSlots,
+            edit.append(`PickaxeBroken`, {
+                slot: i.toString(),
                 durability: bot.inventory.slots[i].durabilityUsed
             });
             edit.save();
+
+            //require('../../data/status.json')(i.toString(), bot.inventory.slots[i].durabilityUsed.toString(), true)
             continue;
         }
 
+        // show current pickaxe durability
+        // show broken pickaxe durability
+
         PickaxeSlots = i;
         count += bot.inventory.slots[i].count;
-        edit.set(`Pickaxe${count()}`, {
+        //pick current pickaxe durability save json 
+        edit.set(`Pickaxe${count}`, {
             slot: count,
             durability: bot.inventory.slots[i].durabilityUsed
         });

@@ -15,15 +15,12 @@ module.exports = async (bot) => {
         try {
             //risky, but it works
             await bot.equip(botInvSlots[totem_count], 'off-hand');
-            console.log("Equipped totem");
-        } catch (e) {
-            console.log("Equip failed");
+        } catch {
         }
     }
 
     bot.on('health', () => {
         if (bot.health < 10) return quit('low health');
-        console.log(`Health: ${bot.health}, Food: ${bot.food}`);
         let hasTotem = bot.inventory.slots.filter(item => item?.name === 'totem_of_undying').length > 0;
         let availableOffhand = bot.inventory.slots[45]?.name === 'totem_of_undying';
         let offhandTotem = bot.inventory.slots.filter(i => i && i.slot === 45 && i.name === 'totem_of_undying').length > 0;

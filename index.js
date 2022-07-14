@@ -9,9 +9,14 @@ const inventoryViewer = require('mineflayer-web-inventory');
 const autoeat = require("mineflayer-auto-eat");
 const fs = require('fs-extra');
 
-console.log(`HighwayBot is starting, please wait...` +
-    `\nPrefix: ${prefix}` +
-    `\nAvailable commands: ${prefix}mine, ${prefix}infoserver, ${prefix}inventory, ${prefix}reload`);
+console.log(`[HighwayBot] Launching...` +
+    `\n             Version: ${require('./package.json').version}` +
+    `\n             Prefix: ${prefix}` +
+    `\n             server: ${config.ip}:${config.port}` +
+    `\n             Owner: ${config.username}` +
+    `\n             Bot username: highwaybot` +
+    `\n             Inventory: http://localhost:${config.invport}`
+    )
 
 function HighwayBot() {
     const bot = mineflayer.createBot({
@@ -37,7 +42,7 @@ function HighwayBot() {
         //execute commands
         try {
             const command = require(`./commands/${cmd}.js`);
-            command.execute(bot, message, args, username);
+            command.execute(bot, args, username);
         } catch (err) {
             console.log(err);
         }
