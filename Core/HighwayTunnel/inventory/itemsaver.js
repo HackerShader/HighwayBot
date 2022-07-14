@@ -13,7 +13,7 @@ module.exports = (bot) => {
     for (let i = 0; i < bot.inventory.slots.length; i++) {
         if (!bot.inventory.slots[i]) continue;
         if (bot.inventory.slots[i].name !== 'diamond_pickaxe') continue;
-        if (bot.inventory.slots[i].durabilityUsed >= 1400) {
+        if (bot.inventory.slots[i].durabilityUsed >= 150) {
             edit.append(`PickaxeBroken`, {
                 slot: i.toString(),
                 durability: bot.inventory.slots[i].durabilityUsed
@@ -24,12 +24,8 @@ module.exports = (bot) => {
             continue;
         }
 
-        // show current pickaxe durability
-        // show broken pickaxe durability
-
         PickaxeSlots = i;
         count += bot.inventory.slots[i].count;
-        //pick current pickaxe durability save json 
         edit.set(`Pickaxe${count}`, {
             slot: count,
             durability: bot.inventory.slots[i].durabilityUsed

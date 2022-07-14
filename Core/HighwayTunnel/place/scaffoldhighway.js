@@ -1,6 +1,7 @@
 const Vec3 = require('vec3').Vec3;
 const log = require('../../Console/log');
 const file = require('../../data/status.json');
+const editJsonFile = require('edit-json-file');
 
 module.exports = async (bot) => {
     for (let y = -1; y <= 0; y++) {
@@ -13,7 +14,9 @@ module.exports = async (bot) => {
             log(target.name, pos, 'place', true);
             try {
                 await bot.placeBlock(airlock, new Vec3(1, 0, 0));
-                file.place++;
+                const data = editJsonFile('Core/data/status.json');
+                data.set('place', (file.place++).toString());
+                data.save();
                 log(target.name, pos, 'done', true, '100');
             } catch (error) {
             }
