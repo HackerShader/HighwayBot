@@ -1,33 +1,28 @@
 const fs = require('fs-extra');
+const color = require('../../Core/Console/colorcode')
 
 module.exports = (args) => {
-    if (!args || !fs.existsSync('./config/default.json')) {
-        fs.writeFileSync(`./config/default.json`,
-            '{\n' +
-            '    "username": "player",\n' +
-            '    "password": null,\n' +
-            '    "ip": "localhost",\n' +
-            '    "port": 25565,\n' +
-            '    "pin": "0000",\n' +
-            '    "invport": 8000,\n' +
-            '    "prefix": "2w!"\n' +
-            '}'
-        );
-        console.log(`\x1b[32m[Config | Create | Done] Created empty config [default].\x1b[0m`);
+    let configName
+    if (!args[2] && !fs.existsSync('./config/default.json')) {
+        configName = 'default'
     } else {
-        if (!args && fs.existsSync('./config/default')) return console.log(`[Config | Create] Usage: config create <filename>`);
-        if (fs.existsSync(`./config/${args}.json`)) return console.log(`\x1b[31m[Config | Create | Error] Config [${args}] already exists\x1b[0m`);
-        fs.writeFileSync(`./config/${args}.json`,
-            '{\n' +
-            '    "username": "player",\n' +
-            '    "password": null,\n' +
-            '    "ip": "",\n' +
-            '    "port": "25565",\n' +
-            '    "pin": "0000",\n' +
-            '    "invport": "8000",\n' +
-            '    "prefix": ""\n' +
-            '}'
-        );
-        console.log(`\x1b[32m[Config | Create | Done] Created empty config [${args}]. Use 'config edit' to edit config.\x1b[0m`);
+        if (!args[2] || args[2] == undefined && fs.existsSync('./config/default'))
+            return console.log(color.code.blue, `[Config | Create] Usage: config create <filename>`);
+        if (fs.existsSync(`./config/${args[2]}.json`))
+            return console.log(color.code.red, `[Config | Create | Error] Config [${args[2]}] already exists.`);
+        configName = args[2]
     }
+    fs.writeFileSync(`./config/${configName}.json`,
+        '{\n' +
+        '    "username": "player",\n' +
+        '    "password": null,\n' +
+        '    "ip": "",\n' +
+        '    "port": "25565",\n' +
+        '    "pin": "0000",\n' +
+        '    "invport": "8000",\n' +
+        '    "prefix": ""\n' +
+        '}'
+    );
+    console.log(color.code.green, `[Config | Create | Done] Created empty config [${configName}].`);
+    console.log(color.code.blue, `[Config | Create] Use 'config edit' to edit config`)
 };

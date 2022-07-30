@@ -1,8 +1,11 @@
 const fs = require('fs-extra');
+const color = require('../../Core/Console/colorcode')
 
 module.exports = (args) => {
-    if (!args) return console.log(`[Config | Delete] Usage: config delete <filename>`);
-    if (!fs.existsSync(`./config/${args}.json`)) return console.log(`\x1b[31m[Config | Delete | Error] Config [${args}] does not exist\x1b[0m`);
-    fs.removeSync(`./config/${args}.json`);
-    return console.log(`\x1b[32m[Config | Delete | Done] Config [${args}] deleted\x1b[0m`);
+    if (!args[2]) 
+        return console.log(color.code.blue, `[Config | Delete] Usage: config delete <filename>`);
+    if (!fs.existsSync(`./config/${args[2]}.json`)) 
+        return console.log(color.code.red, `[Config | Delete | Error] Config [${args[2]}] does not exist.`);
+    fs.removeSync(`./config/${args[2]}.json`);
+    return console.log(color.code.green, `[Config | Delete | Done] Config [${args[2]}] deleted`);
 };

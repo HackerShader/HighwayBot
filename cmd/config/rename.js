@@ -1,9 +1,13 @@
 const fs = require('fs-extra');
+const color = require('../../Core/Console/colorcode')
 
-module.exports = (args, args2) => {
-    if (!args || !args2) return console.log(`[Config | Rename] Usage: config rename <filename> <newname>`);
-    if (!fs.existsSync(`./config/${args}.json`)) return console.log(`\x1b[31m[Config | Rename | Error] Config [${args}] does not exist\x1b[0m`);
-    if (fs.existsSync(`./config/${args2}.json`)) return console.log(`\x1b[31m[Config | Rename | Error] Config [${args2}] already existed\x1b[0m`);
-    fs.renameSync(`./config/${args}.json`, `./config/${args2}.json`);
-    return console.log(`\x1b[32m[Config | Rename | Done] Config [${args}] renamed to [${args2}]\x1b[0m`);
+module.exports = (args) => {
+    if (!args[2] || !args[3]) 
+        return console.log(color.code.blue, `[Config | Clone] Usage: config rename <filename> <newfilename>`);
+    if (!fs.existsSync(`./config/${args[2]}.json`)) 
+        return console.log(color.code.red, `[Config | Clone | Error] Config [${args[2]}] does not exist.`);
+    if (fs.existsSync(`./config/${args[3]}.json`)) 
+        return console.log(color.code.red, `[Config | Clone | Error] Config [${args[3]}] already exists.`);
+    fs.renameSync(`./config/${args[2]}.json`, `./config/${args[3]}.json`);
+    return console.log(color.code.green, `[Config | Rename | Done] Config [${args[2]}] renamed to [${args[3]}]`);
 };

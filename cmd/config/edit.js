@@ -1,11 +1,14 @@
 const fs = require('fs-extra');
+const color = require('../../Core/Console/colorcode')
 
 module.exports = (args) => {
-    if (!args[2]) return console.log(`[Config | Edit] Usage: config edit <filename> <key1>:<value1> <key2>:<value2>...`);
-    if (!fs.existsSync(`./config/${args[2]}.json`)) return console.log(`\x1b[31m[Config | Edit | Error] Config [${args[2]}] don't exists\x1b[0m`);
+    if (!args[2])
+        return console.log(color.code.blue, `[Config | Edit] Usage: config edit <filename> <key1>:<value1> <key2>:<value2>...`);
+    if (!fs.existsSync(`./config/${args[2]}.json`))
+        return console.log(color.code.red, `[Config | Edit | Error] Config [${args[2]}] don't exists.`);
     const file = require('edit-json-file')(`./config/${args[2]}.json`);
     let configName = args[2];
-    let success = false;
+    let success = [];
     //Improve Object editing
     args.slice(3).forEach((args) => {
         let key, value, i = 0;
@@ -16,7 +19,7 @@ module.exports = (args) => {
             } else i++;
         });
         if (!Object.keys(require(`../../config/${configName}.json`)).includes(key))
-            return console.log(`\x1b[31m[Config | Edit | Error] Key [${key}] don't exists\x1b[0m`);
+            return console.log(color.code.red, `[Config | Edit | Error] Key [${key}] don't exist.`);
         let number = [
             'port',
             'pin',
@@ -24,17 +27,20 @@ module.exports = (args) => {
         ];
         if (number.indexOf(key) > -1) {
             if (isNaN(value))
-                return console.log(`\x1b[31m[Config | Edit | Error] [${key}] key must be a number\x1b[0m`);
+                return console.log(color.code.red, `[Config | Edit | Error] [${key}] key must be a number`);
         }
         if (key === 'password' && value.toLowerCase() === 'null') value = null;
-        if (key === 'version' && !require('../../Core/Game/version.json').includes(value))
-            return console.log(`\x1b[31m[Config | Edit | Error] Invalid version (1.8 -> 1.18 only)\x1b[0m`);
+        if (key === 'version' && !require('../../Core/Game/Versions/versions.json').includes(value))
+            return console.log(color.code.red, `[Config | Edit | Error] Invalid version (1.8 -> 1.18 only)`);
         // Not need :v
         // let value2 = parseInt(value);
         // if (!value2) value2 = value;
         file.set(key, value);
         file.save();
-        success = true;
+        success.push(key)
     });
-    if (success) console.log(`\x1b[32m[Config | Edit | Done] Edited [${args[2]}] config.\x1b[0m`);
+    if (success.length != 0) {
+        console.log(color.code.green, `[Config | Edit | Done] Edited [${args[2]}] config.`)
+        console.log(color.code.blue, `Edited things:\n>  ${success.join('\n>  ')}`);
+    }
 };

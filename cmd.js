@@ -1,5 +1,7 @@
 const fs = require('fs');
 const exec = require('child_process').exec;
+let cmds = []
+require('./util/handler')(cmds)
 
 console.log(`-----Welcome to HighwayBot controller-----\n`);
 
@@ -11,15 +13,26 @@ async function callback() {
         const toLowerCase = result.commands.trim().toLowerCase();
         const args = toLowerCase.split(' ');
         const noLowerArgs = result.commands.split(' ');
+        const command = await cmds.find(cmd => cmd.name == args[0])
+            || await cmds.find(
+                cmd =>
+                    cmd.aliases != null && Array.isArray(cmd.aliases)
+                        ? cmd.aliases.includes(args[0])
+                        : false
+            )
         try {
             if (!toLowerCase) return callback();
-            const command = require(`./cmd/${args[0]}.js`);
-            if (toLowerCase === `install` || toLowerCase === `update` || toLowerCase === `runbot`) return require(`./cmd/${toLowerCase}.js`).execute();
-            if (args[0] === 'config' && args[1] === 'edit') await command.execute(noLowerArgs);
+            if (toLowerCase === `install`
+                || toLowerCase === `update`
+                || toLowerCase === `runbot`) return require(`./cmd/${toLowerCase}.js`).execute();
+            else if (command.name == 'config' && args[1] == 'edit'
+                || command.name == 'err') await command.execute(noLowerArgs);
+            else if (command.name == 'help') await command.execute(args, cmds)
             else await command.execute(args);
             callback();
-        } catch (err) {
-            console.log(`\x1b[31m${args[0]}: Command not found\x1b[0m`);
+        } catch (e) {
+            if (!command) console.log(`\x1b[31m%s\x1b[0m`, `[CMD | Error] [${args[0]}] is not a available command`);
+            else console.log(e.name + ': ' + e.message);
             callback();
         }
     });
