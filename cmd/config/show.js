@@ -1,12 +1,12 @@
 const fs = require('fs-extra');
 const ascii = require('ascii-table');
-const color = require('../../Core/Console/colorcode')
+const color = require('../../Core/Console/colorcode');
 
 module.exports = (args) => {
     const table = new ascii().setHeading('Keys', 'Values');
-    if (!args[2]) 
+    if (!args[2])
         return console.log(color.code.blue, `[Config | Show] Usage: config show <filename>`);
-    if (!fs.existsSync(`./config/${args[2]}.json`)) 
+    if (!fs.existsSync(`./config/${args[2]}.json`))
         return console.log(color.code.red, `[Config | Clone | Error] Config [${args[2]}] does not exist.`);
     const file = require(`../../config/${args[2]}.json`);
 
@@ -15,7 +15,7 @@ module.exports = (args) => {
     /**
      *
      * @param {Object} object
-     * @param {String} key1 
+     * @param {String} key1
      */
     function objectShow(object, key1) {
         let str = '';
@@ -25,7 +25,7 @@ module.exports = (args) => {
             else value = null;
             if (typeof value == 'object' && value != null) str = str + objectShow(value, key);
             else {
-                if (key1) str = str + key1 + '.' + key + ': ' + value + '\n'
+                if (key1) str = str + key1 + '.' + key + ': ' + value + '\n';
                 else str = str + key + ': ' + value + '\n';
             }
         });
@@ -40,8 +40,8 @@ module.exports = (args) => {
                 value = args.split('').splice(i + 1).join('');
             } else i++;
         });
-        if (key != '' && value != '') table.addRow(key, value)
-    })
+        if (key !== '' && value !== '') table.addRow(key, value);
+    });
 
-    console.log(table.toString())
+    console.log(table.toString());
 };

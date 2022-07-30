@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const color = require('../../Core/Console/colorcode')
+const color = require('../../Core/Console/colorcode');
 
 module.exports = (args) => {
     if (!args[2])
@@ -37,10 +37,10 @@ module.exports = (args) => {
         // if (!value2) value2 = value;
         file.set(key, value);
         file.save();
-        success.push(key)
+        success.push(key);
     });
-    if (success.length != 0) {
-        console.log(color.code.green, `[Config | Edit | Done] Edited [${args[2]}] config.`)
+    if (success.length !== 0) {
+        console.log(color.code.green, `[Config | Edit | Done] Edited [${args[2]}] config.`);
         console.log(color.code.blue, `Edited things:\n>  ${success.join('\n>  ')}`);
     }
 };

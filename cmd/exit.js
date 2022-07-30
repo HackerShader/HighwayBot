@@ -3,7 +3,7 @@ module.exports = {
     description: "Close the HighwayBot command line interface.",
     aliases: ['close'],
     execute() {
-        console.log('\x1b[33mClosed HighwayBot command line interface.\x1b[0m');
+        console.log('\x1b[33m[HighwayBot] Closed\x1b[0m');
         process.exit(0);
     }
 };

@@ -5,14 +5,14 @@ console.log('\n------[Installation log]------');
 console.log('\x1b[33m[Pending] Creating directory...\x1b[0m');
 
 function createDir() {
-    fs.mkdirSync('commands', {recursive: true});
-    fs.mkdirSync('Core', {recursive: true});
-    fs.mkdirSync('Core/console', {recursive: true});
-    fs.mkdirSync('Core/HighwayTunnel', {recursive: true});
-    fs.mkdirSync('Core/HighwayTunnel/break', {recursive: true});
-    fs.mkdirSync('Core/HighwayTunnel/check', {recursive: true});
-    fs.mkdirSync('Core/HighwayTunnel/inventory', {recursive: true});
-    fs.mkdirSync('Core/HighwayTunnel/place', {recursive: true});
+    fs.mkdirpSync('commands', {recursive: true});
+    fs.mkdirpSync('Core', {recursive: true});
+    fs.mkdirpSync('Core/console', {recursive: true});
+    fs.mkdirpSync('Core/HighwayTunnel', {recursive: true});
+    fs.mkdirpSync('Core/HighwayTunnel/break', {recursive: true});
+    fs.mkdirpSync('Core/HighwayTunnel/check', {recursive: true});
+    fs.mkdirpSync('Core/HighwayTunnel/inventory', {recursive: true});
+    fs.mkdirpSync('Core/HighwayTunnel/place', {recursive: true});
 }
 
 try {
@@ -66,7 +66,7 @@ async function CreatePackage() {
         if (err) return console.log(err);
     });
     await console.log('\x1b[32m[Done] Installed default package.json\x1b[0m');
-    await fs.unlinkSync('./package.json');
+    await fs.unlinkpSync('./package.json');
     await fs.renameSync('./package.json.new', './package.json');
     await console.log('\x1b[33m[Pending] Installing main dependencies...\x1b[0m');
     await exec('npm install', async (err, stdout) => {

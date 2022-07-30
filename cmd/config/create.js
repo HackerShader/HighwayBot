@@ -1,16 +1,16 @@
 const fs = require('fs-extra');
-const color = require('../../Core/Console/colorcode')
+const color = require('../../Core/Console/colorcode');
 
 module.exports = (args) => {
-    let configName
+    let configName;
     if (!args[2] && !fs.existsSync('./config/default.json')) {
-        configName = 'default'
+        configName = 'default';
     } else {
-        if (!args[2] || args[2] == undefined && fs.existsSync('./config/default'))
+        if (!args[2] || args[2] === undefined && fs.existsSync('./config/default'))
             return console.log(color.code.blue, `[Config | Create] Usage: config create <filename>`);
         if (fs.existsSync(`./config/${args[2]}.json`))
             return console.log(color.code.red, `[Config | Create | Error] Config [${args[2]}] already exists.`);
-        configName = args[2]
+        configName = args[2];
     }
     fs.writeFileSync(`./config/${configName}.json`,
         '{\n' +
@@ -24,5 +24,5 @@ module.exports = (args) => {
         '}'
     );
     console.log(color.code.green, `[Config | Create | Done] Created empty config [${configName}].`);
-    console.log(color.code.blue, `[Config | Create] Use 'config edit' to edit config`)
+    console.log(color.code.blue, `[Config | Create] Use 'config edit' to edit config`);
 };

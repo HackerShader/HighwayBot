@@ -13,7 +13,7 @@ async function callback() {
         const toLowerCase = result.commands.trim().toLowerCase();
         const args = toLowerCase.split(' ');
         const noLowerArgs = result.commands.split(' ');
-        const command = await cmds.find(cmd => cmd.name == args[0])
+        const command = await cmds.find(cmd => cmd.name === args[0])
             || await cmds.find(
                 cmd =>
                     cmd.aliases != null && Array.isArray(cmd.aliases)
@@ -25,9 +25,9 @@ async function callback() {
             if (toLowerCase === `install`
                 || toLowerCase === `update`
                 || toLowerCase === `runbot`) return require(`./cmd/${toLowerCase}.js`).execute();
-            else if (command.name == 'config' && args[1] == 'edit'
-                || command.name == 'err') await command.execute(noLowerArgs);
-            else if (command.name == 'help') await command.execute(args, cmds)
+            else if (command.name === 'config' && args[1] === 'edit'
+                || command.name === 'err') await command.execute(noLowerArgs);
+            else if (command.name === 'help') await command.execute(args, cmds)
             else await command.execute(args);
             callback();
         } catch (e) {
@@ -43,7 +43,7 @@ async function main() {
         console.log('Type \'help\' to see a list of commands\n');
         await callback();
     } else {
-        fs.writeFileSync('./commandconfig.json', '{\n}');
+        fs.writeFileSync('./path.json', '{\n}');
         console.log('\x1b[33m[Notification] This is the first time you run this program, please wait while installing dependencies...\x1b[0m');
         exec(`npm install prompt`, async (err) => {
             if (err) console.log(`${err}`);

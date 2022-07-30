@@ -1,12 +1,12 @@
 const fs = require('fs-extra');
-const color = require('../../Core/Console/colorcode')
+const color = require('../../Core/Console/colorcode');
 
 module.exports = () => {
-    const path = require('../../path.json').config
+    const path = require('../../path.json').config;
     return console.log(`[Config | List] List of config files:\n` +
         `>  ${(fs.readdirSync('./config')).map(name => {
-            let n = name.replace('.json', '')
-            if (n + '.json' == path) n = color.color.blue + `${n} (current)` + color.color.reset
-            return n
+            let n = name.replace('.json', '');
+            if (n + '.json' === path) n = color.color.blue + `${n} (current)` + color.color.reset;
+            return n;
         }).join('\n>  ')}`);
 };

@@ -6,7 +6,7 @@ module.exports = {
         const info = require("../package.json");
         if (info.build === undefined) return console.log("\x1b[31m[X] HighwayBot not installed!\x1b1");
         console.log(
-              '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + ` | HighwayBot ${info.version}` +
+            '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + ` | HighwayBot ${info.version}` +
             '\n@@@@@@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@@@@@@' + ` | Build: ${info.build}` +
             '\n@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@' + ` | Author: ${info.author}` +
             '\n@@@@@@@@@@@@@@  &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&  @@@@@@@@@@@@@@' + ` | Installed at: update soon` +
