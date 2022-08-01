@@ -45,17 +45,11 @@ async function main() {
     } else {
         fs.writeFileSync('./path.json', '{\n}');
         console.log('\x1b[33m[Notification] This is the first time you run this program, please wait while installing dependencies...\x1b[0m');
-        exec(`npm install prompt`, async (err) => {
-            if (err) console.log(`${err}`);
-            exec('npm install edit-json-file', async (err) => {
-                if (err) return console.log(err);
-                exec(`npm install fs-extra`, async (err) => {
-                    if (err) console.log(`${err}`);
-                    console.log('\x1b[32m[Notification] Dependencies installed!\x1b[0m');
-                    console.log('Type \'help\' to see a list of commands\n');
-                    await callback();
-                });
-            });
+        exec(`npm install prompt edit-json-file fs-extra`, async (err) => {
+            if (err) return  console.log(`${err}`);
+            console.log('\x1b[32m[Notification] Dependencies installed!\x1b[0m');
+            console.log('Type \'help\' to see a list of commands\n');
+            await callback();
         });
     }
 }
