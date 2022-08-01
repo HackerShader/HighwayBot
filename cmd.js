@@ -5,7 +5,7 @@ console.log(`-----Welcome to HighwayBot controller-----\n`);
 
 async function callback() {
     let cmds = []
-    require('./util/handler')(cmds)
+    require('./util/handler')(cmds);
     const prompt = require('prompt');
     prompt.start();
     prompt.get('commands', async function (err, result) {
