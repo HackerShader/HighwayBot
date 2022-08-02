@@ -16,7 +16,7 @@
     "child_process": "^1.0.2",
     "edit-json-file": "^1.7.0",
     "fs-extra": "^10.1.0",
-    "mathjs": "^10.4.3",
+    "mathjs": "^11.0.1",
     "minecraft-data": "^3.5.1",
     "mineflayer": "^4.3.0",
     "mineflayer-navigate": "0.0.10",
