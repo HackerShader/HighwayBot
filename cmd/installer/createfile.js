@@ -48,17 +48,13 @@ async function CreatePackage() {
         '    "child_process": "^1.0.2",\n' +
         '    "edit-json-file": "^1.7.0",\n' +
         '    "fs-extra": "^10.1.0",\n' +
-        '    "linebyline": "^1.3.0",\n' +
         '    "mathjs": "^10.4.3",\n' +
         '    "minecraft-data": "^3.5.1",\n' +
-        '    "minecraft-protocol": "^1.34.0",\n' +
         '    "mineflayer": "^4.3.0",\n' +
-        '    "mineflayer-auto-eat": "^2.3.3",\n' +
         '    "mineflayer-navigate": "0.0.10",\n' +
         '    "mineflayer-pathfinder": "^2.2.0",\n' +
         '    "mineflayer-tps": "^1.0.1",\n' +
         '    "mineflayer-web-inventory": "^1.7.1",\n' +
-        '    "prismarine-viewer": "^1.22.0",\n' +
         '    "prompt": "^1.3.0",\n' +
         '    "vec3": "^0.1.7"\n' +
         '  }\n' +
@@ -66,7 +62,7 @@ async function CreatePackage() {
         if (err) return console.log(err);
     });
     await console.log('\x1b[32m[Done] Installed default package.json\x1b[0m');
-    await fs.unlinkpSync('./package.json');
+    await fs.unlinkSync('./package.json');
     await fs.renameSync('./package.json.new', './package.json');
     await console.log('\x1b[33m[Pending] Installing main dependencies...\x1b[0m');
     await exec('npm install', async (err, stdout) => {

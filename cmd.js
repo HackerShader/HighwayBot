@@ -1,11 +1,10 @@
 const fs = require('fs');
 const exec = require('child_process').exec;
+    let cmds = []
 
 console.log(`-----Welcome to HighwayBot controller-----\n`);
 
 async function callback() {
-    let cmds = []
-    require('./util/handler')(cmds);
     const prompt = require('prompt');
     prompt.start();
     prompt.get('commands', async function (err, result) {
@@ -41,6 +40,7 @@ async function callback() {
 async function main() {
     if (fs.existsSync('./node_modules')) {
         console.log('Type \'help\' to see a list of commands\n');
+        require('./util/handler')(cmds);
         await callback();
     } else {
         fs.writeFileSync('./path.json', '{\n}');

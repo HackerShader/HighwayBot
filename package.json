@@ -16,17 +16,13 @@
     "child_process": "^1.0.2",
     "edit-json-file": "^1.7.0",
     "fs-extra": "^10.1.0",
-    "linebyline": "^1.3.0",
     "mathjs": "^10.4.3",
     "minecraft-data": "^3.5.1",
-    "minecraft-protocol": "^1.34.0",
     "mineflayer": "^4.3.0",
-    "mineflayer-auto-eat": "^2.3.3",
     "mineflayer-navigate": "0.0.10",
     "mineflayer-pathfinder": "^2.2.0",
     "mineflayer-tps": "^1.0.1",
     "mineflayer-web-inventory": "^1.7.1",
-    "prismarine-viewer": "^1.22.0",
     "prompt": "^1.3.0",
     "vec3": "^0.1.7"
   }

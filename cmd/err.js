@@ -1,7 +1,7 @@
 module.exports = {
     name: "err",
     description: "!For developer testing only!",
-    aliases: ['test', 'error'],
+    aliases: ['error'],
     /**
      *
      * @param {String[]} args
