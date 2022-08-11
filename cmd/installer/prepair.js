@@ -10,7 +10,7 @@ console.log(`Welcome to HighwayBot installer!` +
 prompt.start();
 console.log('This HighwayBot still in development. There\'ll 2 ways to install HighwayBot:\n' +
     '\x1b[33m' + '\n1. Install HighwayBot from the official GitHub repository (Only for developers) (Require \'git\')' + '\x1b[0m' +
-    '\x1b[34m' + '\n2. Install HighwayBot from the release installer (Recommended for users)' + '\x1b[0m' +
+    '\x1b[34m' + '\n2. Install HighwayBot from the release page (Recommended for users)' + '\x1b[0m' +
     '\x1b[31m' + '\n3. Cancel the installation\n' + '\x1b[0m' +
     '\nPlease choose the way you want to install HighwayBot.');
 
@@ -19,7 +19,6 @@ async function Input() {
         if (err) return;
         if (result.method === '1') {
             await console.log('You choose to install HighwayBot from the official GitHub repository.\nPlease wait while we are downloading the repository...');
-
             async function cloner() {
                 await exec('git clone https://github.com/HackerShader/HighwayBot', async (err) => {
                     await console.log('\x1b[33m[Pending] Cloning the repository...\x1b[0m');
@@ -55,7 +54,7 @@ async function Input() {
 
     function confirm() {
         console.log('This installer has been created by HighwayBot team.' +
-            '\nWe are not responsible for any damage caused by this installer in pre-build development.' +
+            '\nWe are not responsible for any damage caused by this installer in Pre-release Build' +
             '\nDo you want to continue? (Y / N)');
         prompt.get(['confirm'], (err, result) => {
             if (err) return;
@@ -65,8 +64,8 @@ async function Input() {
             } else {
                 console.log('Thank you for your cooperation.\nPlease wait for the installation process...');
                 setTimeout(() => {
-                    require('./createfile');
-                }, 2 * 1000);
+                    require('./download');
+                }, 5 * 1000);
             }
         });
     }

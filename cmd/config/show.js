@@ -8,6 +8,7 @@ module.exports = (args) => {
         return console.log(color.code.blue, `[Config | Show] Usage: config show <filename>`);
     if (!fs.existsSync(`./config/${args[2]}.json`))
         return console.log(color.code.red, `[Config | Clone | Error] Config [${args[2]}] does not exist.`);
+    delete require.cache[require.resolve(`./../../config/${args[2]}.json`)];
     const file = require(`../../config/${args[2]}.json`);
 
     //Improve Object showing

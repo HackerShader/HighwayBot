@@ -1,8 +1,8 @@
 const fs = require('fs');
 const exec = require('child_process').exec;
-    let cmds = []
+let cmds = []
 
-console.log(`-----Welcome to HighwayBot controller-----\n`);
+console.log(`----- Welcome to HighwayBot controller -----\n`);
 
 async function callback() {
     const prompt = require('prompt');
@@ -22,8 +22,7 @@ async function callback() {
         try {
             if (!toLowerCase) return callback();
             if (toLowerCase === `install`
-                || toLowerCase === `update`
-                || toLowerCase === `runbot`) return require(`./cmd/${toLowerCase}.js`).execute();
+                || toLowerCase === `update`) return require(`./cmd/${toLowerCase}.js`).execute();
             else if (command.name === 'config' && args[1] === 'edit'
                 || command.name === 'err') await command.execute(noLowerArgs);
             else if (command.name === 'help') await command.execute(args, cmds)

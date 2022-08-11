@@ -16,7 +16,7 @@ description_array.forEach(str => {
         miss = true
     }
 })
-if (miss == true)
+if (miss === true)
     return console.log(color.code.yellow, '[MC-Bot | Install] Please type \'install\' for full bot installation');
 
 const fs = require('fs-extra')
