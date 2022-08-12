@@ -1,5 +1,5 @@
 const config = require(`../config/${require('../path.json').config}`);
-const file = require('edit-json-file')('./Core/data/status.json');
+const file = require('edit-json-file')('./data/status.json');
 module.exports = {
     name: 'mine',
     async execute(bot, args) {

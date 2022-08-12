@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs');
 const superagent = require('superagent');
 
 const download = async (url, path) => {
@@ -9,7 +9,7 @@ const download = async (url, path) => {
         file.on('finish', resolve);
         file.on('error', reject);
     });
-}
+};
 
 download('https://codeload.github.com/HackerShader/HighwayBot/legacy.zip/062922', '__dirname');
 

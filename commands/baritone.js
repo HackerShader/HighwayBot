@@ -2,7 +2,7 @@ const config = require(`../config/${require('../path.json').config}`);
 const fs = require('fs-extra');
 module.exports = {
     name: 'baritone',
-    execute(bot, args, username) {
+    execute(bot, message, args, username) {
         let BaritoneCommands = '';
         if (!args[1]) {
             fs.readdirSync('./Core/Baritone/').forEach(file => {

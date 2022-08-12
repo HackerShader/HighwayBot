@@ -135,6 +135,7 @@ dist
 temp.js
 
 # Ignore some json file
-/Core/data/status.json
+path.json
+/data/status.json
 commandconfig.json
 /config/

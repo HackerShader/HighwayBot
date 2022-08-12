@@ -13,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "ascii-table": "^0.0.9",
-    "child_process": "^1.0.2",
     "edit-json-file": "^1.7.0",
     "fs-extra": "^10.1.0",
     "mathjs": "^11.0.1",
@@ -24,6 +23,7 @@
     "mineflayer-tps": "^1.0.1",
     "mineflayer-web-inventory": "^1.7.1",
     "prompt": "^1.3.0",
+    "superagent": "^8.0.0",
     "vec3": "^0.1.7"
   }
 }

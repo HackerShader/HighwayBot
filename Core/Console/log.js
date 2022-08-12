@@ -14,8 +14,8 @@ module.exports = (
     clear,
     AdditionInfo,
 ) => {
-    delete require.cache[require.resolve('../data/status.json')];
-    const data = require('../data/status.json');
+    delete require.cache[require.resolve('../../data/status.json')];
+    const data = require('../../data/status.json');
     let name = blockName;
     let pos = blockPos;
     if (clear) console.clear();

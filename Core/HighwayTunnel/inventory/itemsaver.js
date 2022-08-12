@@ -7,7 +7,7 @@ const editJsonFile = require("edit-json-file");
 module.exports = (bot) => {
     let count = 0;
     let PickaxeSlots = 0;
-    const edit = editJsonFile('./Core/data/status.json');
+    const edit = editJsonFile('./data/status.json');
     edit.set('PickaxeBroken', []);
     edit.save();
     for (let i = 0; i < bot.inventory.slots.length; i++) {

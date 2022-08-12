@@ -1,16 +1,17 @@
 const Vec3 = require('vec3').Vec3;
 const log = require('../../Console/log');
 const editJsonFile = require('edit-json-file');
-const file = require('../../data/status.json');
+const file = require('../../../data/status.json');
 
 module.exports = async (bot) => {
     async function dig() {
         let sum = 0;
         let blockcount = await require('../check/minecalc')(bot);
 
-        delete require.cache[require.resolve('../../data/status.json')];
-        if (require('../../data/status.json').stop === true) return;
+        delete require.cache[require.resolve('../../../data/status.json')];
+        if (require('../../../data/status.json').stop === true) return;
         await require('../inventory/itemsaver')(bot);
+
         for (let x = -3; x <= 2; x++) {
             for (let y = 3; y >= 0; y--) {
                 for (let z = -2; z <= 2; z++) {
@@ -27,8 +28,8 @@ module.exports = async (bot) => {
                     //timer between each block
                     const date = new Date();
                     const time = date.getTime();
-                    delete require.cache[require.resolve('../../data/status.json')];
-                    const refresh_file = require('../../data/status.json');
+                    delete require.cache[require.resolve('../../../data/status.json')];
+                    const refresh_file = require('../../../data/status.json');
 
                     //digging and logging
                     log(target.name, pos, 'dig', true, `[${Number(Progress_dig * Blockpercentage).toFixed(3)}%] [${refresh_file.timer}ms]`);
@@ -40,7 +41,7 @@ module.exports = async (bot) => {
                     let time_diff = Number(done_time - time);
 
                     //After_dig and saving
-                    const data = editJsonFile('Core/data/status.json');
+                    const data = editJsonFile('data/status.json');
                     data.set('mine', Number(file.mine++).toString());
                     data.set('timer', Number(time_diff).toString());
                     data.save();

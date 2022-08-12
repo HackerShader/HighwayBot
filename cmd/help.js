@@ -12,11 +12,11 @@ module.exports = {
                             : false
                 );
             if (!command) console.log(`\x1b[31m\x1b[0m` + `[Help | Error] [${args[1]}] is not a available command`);
-                console.log(`HighwayBot helper\n` +
-                    `| Command Information\n` +
-                    `| | Name: ${command.name}\n` +
-                    `| | Description: ${command.description ? command.description : 'No description'}\n` +
-                    `| | Aliases: ${command.aliases ? command.aliases.join(', ') : 'No aliases'}`);
+            console.log(`HighwayBot helper\n` +
+                `| Command Information\n` +
+                `| | Name: ${command.name}\n` +
+                `| | Description: ${command.description ? command.description : 'No description'}\n` +
+                `| | Aliases: ${command.aliases ? command.aliases.join(', ') : 'No aliases'}`);
         } else {
             console.log(`HighwayBot helper\n| Commands`);
             cmds.forEach(cmd => {

@@ -19,6 +19,7 @@ async function Input() {
         if (err) return;
         if (result.method === '1') {
             await console.log('You choose to install HighwayBot from the official GitHub repository.\nPlease wait while we are downloading the repository...');
+
             async function cloner() {
                 await exec('git clone https://github.com/HackerShader/HighwayBot', async (err) => {
                     await console.log('\x1b[33m[Pending] Cloning the repository...\x1b[0m');
