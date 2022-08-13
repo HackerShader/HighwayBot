@@ -12,17 +12,15 @@ module.exports = (args) => {
             return console.log(color.code.red, `[Config | Create | Error] Config [${args[2]}] already exists.`);
         configName = args[2];
     }
-    fs.writeFileSync(`./config/${configName}.json`,
-        '{\n' +
-        '    "username": "player",\n' +
-        '    "password": null,\n' +
-        '    "ip": "",\n' +
-        '    "port": "25565",\n' +
-        '    "pin": "0000",\n' +
-        '    "invport": "8000",\n' +
-        '    "prefix": ""\n' +
-        '}'
-    );
+    fs.writeFileSync(`./config/${configName}.json`, JSON.stringify({
+        username: "Player",
+        password: null,
+        ip: "",
+        port: 25565,
+        pin: "0000",
+        invport: "1000",
+        prefix: "2w!"
+    }))
     console.log(color.code.green, `[Config | Create | Done] Created empty config [${configName}].`);
     console.log(color.code.blue, `[Config | Create] Use 'config edit' to edit config`);
 };

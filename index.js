@@ -16,8 +16,7 @@ description_array.forEach(str => {
         miss = true;
     }
 });
-if (miss === true)
-    return console.log(color.code.yellow, '[MC-Bot | Install] Please type \'install\' for full bot installation');
+if (miss === true) return console.log(color.code.yellow, '[MC-Bot | Install] Please type \'install\' for full bot installation');
 
 const fs = require('fs-extra');
 if (!fs.existsSync('./data/status.json')) {
@@ -31,11 +30,9 @@ if (!fs.existsSync('./data/status.json')) {
     }));
 }
 
-if (!fs.existsSync('./path.json'))
-    return console.log(color.code.red, `[MC-Bot | Error] Can't find file [path.json]`);
+if (!fs.existsSync('./path.json')) return console.log(color.code.red, `[MC-Bot | Error] Can't find file [path.json]`);
 
-if (!fs.existsSync(`./config/${require('./path.json').config}`))
-    return console.log(color.code.red, `[MC-Bot | Error] Can't find config [${require('./path.json').config}]`);
+if (!fs.existsSync(`./config/${require('./path.json').config}`)) return console.log(color.code.red, `[MC-Bot | Error] Can't find config [${require('./path.json').config}]`);
 
 const mineflayer = require('mineflayer');
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer);
@@ -49,7 +46,7 @@ const inventoryViewer = require('mineflayer-web-inventory');
 console.log(`[HighwayBot] Launching...` +
     `\n             Version: ${require('./package.json').version}` +
     `\n             Prefix: ${prefix}` +
-    `\n             server: ${config.ip}:${config.port}` +
+    `\n             Server: ${config.ip}:${config.port}` +
     `\n             Owner: ${config.username}` +
     `\n             Bot username: highwaybot` +
     `\n             Inventory: http://localhost:${config.invport}`
@@ -58,9 +55,9 @@ console.log(`[HighwayBot] Launching...` +
 function HighwayBot() {
     const bot = mineflayer.createBot({
         username: "highwaybot",
-        host: config.host,
+        host: config.ip,
         port: config.port,
-        version: '1.12.2',
+        version: '1.16.5',
     });
 
     //Plugins loader

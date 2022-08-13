@@ -24,17 +24,15 @@ module.exports = (args) => {
             'port',
             'pin',
             'key',
+            'invport',
         ];
         if (number.indexOf(key) > -1) {
-            if (isNaN(value))
-                return console.log(color.code.red, `[Config | Edit | Error] [${key}] key must be a number`);
+            if (isNaN(value)) return console.log(color.code.red, `[Config | Edit | Error] [${key}] key must be a number`);
+            value = Number(value)
         }
         if (key === 'password' && value.toLowerCase() === 'null') value = null;
         if (key === 'version' && !require('../../Core/Game/Versions/versions.json').includes(value))
             return console.log(color.code.red, `[Config | Edit | Error] Invalid version (1.8 -> 1.18 only)`);
-        // Not need :v
-        // let value2 = parseInt(value);
-        // if (!value2) value2 = value;
         file.set(key, value);
         file.save();
         success.push(key);

@@ -39,7 +39,7 @@ async function callback() {
 async function main() {
     if (fs.existsSync('./node_modules')) {
         console.log('Type \'help\' to see a list of commands\n');
-        require('./util/handler')(cmds);
+        require('./cmd/util/handler')(cmds);
         await callback();
     } else {
         fs.writeFileSync('./path.json', '{\n}');

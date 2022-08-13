@@ -4,14 +4,14 @@ const fs = require('node:fs');
  * @param {Array} array
  */
 module.exports = (array) =>
-    fs.readdirSync('./cmd/')
+    fs.readdirSync('./cmd')
         .filter(file => file.endsWith('.js'))
         .map(file => file.replace('.js', ''))
         .forEach(async (file) => {
-            const cmd = require(`../cmd/${file}`);
+            const cmd = require(`../../cmd/${file}`);
             if (!cmd.name) return;
-            if (!Array.isArray(cmd.aliases) || cmd.aliases.length == 0) cmd.aliases = null;
-            const command = await array.find(c => c.name == cmd.name)
+            if (!Array.isArray(cmd.aliases) || cmd.aliases.length === 0) cmd.aliases = null;
+            const command = await array.find(c => c.name === cmd.name)
                 || await array.find(
                     c =>
                         c.aliases != null && Array.isArray(c.aliases)
