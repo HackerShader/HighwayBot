@@ -1,6 +1,6 @@
 {
   "name": "highwaybot",
-  "version": "Pre-build Development",
+  "version": "Pre Release 081422",
   "build": "",
   "description": "A different way to digging and building Highway Nether in every Anarchy server!",
   "main": "index.js",
@@ -24,6 +24,7 @@
     "mineflayer-web-inventory": "^1.7.1",
     "prompt": "^1.3.0",
     "superagent": "^8.0.0",
+    "unzipper": "^0.10.11",
     "vec3": "^0.1.7"
   }
 }

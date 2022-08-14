@@ -33,7 +33,7 @@ module.exports = async (bot) => {
 
                     //digging and logging
                     log(target.name, pos, 'dig', true, `[${Number(Progress_dig * Blockpercentage).toFixed(3)}%] [${refresh_file.timer}ms]`);
-                    await bot.dig(target, true, new Vec3(-1, 0, 0));
+                    await bot.dig(target, false, new Vec3(-1, 0, 0));
 
                     //calculating time after digging each block
                     const done_date = new Date();

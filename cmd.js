@@ -44,7 +44,7 @@ async function main() {
     } else {
         fs.writeFileSync('./path.json', '{\n}');
         console.log('\x1b[33m[Notification] This is the first time you run this program, please wait while installing dependencies...\x1b[0m');
-        exec(`npm install prompt edit-json-file fs-extra`, async (err) => {
+        exec(`npm install prompt edit-json-file fs-extra unzipper superagent`, async (err) => {
             if (err) return  console.log(`${err}`);
             console.log('\x1b[32m[Notification] Dependencies installed!\x1b[0m');
             console.log('Type \'help\' to see a list of commands\n');

@@ -57,7 +57,7 @@ function HighwayBot() {
         username: "highwaybot",
         host: config.ip,
         port: config.port,
-        version: '1.16.5',
+        version: '1.12.2',
     });
 
     //Plugins loader
