@@ -7,7 +7,7 @@ module.exports = {
     execute() {
         if (info.version === undefined && info.build === undefined) return console.log('\x1b[0m[X] HighwayBot not installed!\x1b[0m');
         console.log(`\x1b[0m[Notification] HighwayBot changelog ${info.version} ${info.build}\x1b[0m` +
-            '**Added/Improved:**\n' +
+            '\n**Added/Improved:**\n' +
             '\n' +
             '> The Downloader of HighwayBot\n' +
             '> Improved HighwayBot dig algorithm\n' +
