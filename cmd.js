@@ -29,9 +29,8 @@ async function callback() {
             else await command.execute(args);
             callback();
         } catch (e) {
-            //if (!command) console.log(`\x1b[31m%s\x1b[0m`, `[CMD | Error] [${args[0]}] is not a available command`);
-            //else console.log(e.name + ': ' + e.message);
-            console.error(e)
+            if (!command) console.log(`\x1b[31m%s\x1b[0m`, `[CMD | Error] [${args[0]}] is not a available command`);
+            else console.log(e.name + ': ' + e.message);
             callback();
         }
     });
