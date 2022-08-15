@@ -34,6 +34,7 @@ if (!fs.existsSync('./path.json')) return console.log(color.code.red, `[MC-Bot |
 
 if (!fs.existsSync(`./config/${require('./path.json').config}`)) return console.log(color.code.red, `[MC-Bot | Error] Can't find config [${require('./path.json').config}]`);
 
+delete require.cache[require.resolve(`./config/${require('./path.json').config}`)];
 const mineflayer = require('mineflayer');
 const mineflayernavigate = require('mineflayer-navigate')(mineflayer);
 const pathfinder = require('mineflayer-pathfinder').pathfinder;
@@ -57,7 +58,7 @@ function HighwayBot() {
         username: "highwaybot",
         host: config.ip,
         port: config.port,
-        version: '1.12.2',
+        version: '1.16.5',
     });
 
     //Plugins loader

@@ -29,25 +29,31 @@ async function callback() {
             else await command.execute(args);
             callback();
         } catch (e) {
-            if (!command) console.log(`\x1b[31m%s\x1b[0m`, `[CMD | Error] [${args[0]}] is not a available command`);
-            else console.log(e.name + ': ' + e.message);
+            //if (!command) console.log(`\x1b[31m%s\x1b[0m`, `[CMD | Error] [${args[0]}] is not a available command`);
+            //else console.log(e.name + ': ' + e.message);
+            console.error(e)
             callback();
         }
     });
 }
 
+async function handler() {
+    await require('./cmd/util/handler')(cmds);
+}
+
 async function main() {
     if (fs.existsSync('./node_modules')) {
         console.log('Type \'help\' to see a list of commands\n');
-        require('./cmd/util/handler')(cmds);
+        await handler()
         await callback();
     } else {
         fs.writeFileSync('./path.json', '{\n}');
         console.log('\x1b[33m[Notification] This is the first time you run this program, please wait while installing dependencies...\x1b[0m');
-        exec(`npm install prompt edit-json-file fs-extra unzipper superagent`, async (err) => {
+        await exec(`npm install prompt edit-json-file fs-extra unzipper superagent`, async (err) => {
             if (err) return  console.log(`${err}`);
             console.log('\x1b[32m[Notification] Dependencies installed!\x1b[0m');
             console.log('Type \'help\' to see a list of commands\n');
+            await handler()
             await callback();
         });
     }
