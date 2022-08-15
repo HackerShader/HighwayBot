@@ -1,18 +1,15 @@
 const info = require('./../package.json');
+const exec = require('child_process').exec;
 
 module.exports = {
     name: "changelog",
     description: "See the changelog of HighwayBot",
     aliases: ['updateinfo'],
-    execute() {
+    async execute() {
         if (info.version === undefined && info.build === undefined) return console.log('\x1b[0m[X] HighwayBot not installed!\x1b[0m');
-        console.log(`\x1b[0m[Notification] HighwayBot changelog ${info.version} ${info.build}\x1b[0m` +
-            '\n**Added/Improved:**\n' +
-            '\n' +
-            '> The Downloader of HighwayBot\n' +
-            '> Improved HighwayBot dig algorithm\n' +
-            '> Aliases command for CLI\n' +
-            '> Improved Config system\n' +
-            '> Added Velocity, AutoCrystal (might break), AutoTotem')
+        await exec('git log --format="%B" -n 1', async(err, stdout) => {
+            if(err) return console.log(err);
+            console.log(`Commit messages log: ${stdout}\nPress enter to continue...`);
+        });
     }
 };
