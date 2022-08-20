@@ -1,3 +1,4 @@
+const consolelog = require('./cmd/util/translate')
 const package_json = require('./package.json');
 const description_array = [
     "mineflayer",
@@ -8,6 +9,7 @@ const description_array = [
     "mineflayer-web-inventory",
     "vec3"
 ];
+
 let miss = false;
 const color = require('./Core/Console/colorcode');
 description_array.forEach(str => {
@@ -30,9 +32,9 @@ if (!fs.existsSync('./data/status.json')) {
     }));
 }
 
-if (!fs.existsSync('./path.json')) return console.log(color.code.red, `[MC-Bot | Error] Can't find file [path.json]`);
+if (!fs.existsSync('./path.json')) return consolelog(color.code.red, `[MC-Bot | Error] Can't find file [path.json]`);
 
-if (!fs.existsSync(`./config/${require('./path.json').config}`)) return console.log(color.code.red, `[MC-Bot | Error] Can't find config [${require('./path.json').config}]`);
+if (!fs.existsSync(`./config/${require('./path.json').config}`)) return consolelog(color.code.red,`[MC-Bot | Error] Can\'t find config files [config/${require('./path.json').config}]`);
 
 delete require.cache[require.resolve(`./config/${require('./path.json').config}`)];
 const mineflayer = require('mineflayer');

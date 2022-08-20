@@ -12,6 +12,7 @@
   "author": "HackerShader#5959",
   "license": "ISC",
   "dependencies": {
+    "@vitalets/google-translate-api": "^8.0.0",
     "ascii-table": "^0.0.9",
     "edit-json-file": "^1.7.0",
     "fs-extra": "^10.1.0",

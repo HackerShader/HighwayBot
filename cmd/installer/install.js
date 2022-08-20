@@ -12,7 +12,14 @@ return new Promise(async (resolve, reject) => {
     await fs.removeSync(downloaded_folder);
     await fs.removeSync('./HighwayBotResource.zip');
     await child_process.exec('npm install', (err) => {
-        if (err) return console.log(err);
+        if (err) {
+            reject(err);
+            return console.log(err);
+        }
         console.log(`\x1b[32m[Done] HighwayBot Installed. Please relauch the cli [node ./cmd] [./start.bat]\x1b[0m`);
+        setTimeout(() => {
+            resolve()
+            process.exit(0);
+        }, 5000)
     })
 });
