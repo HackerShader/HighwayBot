@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const color = require('../../Core/Console/colorcode');
+const color = require('../util/colorcode');
 
 module.exports = (args) => {
     if (!args[2] || !args[3]) return console.log(color.code.blue, `[Config | Clone] Usage: config rename <filename> <newfilename>`);

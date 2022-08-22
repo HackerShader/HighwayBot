@@ -1,12 +1,13 @@
 const fs = require('fs');
 const exec = require('child_process').exec;
-const consolelog = require('./cmd/util/translate');
+const color = require('./cmd/util/colorcode')
 let cmds = []
 
 
 console.log(`----- Welcome to HighwayBot controller -----\n`);
 
 async function callback() {
+    const consolelog = require('./cmd/util/translate');
     return new Promise(async (resolve, reject) => {
         const prompt = require('prompt');
         await prompt.start();
@@ -32,7 +33,7 @@ async function callback() {
                 else await resolve(command.execute(args).then(() => callback()));
             }
             catch (e) {
-                if (!command) await consolelog('',`\x1b[31m%s\x1b[0m`, `[CMD | Error] [${args[0]}] is not a available command`);
+                if (!command) await consolelog(`${color.color.red} [CMD | Error] [${args[0]}] ${color.code.red}`, ` is not a available command`);
                 else await console.log(e.name + ': ' + e.message);
                 await callback();
             }
@@ -50,20 +51,22 @@ async function main() {
         await handler()
         await callback();
     } else {
-        fs.writeFileSync('./path.json', '{\n}');
-        console.log(color.code.yellow, '[Notification] This is the first time you run this program');
-        console.log(color.code.yellow, '[Notification] Please wait while installing dependencies...');
+        fs.writeFileSync('./settings.json', JSON.stringify({
+            lang: 'en'
+        }));
+        await console.log(color.code.yellow, '[Notification] This is the first time you run this program');
+        await console.log(color.code.yellow, '[Notification] Please wait while installing dependencies...');
         //process.stdout.write(color.code.blue, '[Notification] [] [0%]')
         let dependencies = [
-            'prompt', 'edit-json-file', 'fs-extra', 'unzipper', 'superagent'
+            'prompt', 'edit-json-file', 'fs-extra', 'unzipper', 'superagent', '@vitalets/google-translate-api'
         ]
-        let i = 0
+        let i = -1
         let instal = (package) => {
-            exec(`npm instal ${package}`, (err, stdout, stderr) => {
+            exec(`npm install ${package}`, async (err) => {
                 if (err) {
                     process.stdout.clearLine(0);
                     process.stdout.cursorTo(0);
-                    console.log(color.code.red, `[Notification] ${err}`);
+                    await console.log(color.code.red, `[Notification] ${err}`);
                     log();
                 } else log()
             })
@@ -72,14 +75,24 @@ async function main() {
             i++
             if (i <= dependencies.length) {
                 let str = ''
-                for (let y = 0; y < i / dependencies.length * 20; y++) str += '■';
+                for (let y = 0; y < i + 1 / dependencies.length * 20; y++) str += '■';
                 process.stdout.clearLine(0);
                 process.stdout.cursorTo(0);
-                process.stdout.write(`${color.code.blue, `[Notification] [${Math.floor(i / dependencies.length * 100)}%]`} Installing ${dependencies[i - 1]}`);
-                instal(dependencies[i - 1])
+                process.stdout.write(`${color.code.blue, `[Notification] [${Math.floor(i / (dependencies.length + 1) * 100)}%]`} Installing ${dependencies[i - 1]}`);
+                instal(dependencies[i])
             } else {
-                console.log('\x1b[32m[Notification] Dependencies installed!\x1b[0m');
-                console.log('Type \'help\' to see a list of commands\n');
+                process.stdout.clearLine(0);
+                process.stdout.cursorTo(0);
+                await console.log('\x1b[32m[Notification] Dependencies installed [100%]\x1b[0m');
+                await console.log(
+                    "To start using the bot, please do the following:\n" +
+                    "> Run 'config create' command to create empty 'deafult' config\n" +
+                    "> Run the command 'config edit' to edit the newly created empty 'default' config.\n" +
+                    "> Run 'config load deafult' and config reload' to load config\n" +
+                    "> Run the command 'runbot' to let the bot into the server if you have done all the steps above\n" +
+                    "Type 'help' to see a list of commands\n" +
+                    "\nType 'language <your language symbol (like: vi, pl, en, ...)>' to use" 
+                )
                 await handler()
                 await callback();
             }

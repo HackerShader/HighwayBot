@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const ascii = require('ascii-table');
-const color = require('../../Core/Console/colorcode');
+const color = require('../util/colorcode');
 
 module.exports = (args) => {
     const table = new ascii().setHeading('Keys', 'Values');

@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const color = require('../../Core/Console/colorcode');
+const color = require('../util/colorcode');
 
 module.exports = () => {
     fs.readdirSync('./config').forEach(file => {

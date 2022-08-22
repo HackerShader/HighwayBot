@@ -20,7 +20,7 @@ module.exports = {
                 `\n>  load: Load a config file` +
                 `\n>  reload: Reload all config file` +
                 `\n>  renane: rename a config file` +
-                `\n>  show: Show a config file`
+                `\n>  show: Show a config file` 
             );
         }
         try {

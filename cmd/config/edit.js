@@ -1,11 +1,12 @@
 const fs = require('fs-extra');
-const color = require('../../Core/Console/colorcode');
+const color = require('../util/colorcode');
 
 module.exports = (args) => {
     if (!args[2])
-        return console.log(color.code.blue, `[Config | Edit] Usage: config edit <filename> <key1>:<value1> <key2>:<value2>...`);
-    if (!fs.existsSync(`./config/${args[2]}.json`))
-        return console.log(color.code.red, `[Config | Edit | Error] Config [${args[2]}] don't exists.`);
+        if (!fs.existsSync(`./config/${args[2]}.json`)) {
+            console.log(color.code.red, `[Config | Edit | Error] Config [${args[2]}] don't exists.`);
+            console.log(color.code.blue, `[Config | Edit | Note] Use the 'config list' command to find out what the key is.`);
+        }
     const file = require('edit-json-file')(`./config/${args[2]}.json`);
     let configName = args[2];
     let success = [];

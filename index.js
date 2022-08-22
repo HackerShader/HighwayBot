@@ -1,6 +1,6 @@
 const consolelog = require('./cmd/util/translate')
 const package_json = require('./package.json');
-const description_array = [
+const dependencies_array = [
     "mineflayer",
     "minecraft-data",
     "mineflayer-navigate",
@@ -11,14 +11,14 @@ const description_array = [
 ];
 
 let miss = false;
-const color = require('./Core/Console/colorcode');
-description_array.forEach(str => {
+const color = require('./cmd/util/colorcode');
+dependencies_array.forEach(str => {
     if (!Object.keys(package_json.dependencies).includes(str)) {
-        console.log(color.code.red, `[MC-Bot | Error] Missing description '${str}'`);
+        console.log(color.code.red, `[MC-Bot | Error] Missing dependencies '${str}'`);
         miss = true;
     }
 });
-if (miss === true) return console.log(color.code.yellow, '[MC-Bot | Install] Please type \'install\' for full bot installation');
+if (miss == true) consolelog(color.code.yellow, '[MC-Bot | Install] Please type \'install\' for full bot installation');
 
 const fs = require('fs-extra');
 if (!fs.existsSync('./data/status.json')) {
@@ -32,9 +32,9 @@ if (!fs.existsSync('./data/status.json')) {
     }));
 }
 
-if (!fs.existsSync('./settings.json')) return consolelog(color.code.red, `[MC-Bot | Error] Can't find file [path.json]`);
+if (!fs.existsSync('./settings.json')) consolelog(color.code.red, `[MC-Bot | Error] Can't find file [path.json]`);
 
-if (!fs.existsSync(`./config/${require('./settings.json').config}`)) return consolelog(color.code.red,`[MC-Bot | Error] Can\'t find config files [config/${require('./settings.json').config}]`);
+if (!fs.existsSync(`./config/${require('./settings.json').config}`)) consolelog(color.code.red,`[MC-Bot | Error] Can\'t find config files [config/${require('./settings.json').config}]`);
 
 delete require.cache[require.resolve(`./config/${require('./settings.json').config}`)];
 const mineflayer = require('mineflayer');

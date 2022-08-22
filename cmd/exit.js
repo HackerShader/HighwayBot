@@ -1,3 +1,5 @@
+const consolelog = require('./util')
+
 module.exports = {
     name: "exit",
     description: "Close the HighwayBot command line interface.",
