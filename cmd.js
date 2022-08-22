@@ -1,14 +1,16 @@
 const fs = require('fs');
 const exec = require('child_process').exec;
+const consolelog = require('./cmd/util/translate');
 let cmds = []
+
 
 console.log(`----- Welcome to HighwayBot controller -----\n`);
 
 async function callback() {
     return new Promise(async (resolve, reject) => {
         const prompt = require('prompt');
-        prompt.start();
-        prompt.get('commands', async function (err, result) {
+        await prompt.start();
+        await prompt.get('commands', async function (err, result) {
             if (!result) return;
             const toLowerCase = result.commands.trim().toLowerCase();
             const args = toLowerCase.split(' ');
@@ -26,13 +28,12 @@ async function callback() {
                     || toLowerCase === `update`) return require(`./cmd/${toLowerCase}.js`).execute();
                 else if (command.name === 'config' && args[1] === 'edit'
                     || command.name === 'err') await command.execute(noLowerArgs);
-                else if (command.name === 'help') await command.execute(args, cmds)
-                else await command.execute(args);
-                await callback();
+                else if (command.name === 'help') await resolve(command.execute(args, cmds).then(() => callback()));
+                else await resolve(command.execute(args).then(() => callback()));
             }
             catch (e) {
-                if (!command) console.log(`\x1b[31m%s\x1b[0m`, `[CMD | Error] [${args[0]}] is not a available command`);
-                else console.log(e.name + ': ' + e.message);
+                if (!command) await consolelog('',`\x1b[31m%s\x1b[0m`, `[CMD | Error] [${args[0]}] is not a available command`);
+                else await console.log(e.name + ': ' + e.message);
                 await callback();
             }
         });
@@ -49,7 +50,9 @@ async function main() {
         await handler()
         await callback();
     } else {
-        fs.writeFileSync('./path.json', '{\n}');
+        fs.writeFileSync('./settings.json', JSON.stringify({
+            lang: 'en',
+        }));
         console.log('\x1b[33m[Notification] This is the first time you run this program, please wait while installing dependencies...\x1b[0m');
         await exec(`npm install prompt edit-json-file fs-extra unzipper superagent`, async (err) => {
             if (err) return  console.log(`${err}`);

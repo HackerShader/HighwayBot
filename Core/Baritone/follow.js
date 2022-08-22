@@ -1,4 +1,4 @@
-const config = require(`../../config/${require('../../path.json').config}`);
+const config = require(`../../config/${require('../../settings.json').config}`);
 const Movements = require('mineflayer-pathfinder').Movements;
 const {GoalNear} = require('mineflayer-pathfinder').goals;
 const Vec3 = require('vec3').Vec3;

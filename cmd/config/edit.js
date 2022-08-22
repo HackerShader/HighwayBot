@@ -28,7 +28,7 @@ module.exports = (args) => {
         ];
         if (number.indexOf(key) > -1) {
             if (isNaN(value)) return console.log(color.code.red, `[Config | Edit | Error] [${key}] key must be a number`);
-            value = Number(value)
+            value = Number(value);
         }
         if (key === 'password' && value.toLowerCase() === 'null') value = null;
         if (key === 'version' && !require('../../Core/Game/Versions/versions.json').includes(value))

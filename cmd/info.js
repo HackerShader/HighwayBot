@@ -1,11 +1,13 @@
+const consolelog = require('./util/translate');
+
 module.exports = {
     name: "info",
-    description: "HighwayBot information",
+    description: `HighwayBot information`,
     aliases: ['about'],
-    execute() {
+    async execute() {
         const info = require("../package.json");
-        if (info.build === undefined) return console.log("\x1b[31m[X] HighwayBot not installed!\x1b1");
-        console.log(
+        if (info.build === undefined) return consolelog('',"\x1b[31m[X] HighwayBot not installed!\x1b1");
+        await console.log(
             '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@' + ` | HighwayBot ${info.version}` +
             '\n@@@@@@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@@@@@@' + ` | Build: ${info.build}` +
             '\n@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@' + ` | Author: ${info.author}` +

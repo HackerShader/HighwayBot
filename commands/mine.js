@@ -1,4 +1,4 @@
-const config = require(`../config/${require('../path.json').config}`);
+const config = require(`../config/${require('../settings.json').config}`);
 const file = require('edit-json-file')('./data/status.json');
 module.exports = {
     name: 'mine',

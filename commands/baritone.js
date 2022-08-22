@@ -1,4 +1,4 @@
-const config = require(`../config/${require('../path.json').config}`);
+const config = require(`../config/${require('../settings.json').config}`);
 const fs = require('fs-extra');
 module.exports = {
     name: 'baritone',
@@ -16,7 +16,8 @@ module.exports = {
         }
         try {
             require(`./../Core/Baritone/${args[1]}`)(bot, args, username);
-        } catch (err) {
+        }
+        catch (err) {
             if (err.code === 'MODULE_NOT_FOUND') {
                 bot.chat(`/msg ${config.username} [Baritone] | Error: ${args[1]} is not a valid command`);
             } else bot.chat(`/msg ${config.username} [Baritone] | Error: ${err}`);

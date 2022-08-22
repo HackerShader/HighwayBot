@@ -25,7 +25,8 @@ module.exports = {
         }
         try {
             require(`./config/${args[1]}`)(args);
-        } catch (e) {
+        }
+        catch (e) {
             const file = fs.readdirSync('./cmd/config/');
             if (!file.includes(`${args[1]}.js`)) console.log(`\x1b[31m[Config | Error] [${args[1]}] is not a available key\x1b[0m`);
             else console.log(e.name + ': ' + e.message);

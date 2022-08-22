@@ -20,7 +20,7 @@ module.exports = (args) => {
         pin: "0000",
         invport: "1000",
         prefix: "2w!"
-    }))
+    }));
     console.log(color.code.green, `[Config | Create | Done] Created empty config [${configName}].`);
     console.log(color.code.blue, `[Config | Create] Use 'config edit' to edit config`);
 };

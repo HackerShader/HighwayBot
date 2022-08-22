@@ -1,3 +1,5 @@
+const consolelog = require('./util/translate');
+
 module.exports = {
     name: "reload",
     description: "Reload command",
@@ -18,7 +20,8 @@ module.exports = {
                 console.log(`\x1b[33m%s\x1b[0m`, `Reloading ${dir}/${file}`);
                 if (!file.toLowerCase().endsWith('.js') && !fs.lstatSync(`${dir}/${file}`).isDirectory()) try {
                     require(`../${dir}/${file}`);
-                } catch {
+                }
+                catch {
                     return;
                 }
                 if (fs.lstatSync(`${dir}/${file}`).isDirectory()) reloadDir(`${dir}/${file}`);

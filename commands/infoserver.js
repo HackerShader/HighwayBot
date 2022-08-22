@@ -1,4 +1,4 @@
-const config = require(`../config/${require('../path.json').config}`);
+const config = require(`../config/${require('../settings.json').config}`);
 module.exports = {
     name: 'infoserver',
     execute(bot, args, username) {

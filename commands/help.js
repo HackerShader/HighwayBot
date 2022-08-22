@@ -1,4 +1,4 @@
-const config = require(`../config/${require('../path.json').config}`);
+const config = require(`../config/${require('../settings.json').config}`);
 const fs = require('fs-extra');
 module.exports = {
     name: 'help',

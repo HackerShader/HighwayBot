@@ -10,7 +10,8 @@ module.exports = () => {
     const path = require('../../path.json').config;
     try {
         require(`../../config/${path}`);
-    } catch (error) {
+    }
+    catch (error) {
         console.log(color.code.red, `Config [${path.replace('.json', '')}] no longer exists`);
         const commandconfig = require('edit-json-file')('./path.json');
         let config = 'default.json';
