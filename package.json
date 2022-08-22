@@ -10,7 +10,7 @@
     "nodemon": "nodemon index.js"
   },
   "author": "HackerShader#5959",
-  "license": "ISC",
+  "license": "GNU",
   "dependencies": {
     "@vitalets/google-translate-api": "^8.0.0",
     "ascii-table": "^0.0.9",

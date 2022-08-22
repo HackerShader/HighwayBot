@@ -50,17 +50,41 @@ async function main() {
         await handler()
         await callback();
     } else {
-        fs.writeFileSync('./settings.json', JSON.stringify({
-            lang: 'en',
-        }));
-        console.log('\x1b[33m[Notification] This is the first time you run this program, please wait while installing dependencies...\x1b[0m');
-        await exec(`npm install prompt edit-json-file fs-extra unzipper superagent`, async (err) => {
-            if (err) return  console.log(`${err}`);
-            console.log('\x1b[32m[Notification] Dependencies installed!\x1b[0m');
-            console.log('Type \'help\' to see a list of commands\n');
-            await handler()
-            await callback();
-        });
+        fs.writeFileSync('./path.json', '{\n}');
+        console.log(color.code.yellow, '[Notification] This is the first time you run this program');
+        console.log(color.code.yellow, '[Notification] Please wait while installing dependencies...');
+        //process.stdout.write(color.code.blue, '[Notification] [] [0%]')
+        let dependencies = [
+            'prompt', 'edit-json-file', 'fs-extra', 'unzipper', 'superagent'
+        ]
+        let i = 0
+        let instal = (package) => {
+            exec(`npm instal ${package}`, (err, stdout, stderr) => {
+                if (err) {
+                    process.stdout.clearLine(0);
+                    process.stdout.cursorTo(0);
+                    console.log(color.code.red, `[Notification] ${err}`);
+                    log();
+                } else log()
+            })
+        }
+        let log = async () => {
+            i++
+            if (i <= dependencies.length) {
+                let str = ''
+                for (let y = 0; y < i / dependencies.length * 20; y++) str += '■';
+                process.stdout.clearLine(0);
+                process.stdout.cursorTo(0);
+                process.stdout.write(`${color.code.blue, `[Notification] [${Math.floor(i / dependencies.length * 100)}%]`} Installing ${dependencies[i - 1]}`);
+                instal(dependencies[i - 1])
+            } else {
+                console.log('\x1b[32m[Notification] Dependencies installed!\x1b[0m');
+                console.log('Type \'help\' to see a list of commands\n');
+                await handler()
+                await callback();
+            }
+        }
+        log()
     }
 }
 
