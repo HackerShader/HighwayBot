@@ -9,7 +9,7 @@ module.exports = async (bot) => {
         let blockcount = await require('../check/minecalc')(bot);
 
         delete require.cache[require.resolve('../../../data/status.json')];
-        if (require('../../../data/status.json').stop === true) return;
+        if (require('../../../data/status.json').stop == true) return;
         await require('../inventory/itemsaver')(bot);
 
         for (let x = -3; x <= 2; x++) {
@@ -19,7 +19,7 @@ module.exports = async (bot) => {
                     const target = bot.blockAt(bot.entity.position.offset(x, y, z))
                         , pos = `${target.position.x} ${target.position.y} ${target.position.z}`;
                     if (target.name === 'air' || !bot.canDigBlock(target) || !target) continue;
-                    if ((z === -2 || z === 2) && y === 0 && target) continue;
+                    if ((z == -2 || z == 2) && y == 0 && target) continue;
 
                     //Progress_dig
                     let Progress_dig = sum++;

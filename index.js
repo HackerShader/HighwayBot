@@ -1,4 +1,4 @@
-const consolelog = require('./cmd/util/translate')
+const consolelog = require('./cli/util/translate')
 const package_json = require('./package.json');
 const dependencies_array = [
     "mineflayer",
@@ -11,7 +11,7 @@ const dependencies_array = [
 ];
 
 let miss = false;
-const color = require('./cmd/util/colorcode');
+const color = require('./cli/util/colorcode');
 dependencies_array.forEach(str => {
     if (!Object.keys(package_json.dependencies).includes(str)) {
         console.log(color.code.red, `[MC-Bot | Error] Missing dependencies '${str}'`);
@@ -79,7 +79,7 @@ function HighwayBot() {
         await bot.clickWindow(pin[3], 0, 0);
 
         setTimeout(() => {
-            bot.chat('/cmd');
+            bot.chat('/cli');
         }, 5 * 1000);
 
         setTimeout(() => {

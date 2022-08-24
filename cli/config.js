@@ -1,15 +1,17 @@
 const fs = require('fs-extra');
+const consolelog = require('./util/translate')
+const color = require('./util/colorcode')
 
 module.exports = {
     name: "config",
     description: "Configure the HighwayBot config",
     aliases: ['cfg'],
-    execute(args) {
+    async execute(args) {
         const info = require("../package.json");
         if (info.build === undefined) return console.log('\x1b[31m[X] HighwayBot not installed!\x1b[0m');
         if (!fs.existsSync('./config')) fs.mkdirSync('./config');
         if (!args[1]) {
-            return console.log(
+            return await consolelog('',
                 `[Config] Usage: config <config> <key>` +
                 `\nAvailable key:` +
                 `\n>  clone: Clone a config file` +
@@ -24,10 +26,10 @@ module.exports = {
             );
         }
         try {
-            require(`./config/${args[1]}`)(args);
+            await require(`./config/${args[1]}`)(args);
         }
         catch (e) {
-            const file = fs.readdirSync('./cmd/config/');
+            const file = fs.readdirSync('./cli/config/');
             if (!file.includes(`${args[1]}.js`)) console.log(`\x1b[31m[Config | Error] [${args[1]}] is not a available key\x1b[0m`);
             else console.log(e.name + ': ' + e.message);
         }

@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const unzipper = require('unzipper');
-
-console.log('\x1b[33m[Notification] Extracting HighwayBot archive...\x1b[0m');
+const consolelog = require('./../util/translate')
+const color = require('./../util/colorcode')
 
 async function unzip(file, path) {
     return new Promise(async (resolve, reject) => {
@@ -13,8 +13,9 @@ async function unzip(file, path) {
 }
 
 async function main() {
+    await consolelog(color.code.yellow,'[Notification] Extracting HighwayBot archive...');
     await unzip('./HighwayBotResource.zip', './');
-    await console.log('\x1b[32m[Done] Extracted\x1b[0m');
+    await consolelog(color.code.green,'[Done] Extracted');
     await require('./install');
 }
 

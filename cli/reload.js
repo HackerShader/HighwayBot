@@ -30,7 +30,7 @@ module.exports = {
                     console.log(`\x1b[32m%s\x1b[0m`, `Reloaded ${dir}/${file}`);
                 }
             });
-        if (!args[1]) reloadDir('./cmd');
+        if (!args[1]) reloadDir('./cli');
         else if (args[1].toLowerCase() === 'all') reloadDir('.');
         else {
             if (args[1] !== 'dir' || 'file') reloadDir(args[1]);

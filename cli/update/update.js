@@ -1,9 +1,9 @@
 const fs = require('fs-extra');
 const exec = require('child_process').exec;
 const editJsonFile = require('edit-json-file');
-const info = require('./../../package.json');
+const info = require('../../package.json');
 
-if (info.version === undefined && info.build === undefined) return console.log('\x1b[31m[X] HighwayBot not installed, Please launch the bot again [node ./cmd.js | ./start.bat]\x1b[0m');
+if (info.version === undefined && info.build === undefined) console.log('\x1b[31m[X] HighwayBot not installed, Please launch the bot again [node ./cli.js | ./start.bat]\x1b[0m');
 
 console.log('\x1b[33m[Update | Pending] Starting update...\x1b[0m');
 exec('git clone https://github.com/HackerShader/HighwayBot', async (err) => {
@@ -16,7 +16,7 @@ exec('git clone https://github.com/HackerShader/HighwayBot', async (err) => {
     await exec('git rev-parse HEAD', async (err, stdout) => {
         if (err) return console.log(err);
         await console.log(`\x1b[32m[Update | Done] HighwayBot updated to build ${stdout.substring(0, 7)}\x1b[0m`);
-        await console.log('\x1b[33m[Notification] Please launch the bot again to apply the changes [node ./cmd.js | ./start.bat]\x1b[0m');
+        await console.log('\x1b[33m[Notification] Please launch the bot again to apply the changes [node ./cli.js | ./start.bat]\x1b[0m');
         const edit = editJsonFile('./package.json');
         edit.set('build', `${stdout.substring(0, 7)}`);
         edit.save();
