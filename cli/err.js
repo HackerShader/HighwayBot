@@ -1,6 +1,6 @@
 module.exports = {
     name: "err",
-    description: "!For developer testing only!",
+    description: "[❕] For developer testing only",
     aliases: ['error'],
     /**
      *

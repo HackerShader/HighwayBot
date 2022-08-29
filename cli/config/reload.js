@@ -18,6 +18,7 @@ module.exports = () => {
         if (!fs.readdirSync('./config/').includes(config)) config = fs.readdirSync('./config/')[0];
         commandconfig.set('config', config);
         commandconfig.save();
+        delete require.cache[require.resolve(`../../path.json`)];
         console.log(color.code.yellow, `Changed to [${config.replace('.json', '')}] config`);
     }
 };

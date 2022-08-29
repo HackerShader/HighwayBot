@@ -22,7 +22,7 @@ module.exports = {
         } else {
             await consolelog('',`HighwayBot helper\n| Commands`);
             for (const cmd of cmds) {
-                await consolelog(` |  | ${cmd.name}`, ` - ${cmd.description ? cmd.description : 'No description'}`);
+                await consolelog('', ` |  | ${cmd.name} - ${cmd.description ? cmd.description : 'No description'}`);
             }
             await consolelog('',`|` +
                 `\n| Social / Contact` +

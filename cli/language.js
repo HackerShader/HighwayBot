@@ -15,22 +15,23 @@ module.exports = {
         if (!args[1]) {
             await consolelog(color.code.blue, '[Language] using: ' + settings.lang);
             return await consolelog('',
-                'If you want to change the language, use the command: \'language <language symbol>\'\nExample:' +
-                '\n\'language en\' for English' +
-                '\n\'language vi\' for Vietnamese' +
-                '\n\'language ja\' for Japanese' +
-                '\n\'language zh\' for Chinese' +
-                '\n\'language ko\' for Korean' +
-                '\n\'language fr\' for French' +
-                '\nAnd more...'
+                'If you want to change the language, use the command: \'language <language symbol>\'\n' +
+                'Example:\n' +
+                '\'language en\' for English\n' +
+                '\'language vi\' for Vietnamese\n' +
+                '\'language ja\' for Japanese\n' +
+                '\'language zh\' for Chinese\n' +
+                '\'language ko\' for Korean\n' +
+                '\'language fr\' for French\n' +
+                'And more...'
             );
         }
         const ToLowerCase = args[1].toLowerCase();
-        if(ToLowerCase.length > 2) return await consolelog(color.code.red, '[Language] Not a valid language symbol (2 characters)');
+        if (ToLowerCase.length > 2) return await consolelog(color.code.red, '[Language] Not a valid language symbol (2 characters)');
         try {
             delete require.cache[require.resolve('../settings.json')];
             const consolelog_new = require('./util/translate')
-            await consolelog_new('','language')
+            await consolelog_new('', 'language')
         } catch (err) {
             await console.log(err)
         } finally {

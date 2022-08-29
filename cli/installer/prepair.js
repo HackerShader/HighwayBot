@@ -31,9 +31,9 @@ async function Input() {
                 'You choose to install HighwayBot from the official GitHub repository.\n' +
                 'Please wait while we are downloading the repository...');
 
+            await console.log('\x1b[33m[Pending] Cloning the repository...\x1b[0m');
             async function cloner() {
                 await exec('git clone https://github.com/HackerShader/HighwayBot', async (err) => {
-                    await console.log('\x1b[33m[Pending] Cloning the repository...\x1b[0m');
                     if (err) return console.log(err);
                     await console.log("\x1b[32m[Done] Cloned the HighwayBot repository\x1b[0m");
                     await fs.copy('./HighwayBot', './');
@@ -68,20 +68,25 @@ async function confirm() {
     await consolelog('', 'This installer has been created by HighwayBot team.' +
         '\nWe are not responsible for any damage caused by this installer in Pre-release Build' +
         '\nDo you want to continue? (Y / N)');
-    await prompt.get(['confirm'], async (err, result) => {
+    let get = () => prompt.get(['confirm'], async (err, result) => {
         if (err) return;
         if (result.confirm.toLowerCase() === 'n' || result.confirm.toLowerCase() === 'no') {
             await consolelog('', '[X] Installer has been terminated.\n' +
                 'Reason: You did not agree to the terms and conditions');
             await process.exit();
-        } else {
+        } else if (result.confirm.toLowerCase() === 'y' || result.confirm.toLowerCase() === 'yes') {
             await consolelog('', 'Thank you for your cooperation.\n' +
                 'Please wait for the installation process...');
             await setTimeout(() => {
                 require('./download');
             }, 5 * 1000);
+        } else {
+            
+            await consolelog(color.code.red, 
+                '[X] Bad choice, Please confirm to install HighwayBot.').then(() => get());
         }
     });
+    get()
 }
 
 start()

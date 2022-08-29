@@ -3,10 +3,10 @@ const color = require('../util/colorcode');
 
 module.exports = (args) => {
     if (!args[2])
-        if (!fs.existsSync(`./config/${args[2]}.json`)) {
-            console.log(color.code.red, `[Config | Edit | Error] Config [${args[2]}] don't exists.`);
-            console.log(color.code.blue, `[Config | Edit | Note] Use the 'config list' command to find out what the key is.`);
-        }
+        console.log(color.code.blue, `[Config | Edit] Usage: config edit <filename> <key_1>:<value_1> <key_2>:<value_2> ...`);
+    else if (!fs.existsSync(`./config/${args[2]}.json`))
+        console.log(color.code.red, `[Config | Edit | Error] Config [${args[2]}] don't exists.`);
+    if (!args[2] || !fs.existsSync(`./config/${args[2]}.json`)) return console.log(color.code.blue, `[Config | Edit | Note] Use the 'config list' command to find out what the key is.`);
     const file = require('edit-json-file')(`./config/${args[2]}.json`);
     let configName = args[2];
     let success = [];
