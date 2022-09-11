@@ -46,7 +46,7 @@ const prefix = config.prefix;
 const inventoryViewer = require('mineflayer-web-inventory');
 
 
-console.log(`[HighwayBot] Launching...` +
+console.log(`   Launching...` +
     `\n             Version: ${require('./package.json').version}` +
     `\n             Prefix: ${prefix}` +
     `\n             Server: ${config.ip}:${config.port}` +

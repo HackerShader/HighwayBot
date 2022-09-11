@@ -27,7 +27,7 @@ async function callback() {
                 if (toLowerCase === `install`
                     || toLowerCase === `update`) return require(`./cli/${toLowerCase}.js`).execute();
                 else if (command.name === 'config' && args[1] === 'edit'
-                    || command.name === 'err') await command.execute(noLowerArgs);
+                    || command.name === 'err') await command.execute(noLowerArgs).then(() => callback());
                 else if (command.name === 'help') await resolve(command.execute(args, cmds).then(() => callback()));
                 else await resolve(command.execute(args).then(() => callback()));
             }

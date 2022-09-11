@@ -12,7 +12,13 @@ module.exports = (args) => {
             return console.log(color.code.red, `[Config | Create | Error] Config [${args[2]}] already exists.`);
         configName = args[2];
     }
+	
     fs.writeFileSync(`./config/${configName}.json`, JSON.stringify({
+        botname: "highwaybot",
+        test: {
+            enabled: true,
+            alo:"ngu"  
+        },
         username: "Player",
         password: null,
         ip: "",
