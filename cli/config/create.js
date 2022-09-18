@@ -14,18 +14,41 @@ module.exports = (args) => {
     }
 	
     fs.writeFileSync(`./config/${configName}.json`, JSON.stringify({
-        botname: "highwaybot",
-        test: {
-            enabled: true,
-            alo:"ngu"  
+        general: {
+            ingameprefix: "2w!",
+            botusername: "highwaybot",
+            owner: "Player",
+            version: "1.12.2"
         },
-        username: "Player",
-        password: null,
-        ip: "",
-        port: 25565,
-        pin: "0000",
-        invport: "1000",
-        prefix: "2w!"
+        hostinfo: {
+            hostname: "localhost",
+            port: 25565,
+            inventoryviewerport: 8000,
+        },
+        module: { 
+            highway: {
+                
+            },
+            player: {
+                combat: {
+                    autocrystal: {
+                        toggle: false,
+                    }
+                },
+                movenment: {
+                    velocity: {
+                        toggle: true,
+
+                    }
+                },
+                utility: {
+
+                }
+            }
+        }
+        
+
+
     }));
     console.log(color.code.green, `[Config | Create | Done] Created empty config [${configName}].`);
     console.log(color.code.blue, `[Config | Create] Use 'config edit' to edit config`);

@@ -1,3 +1,5 @@
+const config = require(`./../../`);
+
 module.exports = async (bot) => {
     bot._client.on('entity_velocity', v => {
         if (bot.entity.id !== v.entityId) return;
