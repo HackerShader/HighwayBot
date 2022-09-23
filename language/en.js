@@ -1,50 +1,49 @@
 module.exports = {
     cmd: {
-        welcome: () => `----- Chào mừng bạn đến với bộ điều khiển HighwayBot -----`,
+        welcome: () => `----- Welcome to HighwayBot controller -----`,
         // Command
-        commands: () => `Nhập:\n` +
-            `> 'help' để biết danh sách lệnh\n` +
-            `> 'language <viết tắt của ngôn ngữ của bạn (như: 'en', 'vi',...)>' để đổi ngôn ngữ mặc định\n` +
-            `> 'runbot' để chạy bot\n`,
-        command: () => `lệnh`,
+        commands: () => `Type:\n` +
+            `> 'help' to see a list of commandsn\n` +
+            `> 'language <your language acronym (like: 'en', 'vi',...)>' to change the default language\n` +
+            `> 'runbot' to run bot`,
+        command: () => `command`,
         /**
          * @param {String} name Command name
          */
-        command_err: (name) => `[Lệnh | Lỗi] Không tìm thấy lệnh '${name}'`,
+        command_err: (name) => `[CMD | Error] Command '${name}' not found`,
         // Instal
-        first_time_msg: () => `[Thông báo] Đây là lần đầu bạn dùng HighwayBot`,
-        install_wait: () => `[Thông báo] Vui lòng chờ tải các gói tài nguyên...`,
+        first_time_msg: () => `[Notification] This is the first time you run this program`,
+        install_wait: () => `[Notification] Please wait while installing dependencies...`,
         /**
          * @param {Number} progress Download progress
          * @param {String} package Package name
          */
-        install_package: (progress, package) => `[Thông báo] [${progress}%] Đang tải ${package}...`,
-        install_done: () => '[Thông báo] Đã tải xong các gói tài nguyên.',
+        install_package: (progress, package) => `[Notification] [${progress}%] Installing ${package}...`,
         /**
          * @param {String} package Package name
          * @param {String} err Error
          */
-        install_err: (package, err) => `[Thông báo] Gặp lỗi khi tải gói tài nguyên '${package}':\n${err}`,
+        install_err: (package, err) => `[Notification] Error downloading package '${package}':\n${err}`,
+        install_done: () => '[Notification] [100%] Dependencies installed',
         // Guide
         first_time_guide: () =>
-            `Để có thể vận hành bot vui lòng chạy các lệnh sau:\n` +
-            `> 'config create default' để tạo cài đặt default\n` +
-            `> 'config edit default' để chỉnh sửa cài đặt default\n` +
-            `> 'config load default' để tải cài đặt default\n` +
-            `> 'config reload' để làm mới file 'path.json'\n` +
+            `To start using the bot, please do the following:\n` +
+            `> Run 'config create default' command to create empty 'deafult' config\n` +
+            `> Run 'config edit' to edit the newly created empty 'default' config.\n` +
+            `> Run 'config load default' and config reload' to load config\n` +
             this.cmd.commands()
     },
     index: {
         /**
          * @param {String} package Package name
          */
-        miss_package: (package) => `[MC-Bot | Lỗi] Thiếu gói tài nguyên ${package}`,
-        install: () => `[MC-Bot| Cài đặt] Bạn vui lòng nhập lệnh 'install' để tải toàn bộ bot`,
+        miss_package: (package) => `[MC-Bot | Error] Missing dependencies ${package}`,
+        install: () => `[MC-Bot| Install] Please type 'install' for full bot installation`,
         /**
          * @param {String} file File name
          * @param {Boolean} config Is that a config file
          */
-        miss_file: (file, config) => `[MC-Bot | Lỗi] Không thể tìm thấy file ${config == true ? 'cài đặt ' : ''}'${file}'`,
+        miss_file: (file, config) => `[MC-Bot | Error] Can't find ${config == true ? 'config ' : ''}file '${file}'`,
         /**
          * @param {String} version Minecraft version
          * @param {String} prefix Bot's prefix
@@ -54,7 +53,7 @@ module.exports = {
          * @param {String} inventory_link Inventory viewer link
          */
         launch: (version, prefix, server, owner, bot_name, inventory_link) =>
-            `[HighwayBot] Đang khởi động bot...\n` +
+            `[HighwayBot] Launching...\n` +
             `             Version: ${version}\n` +
             `             Prefix: ${prefix}\n` +
             `             Server: ${server}\n` +
@@ -64,33 +63,33 @@ module.exports = {
         /**
          * @param {String} reason Reason bot disconnect
          */
-        disconnect: (reason) => `[MC-Bot | Ngắt kết nối] Lý do: ${reason}`,
-        spawn: () => `[MC-Bot | Đăng nhập] Bot đã vào server`,
+        disconnect: (reason) => `[MC-Bot | Disconnected] Reason: ${reason}`,
+        spawn: () => `[MC-Bot | Login] Bot spawned!`,
         /**
          * @param {String} poisition Bot's poisition
          */
-        poisition: (poisition) => `[MC-Bot | Vị trí] Vị trí của bot: ${poisition}`,
+        poisition: (poisition) => `[MC-Bot | Poisition] Bot's poisition: ${poisition}`,
         /**
          * @param {String} message Message
          */
-        chat: (message) => `[MC-Bot | Tin nhắn] ${message}`
+        chat: (message) => `[MC-Bot | Chat] ${message}`
     },
     Core: {
         Baritone: {
             follow: {
-                cant_see: () => `Bot không tìm thấy bạn!`,
+                cant_see: () => `Bot can't find you!`,
                 /**
                  * @param {String} coord Coord
                  */
-                follow: (coord) => `[Baritone | Đi theo] Tọa độ: ${coord}`
+                follow: (coord) => `[Baritone | Follow] Coord: ${coord}`
             },
             goto: {
-                err_miss_coord: () => `[Baritone | Lỗi | Đi đến] Thiếu tọa độ`,
-                err_invalid_y: () => `[Baritone | Lỗi | Giá trị] Giá trị Y không hợp lệ (0 < Y < 255)`,
+                err_miss_coord: () => `[Baritone | Error | Goto] Missing coord`,
+                err_invalid_y: () => `[Baritone | Error | Arguments] Y coordinate must be between 0 and 255`,
                 /**
                  * @param {String} coord Coord
                  */
-                goto: (coord) => `[Baritone | Đi đến] Tọa độ: ${coord}`
+                goto: (coord) => `[Baritone | Goto] Cord: ${coord}`
             }
         },
         Console: {
@@ -100,27 +99,27 @@ module.exports = {
                  * @param {{mine: Number, place: Number, "place-err": Number, PickaxeBroken: Array}} data Data
                  */
                 log: (info, data) =>
-                    `[HighwayBot] Thông tin\n` +
-                    `> Tên khối: ${info.name}\n` +
-                    `> Vị trí: ${info.pos}\n` +
-                    `> Tình trạng: ${info.status}\n` +
-                    `[HighwayBot] Tiến độ\n` +
-                    `> Tổng số khối đã đập: ${data.mine}\n` +
-                    `> Tổng số khối đã đặt: ${data.place}\n` +
-                    `> Tổng số lỗi: ${data["place-err"]}\n` +
-                    `[HighwayBot] Tình trạng cúp\n` +
-                    `> Độ bền đã dùng: ${data.Pickaxe1.durability}\n` +
-                    `> Tổng số cúp đã hư: ${(data["PickaxeBroken"]).length}`
+                    `[HighwayBot] Infomation\n` +
+                    `> Block: ${info.name}\n` +
+                    `> Poisition: ${info.pos}\n` +
+                    `> Status: ${info.status}\n` +
+                    `[HighwayBot] Status\n` +
+                    `> Total broken: ${data.mine}\n` +
+                    `> Total placed: ${data.place}\n` +
+                    `> Total error: ${data["place-err"]}\n` +
+                    `[HighwayBot] Pickaxe Status\n` +
+                    `> Current pickaxe durability used: ${data.Pickaxe1.durability}\n` +
+                    `> Total broken pickaxe: ${(data["PickaxeBroken"]).length}`
             }
         },
         HighwayTunnel: {
             inventory: {
                 item_saver: {
-                    think: () => `Hmmm...Tôi không có cây cúp nào cả.`
+                    think: () => `Thinking... I didn't have any pickaxe`
                 }
             },
             highwaybuildtool: {
-                start: () => `[Highway] Bắt đầu quá trình đào`
+                start: () => `[Highway] Digging tasks started`
             }
         }
     },
@@ -129,18 +128,18 @@ module.exports = {
             /**
              * @param {String} commands Commands
              */
-            no_command: (commands) => `[Baritone] Toàn bộ lệnh: ${commands}`,
+            no_command: (commands) => `[Baritone] Commands: ${commands}`,
             /**
              * @param {String} command Command
              */
-            command_invalid: (command) => `[Baritone | Lỗi] Không tìm thấy lệnh ${command}`,
+            command_invalid: (command) => `[Baritone | Error] ${command}  is not a valid command`,
             /**
              * @param {String} error Error
              */
-            command_err: (error) => `[Baritone | Lỗi] ${error}`
+            command_err: (error) => `[Baritone | Error] ${error}`
         },
         help: {
-            help: () => `Nếu bạn cần giúp đỡ, vui lòng vào cli và dùng lệnh 'help' hoặc truy cập 'https://highwaybot.tk/category/command'`
+            help: () => `If you need help, please go to cli and type 'mchelp' or visit https://highwaybot.tk/category/command`
         },
         infoserver: {
             /**
@@ -148,10 +147,10 @@ module.exports = {
              * @param {Number} tps TPS
              * @param {Number} players Players
              */
-            info: (ip, tps, players) => `[${ip}] TPS: ${tps} | Tổng số người chơi: ${players}`
+            info: (ip, tps, players) => `[${ip}] TPS: ${tps} | Players: ${players}`
         },
         mine: {
-            stop: () => `[Highway] Đã dừng việc đào`
+            stop: () => `[Highway] Digging tasks stopped`
         },
     },
     cli: {
