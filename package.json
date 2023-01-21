@@ -12,10 +12,10 @@
   "author": "HackerShader#5959",
   "license": "GNU General Public License v3.0",
   "dependencies": {
-    "@vitalets/google-translate-api": "^8.0.0",
+    "@vitalets/google-translate-api": "^9.1.0",
     "ascii-table": "^0.0.9",
     "edit-json-file": "^1.7.0",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11.1.0",
     "mathjs": "^11.0.1",
     "minecraft-data": "^3.5.1",
     "minecraft-protocol": "^1.39.0",
