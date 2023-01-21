@@ -77,7 +77,7 @@ async function confirm() {
         } else if (result.confirm.toLowerCase() === 'y' || result.confirm.toLowerCase() === 'yes') {
             await consolelog('', 'Thank you for your cooperation.\n' +
                 'Please wait for the installation process...');
-            await setTimeout(() => {
+            setTimeout(() => {
                 require('./download');
             }, 5 * 1000);
         } else {
@@ -86,7 +86,7 @@ async function confirm() {
                 '[X] Bad choice, Please confirm to install HighwayBot.').then(() => get());
         }
     });
-    get()
+    await get()
 }
 
 start()

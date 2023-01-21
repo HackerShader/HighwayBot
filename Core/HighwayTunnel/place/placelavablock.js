@@ -12,7 +12,7 @@ module.exports = async (bot) => {
                 if (block.name !== `lava`) continue;
                 try {
                     const lavablock = bot.blockAt(block.position.offset(-1, 0, 0));
-                    bot.lookAt(new Vec3(block.position.x - 1, block.position.y, block.position.z + 0.5));
+                    await bot.lookAt(new Vec3(block.position.x - 1, block.position.y, block.position.z + 0.5));
                     log(block.name, pos, 'place', true);
                     await bot.placeBlock(lavablock, new Vec3(1, 0, 0));
                     const data = editJsonFile('data/status.json');

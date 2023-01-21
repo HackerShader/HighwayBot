@@ -52,7 +52,7 @@ module.exports = async (bot) => {
 
         //handler
         await require('../inventory/cleaner')(bot);
-        const checkinfront = await require('../check/checkInFront')(bot);
+        const checkinfront = require('../check/checkInFront')(bot);
         const scaffoldcheck = require('../check/scaffoldcheck')(bot);
         const lavacheck = require('../check/CheckLavaBLock')(bot);
         if (scaffoldcheck === true || lavacheck.check === true) {

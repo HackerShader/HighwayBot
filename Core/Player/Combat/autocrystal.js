@@ -11,7 +11,7 @@ module.exports = async (bot) => {
         invslots = i;
     }
     let hasItem = bot.inventory.slots[invslots];
-    if (hasItem) bot.equip(hasItem, 'hand');
+    if (hasItem) await bot.equip(hasItem, 'hand');
 
     setInterval(async () => {
             bot.nearestEntity(async (entity) => {

@@ -7,5 +7,5 @@ module.exports = async (bot) => {
     }
     console.log(blockSlots);
     let hasBlock = bot.inventory.slots[blockSlots];
-    if (hasBlock) bot.equip(hasBlock, 'hand');
+    if (hasBlock) await bot.equip(hasBlock, 'hand');
 };

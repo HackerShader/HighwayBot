@@ -1,6 +1,5 @@
 const fs = require('fs-extra');
 const consolelog = require('./util/translate')
-const color = require('./util/colorcode')
 
 module.exports = {
     name: "config",

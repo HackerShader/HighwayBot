@@ -315,6 +315,7 @@ module.exports = {
                 `[Cài đặt | ${vi_command[0].toUpperCase()}${vi_command.slice(1).toLowerCase()}] Cách dùng: 'config ${en_command.toLowerCase()} <tên cài đặt> ${!usage || usage.trim() == '' ? '' : `${usage}`}'`,
             /**
              * @param {String} vi_command
+             * @param en_command
              * @param {String} config
              */
             not_exist: (vi_command, en_command, config) =>

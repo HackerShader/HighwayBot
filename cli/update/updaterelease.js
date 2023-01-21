@@ -5,7 +5,7 @@ const color = require('./../util/colorcode')
 const fs = require('fs-extra')
 
 module.exports = async () => {
-    if (info.build === undefined) consolelog('', "\x1b[31m[X] HighwayBot not installed!\x1b1");
+    if (info.build === undefined) await console.log('', "\x1b[31m[X] HighwayBot not installed!\x1b1");
     return new Promise(async (resolve, reject) => {
         await superagent.get('https://api.github.com/repos/HackerShader/HighwayBot/releases/latest')
             .set('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36')

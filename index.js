@@ -33,9 +33,9 @@ if (!fs.existsSync('./data/status.json')) {
     }));
 }
 
-if (!fs.existsSync('./settings.json')) consolelog(color.code.red, `[MC-Bot | Error] Can't find file [settings.json]`);
+if (!fs.existsSync('./settings.json')) console.log(color.code.red, `[MC-Bot | Error] Can't find file [settings.json]`);
 
-if (!fs.existsSync(`./config/${require('./settings.json').config}`)) consolelog(color.code.red,`[MC-Bot | Error] Can\'t find config files [config/${require('./settings.json').config}]`);
+if (!fs.existsSync(`./config/${require('./settings.json').config}`)) console.log(color.code.red,`[MC-Bot | Error] Can\'t find config files [config/${require('./settings.json').config}]`);
 
 delete require.cache[require.resolve(`./config/${require('./settings.json').config}`)];
 const mineflayer = require('mineflayer');

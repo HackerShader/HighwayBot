@@ -7,7 +7,7 @@ console.log(`----- Welcome to HighwayBot controller -----\n`);
 
 async function callback() {
     const consolelog = require('./cli/util/translate');
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
         const prompt = require('prompt');
         await prompt.start();
         await prompt.get('commands', async function (err, result) {
@@ -70,8 +70,8 @@ async function main() {
                     process.stdout.clearLine(0);
                     process.stdout.cursorTo(0);
                     await console.log(color.code.red, `[Notification] ${err}`);
-                    log();
-                } else log()
+                    await log();
+                } else await log()
             })
         }
         let log = async () => {

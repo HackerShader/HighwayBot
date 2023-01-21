@@ -7,8 +7,7 @@ function isObject(object) {
 }
 
 function isNumber(input) {
-    if(isNaN(input) === true) return false
-    else return true;
+    return isNaN(input) !== true;
 }
 
 function FindObject(obj, path, value) {
