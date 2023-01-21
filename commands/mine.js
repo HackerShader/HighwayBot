@@ -6,7 +6,7 @@ module.exports = {
         if (args[1] === 'stop') {
             file.set('stop', true);
             file.save();
-            bot.chat(`/msg ${config.username} [Highway] Digging tasks stopped`);
+            bot.chat(`/msg ${config.general.owner} [Highway] Digging tasks stopped`);
         } else {
             file.set('stop', false);
             file.save();

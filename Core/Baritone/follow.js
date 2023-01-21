@@ -9,7 +9,7 @@ module.exports = (bot, args, username) => {
     const target = bot.players[username] ? bot.players[username].entity : null;
     if (!target) return bot.chat('I don\'t see you !');
     const TargetPlayer = target.position;
-    bot.chat(`/msg ${config.username} [Baritone] Follow | Coord: ${(TargetPlayer.x).toFixed(0)}, ${(TargetPlayer.y).toFixed(0)}, ${(TargetPlayer.z).toFixed(0)}`);
+    bot.chat(`/msg ${config.general.owner} [Baritone] Follow | Coord: ${(TargetPlayer.x).toFixed(0)}, ${(TargetPlayer.y).toFixed(0)}, ${(TargetPlayer.z).toFixed(0)}`);
     bot.pathfinder.setMovements(defaultMove);
     bot.pathfinder.setGoal(new GoalNear(TargetPlayer.x, TargetPlayer.y, TargetPlayer.z, 1));
     const positionrolate = new Vec3(TargetPlayer.x, TargetPlayer.y, TargetPlayer.z);

@@ -1,4 +1,4 @@
-const config = require(`./../../`);
+//const config = require(`./../../`);
 
 module.exports = async (bot) => {
     bot._client.on('entity_velocity', v => {

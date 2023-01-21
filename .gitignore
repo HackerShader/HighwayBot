@@ -134,8 +134,9 @@ dist
 .pnp.*
 temp.js
 
-# Ignore some json file
+# Ignore some files
 settings.json
 /data/status.json
 commandconfig.json
 /config/
+test/installer.js

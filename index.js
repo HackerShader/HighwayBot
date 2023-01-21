@@ -1,3 +1,4 @@
+const notifier = require('node-notifier');
 const consolelog = require('./cli/util/translate')
 const package_json = require('./package.json');
 const dependencies_array = [
@@ -18,7 +19,7 @@ dependencies_array.forEach(str => {
         miss = true;
     }
 });
-if (miss == true) consolelog(color.code.yellow, '[MC-Bot | Install] Please type \'install\' for full bot installation');
+if (miss === true) console.log(color.code.yellow, '[MC-Bot | Install] Please type \'install\' for full bot installation');
 
 const fs = require('fs-extra');
 if (!fs.existsSync('./data/status.json')) {
@@ -32,7 +33,7 @@ if (!fs.existsSync('./data/status.json')) {
     }));
 }
 
-if (!fs.existsSync('./settings.json')) consolelog(color.code.red, `[MC-Bot | Error] Can't find file [path.json]`);
+if (!fs.existsSync('./settings.json')) consolelog(color.code.red, `[MC-Bot | Error] Can't find file [settings.json]`);
 
 if (!fs.existsSync(`./config/${require('./settings.json').config}`)) consolelog(color.code.red,`[MC-Bot | Error] Can\'t find config files [config/${require('./settings.json').config}]`);
 
@@ -42,25 +43,32 @@ const mineflayernavigate = require('mineflayer-navigate')(mineflayer);
 const pathfinder = require('mineflayer-pathfinder').pathfinder;
 const config = require(`./config/${require('./settings.json').config}`);
 const tpsPlugin = require('mineflayer-tps')(mineflayer);
-const prefix = config.prefix;
+const prefix = config.general.ingameprefix;
 const inventoryViewer = require('mineflayer-web-inventory');
 
+function notifierbox(title, description) {
+    notifier.notify({
+        title: title,
+        icon: __dirname + './cli/util/logo.png',
+        message: description
+    });
+}
 
 console.log(`   Launching...` +
     `\n             Version: ${require('./package.json').version}` +
     `\n             Prefix: ${prefix}` +
-    `\n             Server: ${config.ip}:${config.port}` +
-    `\n             Owner: ${config.username}` +
+    `\n             Server: ${config.hostinfo.hostname}:${config.hostinfo.port}` +
+    `\n             Owner: ${config.general.owner}` +
     `\n             Bot username: highwaybot` +
-    `\n             Inventory: http://localhost:${config.invport}`
+    `\n             Inventory: http://localhost:${config.hostinfo.inventoryviewerport}`
 );
 
 function HighwayBot() {
     const bot = mineflayer.createBot({
         username: "highwaybot",
-        host: config.ip,
-        port: config.port,
-        version: '1.16.5',
+        host: config.hostinfo.hostname,
+        port: config.hostinfo.port,
+        version: '1.12.2',
     });
 
     //Plugins loader
@@ -88,29 +96,32 @@ function HighwayBot() {
     });
 
     bot.on('chat', (username, message) => {
-        if (!message.startsWith(config.prefix)) return;
+        if (!message.startsWith(config.general.ingameprefix)) return;
         const args = message.slice(prefix.length).trim().split(' ');
         const cmd = args[0].toLowerCase();
-        if (username !== config.username) return;
+        if (username !== config.general.owner) return;
 
         //execute commands
         try {
             const command = require(`./commands/${cmd}.js`);
             command.execute(bot, message, args, username);
         } catch (err) {
-            console.log(err);
+            console.log(err)
         }
     });
     bot.on('kicked', kick => {
+        notifierbox('HighwayBot disconnected by server', `${kick}`)
         console.log(`Disconnected. Reason: ${kick}`);
     });
 
     bot.on('end', (reason) => {
+        notifierbox('HighwayBot disconnected', `${reason}`)
         console.log(`Disconnected. Reason: ${reason}`);
         setTimeout(() => HighwayBot(), 10000);
     });
 
     bot.on('spawn', () => {
+        notifierbox('HighwayBot', `Connected to ${config.hostinfo.hostname}`)
         console.log('Bot spawn !');
         console.log('Position of bot:' + Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z));
         fs.readdirSync('./Core/Player').forEach(folder => {
@@ -124,6 +135,7 @@ function HighwayBot() {
     bot.on('message', msg => {
         console.log(msg.toString());
     });
+
 }
 
 HighwayBot();

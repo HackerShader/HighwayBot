@@ -27,7 +27,31 @@ module.exports = (args) => {
         },
         module: { 
             highway: {
-                
+                mode: "highway",
+                direction: "west",
+                tunnel: {
+                    width: 6,
+                    height: 4,
+                    highway_style: {
+                        corner: true,
+                        clear_roof: false
+                    }
+                },
+                dig: {
+                    delay: 2,
+                    delay_task: 0,
+                    algorithm: 3,
+                    reach: 4
+                },
+                place: {
+                    delay: 2,
+                    delay_task: 0,
+                    material: "obsidian",
+                    mode: "blatant"
+                },
+                render: {
+                    
+                }
             },
             player: {
                 combat: {
@@ -42,7 +66,12 @@ module.exports = (args) => {
                     }
                 },
                 utility: {
-
+                    autoeat: {
+                        toggle: true,
+                    },
+                    safety: {
+                        toggle: true
+                    }
                 }
             }
         }

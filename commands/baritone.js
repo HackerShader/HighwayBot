@@ -11,7 +11,7 @@ module.exports = {
                     BaritoneCommands += `${Baritonefile}, `;
                 }
             });
-            bot.chat(`/msg ${config.username} [Baritone] Commands: ${BaritoneCommands}`);
+            bot.chat(`/msg ${config.general.owner} [Baritone] Commands: ${BaritoneCommands}`);
             return;
         }
         try {
@@ -19,8 +19,8 @@ module.exports = {
         }
         catch (err) {
             if (err.code === 'MODULE_NOT_FOUND') {
-                bot.chat(`/msg ${config.username} [Baritone] | Error: ${args[1]} is not a valid command`);
-            } else bot.chat(`/msg ${config.username} [Baritone] | Error: ${err}`);
+                bot.chat(`/msg ${config.general.owner} [Baritone] | Error: ${args[1]} is not a valid command`);
+            } else bot.chat(`/msg ${config.general.owner} [Baritone] | Error: ${err}`);
         }
     }
 };

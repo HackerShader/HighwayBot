@@ -1,7 +1,9 @@
-module.exports = async (bot) => {
+const config = require(`./../../../config/${require('./../../../settings.json').config}`);
+    module.exports = async (bot) => {
     function quit(reason) {
         bot.quit(reason);
     }
+    if (config.module.player.utility.safety.toggle === false) return;
 
     async function equipTotem() {
         let totem_count = 0;

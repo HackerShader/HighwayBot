@@ -7,9 +7,8 @@ module.exports = async (bot) => {
     async function dig() {
         let sum = 0;
         let blockcount = await require('../check/minecalc')(bot);
-
         delete require.cache[require.resolve('../../../data/status.json')];
-        if (require('../../../data/status.json').stop == true) return;
+        if (require('../../../data/status.json').stop === true) return;
         await require('../inventory/itemsaver')(bot);
 
         for (let x = -3; x <= 2; x++) {
@@ -19,7 +18,7 @@ module.exports = async (bot) => {
                     const target = bot.blockAt(bot.entity.position.offset(x, y, z))
                         , pos = `${target.position.x} ${target.position.y} ${target.position.z}`;
                     if (target.name === 'air' || !bot.canDigBlock(target) || !target) continue;
-                    if ((z == -2 || z == 2) && y == 0 && target) continue;
+                    if ((z === -2 || z === 2) && y === 0 && target) continue;
 
                     //Progress_dig
                     let Progress_dig = sum++;
@@ -33,7 +32,8 @@ module.exports = async (bot) => {
 
                     //digging and logging
                     log(target.name, pos, 'dig', true, `[${Number(Progress_dig * Blockpercentage).toFixed(3)}%] [${refresh_file.timer}ms]`);
-                    await bot.dig(target, false, new Vec3(-1, 0, 0));
+                    await bot.dig(target, true, new Vec3(-1, 0, 0));
+                    
 
                     //calculating time after digging each block
                     const done_date = new Date();
