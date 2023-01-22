@@ -1,3 +1,3 @@
 cls
 echo off
-node index.js
+node installer.js

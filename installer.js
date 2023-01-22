@@ -89,7 +89,7 @@ async function reinstall() {
         process.stdout.clearLine()
         process.stdout.cursorTo(0)
         console.log('[#] Downloaded package(s)')
-        restart()
+        delete_temp()
     })
 }
 
@@ -99,6 +99,7 @@ async function delete_temp () {
     if (fs.existsSync('./installer.bat')) fs.unlinkSync('./installer.bat')
     if (fs.existsSync('./installer.sh')) fs.unlinkSync('./installer.sh')
     console.log('[#] Removed temporary file.')
+    restart()
 }
 
 async function restart() {
