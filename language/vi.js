@@ -10,7 +10,7 @@ module.exports = {
         /**
          * @param {String} name Command name
          */
-        command_err: (name) => `[Lệnh | Lỗi] Không tìm thấy lệnh '${name}'`,
+        command_not_found: (name) => `[Lệnh | Lỗi] Không tìm thấy lệnh '${name}'`,
         // Instal
         first_time_msg: () => `[Thông báo] Đây là lần đầu bạn dùng HighwayBot`,
         install_wait: () => `[Thông báo] Vui lòng chờ tải các gói tài nguyên...`,
@@ -156,9 +156,9 @@ module.exports = {
     },
     cli: {
         no_install: () => `[X] Bạn chưa tải toàn bộ HighwayBot`,
-        dev_description: () => `[❕] Chỉ dành cho nhà phát triển thử nhiệm tính năng mới`,
+        dev_description: () => `[❕] Chỉ dành cho nhà phát triển thử nghiệm tính năng mới`,
         changelog: {
-            description: () => `Các cập nhật mới cảu bot`,
+            description: () => `Các cập nhật mới của bot`,
             not_install: () => this.cli.no_install(),
             /**
              * @param {String} log Commit logs
@@ -469,52 +469,58 @@ module.exports = {
                 install_package: () => `[Thông báo] Đang tải các gói tài nguyên...`,
                 install_done: () =>
                     `[Thông báo] Đã tải xong các gói tài nguyên\n` +
-                    `[Thông báo] Đã tải toàn bộ HoghwayBot`,
-                relaunch: () => `[Thông báo] Vui lòng khởi động lại HighwayBot [node cmd | ./start.bat]`
-            }
-        },
-        prepair: {
-            choices: () =>
-                `----- Chào mừng bạn đã đến bộ cài đặt của HighwayBot ----\n` +
-                `Bộ cài đặt này sẽ giúp bạn tải toàn bộ HighwayBot\n` +
-                `Chúng tôi cần một số thông tin trước khi cài đặt\n` +
-                `\n` +
-                `Dự án HighwayBot vẫn đang trong quá trình phát triển.\n` +
-                `Ở đây sẽ có 2 lựa chọn cho bạn khi tải HighwayBot\n` +
-                `\n`,
-            choice_1: () =>
-                `1. Tải từ trực tiếp từ Github của HighwayBot ([❕] Chỉ dành cho các nhà phát triển) (Yêu cầu 'git')`,
-            choice_2: () =>
-                `2. Tải từ trang cập nhật các phiên bản mới (Khuyến nghị cho các người dùng phổ thông)`,
-            choice_3: () =>
-                `3. Thoát bộ cài đặt HighwayBot`,
-            method_1: {
-                notification: () =>
-                    `Bạn đã chọn cách 1 (tải từ Github)\n` +
-                    `Vui lòng chờ trong lúc HoghwayBot đang tải xuống...`,
-                cloning: () =>
-                    `[Thông báo] Đang tải...`,
-                done: () =>
-                    `[Thông báo] Đã tải xong.`,
+                    `[Thông báo] Đã tải toàn bộ HighwayBot`,
                 relaunch: () => `[Thông báo] Vui lòng khởi động lại HighwayBot [node cmd | ./start.bat]`
             },
-            method_2: {
-                notification: () => `Bạn đã chọn cách 2 (tải từ trang cập nhật)`,
-                confirm: () =>
-                    `Bộ cài đặt này được tạo ra bởi đội lập trình của HighwayBot.\n` +
-                    `Chúng tôi không chịu trách nhiệm cho bất kỳ thiệt hại nào do trình cài đặt này gây ra trong bản thử nghiệm\n` +
-                    `Bạn có chắc chắn tiếp tục? (Y / N)`,
-                deny: () =>
-                    `[X] Đã dừng việc tải\n` +
-                    `Lý do: Bạn không đồng ý với các điều khoản`,
-                acccept: () =>
-                    `Cảm ơn bạn đã hợp tác\n` +
-                    `Đã khởi động quá trình tải xuống...`,
+            prepair: {
+                choices: () =>
+                    `----- Chào mừng bạn đã đến bộ cài đặt của HighwayBot ----\n` +
+                    `Bộ cài đặt này sẽ giúp bạn tải toàn bộ HighwayBot\n` +
+                    `Chúng tôi cần một số thông tin trước khi cài đặt\n` +
+                    `\n` +
+                    `Dự án HighwayBot vẫn đang trong quá trình phát triển.\n` +
+                    `Ở đây sẽ có 2 lựa chọn cho bạn khi tải HighwayBot\n` +
+                    `\n`,
+                choice_1: () =>
+                    `1. Tải từ trực tiếp từ Github của HighwayBot ([❕] Chỉ dành cho các nhà phát triển) (Yêu cầu 'git')`,
+                choice_2: () =>
+                    `2. Tải từ trang cập nhật các phiên bản mới (Khuyến nghị cho các người dùng phổ thông)`,
+                choice_3: () =>
+                    `3. Thoát bộ cài đặt HighwayBot`,
+                bad_choice: () =>
+                    `[X] Lựa chọn không hợp lệ, vui lòng chọn các tải HighwayBot.`,
+                exit: () =>
+                    `[X] Đã thoát trình tải xuống`,
+                method_1: {
+                    notification: () =>
+                        `Bạn đã chọn cách 1 (tải từ Github)\n` +
+                        `Vui lòng chờ trong lúc HighwayBot đang tải xuống...`,
+                    cloning: () =>
+                        `[Thông báo] Đang tải...`,
+                    done: () =>
+                        `[Thông báo] Đã tải xong.`,
+                    relaunch: () => `[Thông báo] Vui lòng khởi động lại HighwayBot [node cmd | ./start.bat]`
+                },
+                method_2: {
+                    notification: () => `Bạn đã chọn cách 2 (tải từ trang cập nhật)`,
+                    confirm: () =>
+                        `Bộ cài đặt này được tạo ra bởi đội lập trình của HighwayBot.\n` +
+                        `Chúng tôi không chịu trách nhiệm cho bất kỳ thiệt hại nào do trình cài đặt này gây ra trong bản thử nghiệm\n` +
+                        `Bạn có chắc chắn tiếp tục? (Y / N)`,
+                    deny: () =>
+                        `[X] Đã dừng việc tải\n` +
+                        `Lý do: Bạn không đồng ý với các điều khoản`,
+                    acccept: () =>
+                        `Cảm ơn bạn đã hợp tác\n` +
+                        `Đã khởi động quá trình tải xuống...`,
+                    bad_choice: () =>
+                        `[X] Lựa chọn không hợp lệ, vui lòng đồng ý hoặc từchoi61 việc tải HighwayBot.`
+                }
+            },
+            unzip: {
+                unzipping: () => `[Thông báo] Đang giải nén các File...`,
+                unzip_done: () => `[Thông báo] Đã giải nén các File`,
             }
         },
-        unzip: {
-            unzipping: () => `[Thông báo] Đang giải nén các File...`,
-            unzip_done: () => `[Thông báo] Đã giải nén các File`,
-        }
     }
 }

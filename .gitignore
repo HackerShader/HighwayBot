@@ -7,7 +7,6 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 config.json
-package-lock.json
 .idea
 .vscode
 
@@ -140,3 +139,7 @@ settings.json
 commandconfig.json
 /config/
 test/installer.js
+
+# package
+package-lock.json
+yarn.lock

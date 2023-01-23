@@ -24,42 +24,43 @@ async function start() {
 }
 
 async function Input() {
-    await prompt.get(['method'], async (err, result) => {
+     prompt.get(['method'], async (err, result) => {
         if (err) return;
-        if (result.method === '1') {
-            await console.log(
-                'You choose to install HighwayBot from the official GitHub repository.\n' +
-                'Please wait while we are downloading the repository...');
+        switch (result.method) {
+            case '1':
+                console.log(
+                    'You choose to install HighwayBot from the official GitHub repository.\n' +
+                    'Please wait while we are downloading the repository...');
 
-            await console.log('\x1b[33m[Pending] Cloning the repository...\x1b[0m');
-            async function cloner() {
-                await exec('git clone https://github.com/HackerShader/HighwayBot', async (err) => {
-                    if (err) return console.log(err);
-                    await console.log("\x1b[32m[Done] Cloned the HighwayBot repository\x1b[0m");
-                    await fs.copy('./HighwayBot', './');
-                    await fs.removeSync('./HighwayBot');
-                    await exec('git rev-parse HEAD', async (err, stdout) => {
+                console.log('\x1b[33m[Pending] Cloning the repository...\x1b[0m');
+                async function cloner() {
+                    exec('git clone https://github.com/HackerShader/HighwayBot', async (err) => {
                         if (err) return console.log(err);
-                        await console.log(color.code.yellow, '[Notification] Please launch the bot again to apply the changes [node ./cli.js]');
-                        const edit = editJsonFile('./package.json');
-                        edit.set('build', `${stdout.substring(0, 7)}`);
-                        edit.save();
+                        console.log("\x1b[32m[Done] Cloned the HighwayBot repository\x1b[0m");
+                        fs.copy('./HighwayBot', './');
+                        fs.removeSync('./HighwayBot');
+                        exec('git rev-parse HEAD', async (err, stdout) => {
+                            if (err) return console.log(err);
+                            console.log(color.code.yellow, '[Notification] Please launch the bot again to apply the changes [node ./cli.js]');
+                            const edit = editJsonFile('./package.json');
+                            edit.set('build', `${stdout.substring(0, 7)}`);
+                            edit.save();
+                        });
                     });
-                });
-            }
-
-            return cloner();
-        }
-        if (result.method === '2') {
-            await consolelog('', 'You choose to install HighwayBot from the release installer.');
-            return confirm();
-        }
-        if (result.method === '3') {
-            await consolelog(color.code.red, '[X] Exited the Installation');
-            process.exit(0);
-        } else {
-            if (!result.method) return Input();
-            await consolelog(color.code.red, '[X] Bad choice, Please choose the way you want to install HighwayBot.').then(() => Input());
+                }
+                cloner();
+                break;
+            case '2':
+                await consolelog('', 'You choose to install HighwayBot from the release installer.');
+                confirm();
+                break
+            case '3':
+                await consolelog(color.code.red, '[X] Exited the Installation');
+                process.exit(0);
+                break
+            default:
+                if (!result.method) return Input();
+                await consolelog(color.code.red, '[X] Bad choice, Please choose the way you want to install HighwayBot.').then(() => Input());
         }
     });
 }
@@ -81,9 +82,7 @@ async function confirm() {
                 require('./download');
             }, 5 * 1000);
         } else {
-            
-            await consolelog(color.code.red, 
-                '[X] Bad choice, Please confirm to install HighwayBot.').then(() => get());
+            await consolelog(color.code.red, '[X] Bad choice, Please confirm to install HighwayBot.').then(() => get());
         }
     });
     await get()

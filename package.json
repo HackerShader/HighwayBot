@@ -10,10 +10,11 @@
     "nodemon": "nodemon index.js"
   },
   "author": "HackerShader#5959",
-  "license": "GNU General Public License v3.0",
+  "license": "GPL-3.0",
   "dependencies": {
     "@vitalets/google-translate-api": "^9.1.0",
     "ascii-table": "^0.0.9",
+    "chalk": "^5.2.0",
     "edit-json-file": "^1.7.0",
     "fs-extra": "^11.1.0",
     "mathjs": "^11.0.1",

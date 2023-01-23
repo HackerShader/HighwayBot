@@ -10,7 +10,7 @@ module.exports = {
         /**
          * @param {String} name Command name
          */
-        command_err: (name) => `[CMD | Error] Command '${name}' not found`,
+        command_not_found: (name) => `[CMD | Error] Command '${name}' not found`,
         // Instal
         first_time_msg: () => `[Notification] This is the first time you run this program`,
         install_wait: () => `[Notification] Please wait while installing dependencies...`,
@@ -154,90 +154,90 @@ module.exports = {
         },
     },
     cli: {
-        no_install: () => `[X] Bạn chưa tải toàn bộ HighwayBot`,
-        dev_description: () => `[❕] Chỉ dành cho nhà phát triển thử nhiệm tính năng mới`,
+        not_install: () => `[X] You haven't downloaded the full HighwayBot`,
+        dev_description: () => `[❕] For developers to test new features only!`,
         changelog: {
-            description: () => `Các cập nhật mới cảu bot`,
-            not_install: () => this.cli.no_install(),
+            description: () => `New updates of bots`,
+            not_install: () => this.cli.not_install(),
             /**
              * @param {String} log Commit logs
              */
-            changelog: (log) => `Cập nhật từ commit mới nhất:\n${log}\nNhấn ENTER để tiếp tục...`
+            changelog: (log) => `Update from latest commit:\n${log}\nPress ENTER to continue...`
         },
         clear: {
-            description: () => `Xóa toàn bộ console`,
-            clear: () => `[✔] Đã xóa toàn bộ console`
+            description: () => `Clear the console`,
+            clear: () => `[✔] Cleared the entire console`
         },
         config: {
-            not_install: () => this.cli.no_install(),
+            not_install: () => this.cli.not_install(),
             miss_key: () =>
-                `[Cài đặt] Cách dùng: config <tên cài đặt> <key>\n` +
+                `[Config] Usage: config <name of config> <key>\n` +
                 `Các 'key' hiện có\n` +
-                `>  clone: Tạo bản sao của 1 cài đặt\n` +
-                `>  create: Tạo cài đặt mới\n` +
-                `>  delete: Xóa 1 cài đặt\n` +
-                `>  edit: Chỉnh sửa cài đặt\n` +
-                `>  list: Liệt kê toàn bộ cài đặt\n` +
-                `>  load: Sử dụng cài đặt\n` +
-                `>  reload: làm mới toàn bộ cài đặt\n` +
-                `>  renane: Đổi tên cài đặt\n` +
-                `>  show: Hiện 1 cài đặt`,
+                `>  clone: Make a copy of an existing config\n` +
+                `>  create: Create a new config\n` +
+                `>  delete: Delete an existing config\n` +
+                `>  edit: Edit an existing config\n` +
+                `>  list: List all config\n` +
+                `>  load: Load an existing config\n` +
+                `>  reload: Reload all configs\n` +
+                `>  renane: Rename an existing config\n` +
+                `>  show: Show an existing config`,
             /**
              * @param {String} key Key
              */
-            key_not_found: (key) => `[Cài đặt | Lỗi] Không tìm thấy key '${key}'`,
+            key_not_found: (key) => `[Config | Error] Can't find key '${key}'`,
             /**
              * @param {String} err Error
              */
-            error: (err) => `[Cài đặt | Lỗi] ${err}`
+            error: (err) => `[Config | Error] ${err}`
         },
         clear: {
             description: () => this.cli.dev_description()
         },
         exit: {
-            description: () => `Tắt bot`,
-            exit: () => `[HighwayBot] Đã tắt`
+            description: () => `Exit the program`,
+            exit: () => `[HighwayBot] Exited`
         },
         help: {
-            description: () => `Hiện toàn bộ hoặc thông tin của 1 lệnh`,
-            no_description: () => `Không có mô tả`,
-            no_aliases: () => `Không có tên khác`,
+            description: () => `Displays information about one or more commands`,
+            no_description: () => `No description`,
+            no_aliases: () => `No alias`,
             /**
              * @param {String} command
              */
-            command_not_found: (command) => `[Hỗ trợ | Lỗi] Không tìm thấy lệnh ${command}`,
+            command_not_found: (command) => `[Help | Error] Command '${command}' not found`,
             /**
              * @param {String} name 
              * @param {String} description 
              * @param {String} aliases 
              */
             one_command: (name, description, aliases) =>
-                `Hỗ trợ của HighwayBot\n` +
-                ` |  Thông tin về lệnh\n` +
-                ` |  | Tên: ${name}\n` +
-                ` |  | Mô tả: ${description}\n` +
-                ` |  | Tên khác: ${aliases}`,
+                `HighwayBot helper\n` +
+                ` |  Command infomation\n` +
+                ` |  | Name: ${name}\n` +
+                ` |  | Description: ${description}\n` +
+                ` |  | Aliases: ${aliases}`,
             /**
              * @param {Array} commands
              */
             all_commands: (commands) =>
-                `Hỗ trợ của HighwayBot\n` +
-                ` |  Danh sách toàn bộ lệnh\n` +
+                `HighwayBot helper\n` +
+                ` | Commands list\n` +
                 commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description ? cmd.description : this.cli.help.no_description()}`) +
-                ` | Các kênh truyền thông và hỗ trợ\n` +
+                ` | Social / Contact\n` +
                 ` |  | Discord: https://discord.gg/YSZPRkKNzh\n` +
                 ` |  | Github: https://github.com/HackerShader/HighwayBot`,
         },
         info: {
-            description: () => `Thông tin về HighwayBot`,
-            not_install: () => this.cli.no_install(),
+            description: () => `HighwayBot Information`,
+            not_install: () => this.cli.not_install(),
             info: () =>
                 `@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ | HighwayBot v${info.version}\n` +
                 `@@@@@@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@@@@@@ | Build: ${info.build}\n` +
-                `@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@ | Chủ sở hữu: ${info.author}\n` +
-                `@@@@@@@@@@@@@@  &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&  @@@@@@@@@@@@@@ | Cài đặt vào lúc: ${__dirname}\n` +
-                `@@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@ | Giấy phép: ${info.license}\n` +
-                `@@@@@@@@&  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  %@@@@@@@@ | File gốc: ${info.main}\n` +
+                `@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@ | Owner: ${info.author}\n` +
+                `@@@@@@@@@@@@@@  &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&  @@@@@@@@@@@@@@ | Installed at: ${__dirname}\n` +
+                `@@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@ | License: ${info.license}\n` +
+                `@@@@@@@@&  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  %@@@@@@@@ | Main file: ${info.main}\n` +
                 `@@@@@@@  @@@@@@@@@@@@@@@@@     **@@@@@@@@@@@*@@@@@@@@@@@@@@@@@  @@@@@@@ | \n` +
                 `@@@@@  @@@@@@@@@@@@@@@@@@                       @@@@@@@@@@@@@@@@  @@@@@ | \n` +
                 `@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            @@@@@@@@@@@@@@@@@@  @@@@ | \n` +
@@ -262,136 +262,134 @@ module.exports = {
                 `@@@@@@@@@@@@@@@@@@@@@@      /@@@@@@@@@@@@@/      @@@@@@@@@@@@@@@@@@@@@@ | `
         },
         install: {
-            description: () => `Khởi động quá trình tải toàn bộ bot`
+            description: () => `Start bot's installation`
         },
         language: {
-            description: () => `Chỉnh sửa ngôn ngữ mặc định`,
+            description: () => `Edit default language`,
             /**
              * @param {String} language Language
              */
-            default: (language) => `[Ngôn ngữ] Ngôn ngữ đang sử dụng: ${language}`,
+            default: (language) => `[Language] Language in use: ${language}`,
             how_to_use: () =>
-                `Nếu bạn muốn chỉnh ngôn ngữ mặc định, nhập: 'language <viết tắt của ngôn ngữ của bạn>'\n` +
+                `If you want to change the default language, type: 'language <your language acronym>'\n` +
                 `Ví dụ:\n` +
-                `'language en' cho tiếng Anh\n` +
-                `'language vi' cho tiếng Việt\n` +
-                `'language ja' cho tiếng Nhật\n` +
-                `'language zh' cho tiếng Trung\n` +
-                `'language ko' cho tiếng Hàn\n` +
-                `'language fr' cho tiếng Pháp\n` +
-                `Xem thêm tại: 'https://www.loc.gov/standards/iso639-2/php/code_list.php'`,
-            invalid: () => `[Ngôn ngữ] Tên viết tắt không hợp lệ (chỉ gồm 2 chữ cái như: vi, en, ...)`,
+                `'language en' for English\n` +
+                `'language vi' for Vietnamese\n` +
+                //`'language ja' cho tiếng Nhật\n` +
+                //`'language zh' cho tiếng Trung\n` +
+                //`'language ko' cho tiếng Hàn\n` +
+                //`'language fr' cho tiếng Pháp\n` +
+                `More info: 'https://www.loc.gov/standards/iso639-2/php/code_list.php'`,
+            invalid: () => `[Language] Invalid language acronym (language acronym consisting of only 2 letters such as vi, en, ...)`,
             /**
              * @param {String} language Language
              */
-            change: (language) => `[Ngôn ngữ] Đã chỉnh thành: ${language}`
+            change: (language) => `[Ngôn ngữ] Set default language to: ${language}`
         },
         reload: {
             description: () => this.cli.dev_description(),
             /**
              * @param {String} file File name
              */
-            reloading: (file) => `Đang tải ${file}`,
+            reloading: (file) => `Reloading ${file}`,
             /**
              * @param {String} file File name
              */
-            reloaded: (file) => `Đã tải xong ${file}`,
-            done: () => `[Làm mới] Xong`
+            reloaded: (file) => `Reloaded ${file}`,
+            done: () => `[Reload] Done`
         },
         runbot: {
-            description: () => `Chạy bot`,
-            not_install: () => this.cli.no_install
+            description: () => `Start the minecraft bot`,
+            not_install: () => this.cli.not_install()
         },
         update: {
-            description: () => `[❕] Chỉ dành cho lập trình viên | Cập nhật bot`
+            description: () => `[❕] Only for devolopers | Update bot`
         },
         config: {
             /**
-             * @param {String} vi_command
              * @param {String} en_command
              * @param {String} usage
              */
-            no_key_or_config: (vi_command, en_command, usage) =>
-                `[Cài đặt | ${vi_command[0].toUpperCase()}${vi_command.slice(1).toLowerCase()}] Cách dùng: 'config ${en_command.toLowerCase()} <tên cài đặt> ${!usage || usage.trim() == '' ? '' : `${usage}`}'`,
+            no_key_or_config: (en_command, usage) =>
+                `[Config | ${en_command[0].toUpperCase()}${en_command.slice(1).toLowerCase()}] Usage: 'config ${en_command.toLowerCase()} <config name> ${!usage || usage.trim() == '' ? '' : `${usage}`}'`,
             /**
-             * @param {String} vi_command
-             * @param en_command
+             * @param {String} en_command
              * @param {String} config
              */
-            not_exist: (vi_command, en_command, config) =>
-                `[Cài đặt | ${vi_command[0].toUpperCase()}${vi_command.slice(1).toLowerCase()} | Lỗi] Cài đặt '${config.toLowerCase()}' không tồn tại`,
+            not_exist: (en_command, config) =>
+                `[Config | ${en_command[0].toUpperCase()}${en_command.slice(1).toLowerCase()} | Error] Config '${config.toLowerCase()}' does not exist`,
             clone: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('sao chép', 'clone', '<tên bản sao>'),
+                no_key_or_config: () => this.cli.config.no_key_or_config('clone', '<clone file name>'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('sao chép', config),
+                not_exist: (config) => this.cli.config.not_exist('clone', config),
                 /**
                  * @param {String} config Config name
                  */
-                already_exist: (config) => `[Cài đặt | Sao chép | Lỗi] Cài đặt '${config}' đã tồn tại`,
+                already_exist: (config) => `[Config | Clone | Error] Config '${config}' already exist`,
                 /**
                  * @param {String} base Base config
                  * @param {String} clone Clone config
                  */
-                done: (base, clone) => `[Cài đặt | Sao chép | Hoàn thành] Đã tạo bản sao '${clone}' từ '${base}'`
+                done: (base, clone) => `[Config | Clone | Done] Config '${base}' cloned to '${clone}'`
             },
             create: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('tạo', 'create', ''),
+                no_key_or_config: () => this.cli.config.no_key_or_config('create'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('tạo', config),
+                not_exist: (config) => this.cli.config.not_exist('create', config),
                 /**
                  * @param {String} config Config name
                  */
                 done: (config) =>
-                    `[Cài đặt | Tạo | Hoàn thành] Đã tạo cài đặt rỗng '${config}'\n` +
-                    `[Cài đặt | Đề nghị] Bạn có thể dùng lệnh 'config edit ${config}' để chỉnh sửa`
+                    `[Config | Create | Done] Created empty config '${config}'\n` +
+                    `[Config | Suggest] You can use command 'config edit ${config}' to edit`
             },
             delete: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('xóa', 'delete', ''),
+                no_key_or_config: () => this.cli.config.no_key_or_config('delete'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('xóa', config),
+                not_exist: (config) => this.cli.config.not_exist('delete', config),
                 /**
                 * @param {String} config Config name
                 */
-                done: (config) => `[Cài đặt | Xóa | Hoàn thành] Đã xóa cài đặt '${config}'`
+                done: (config) => `[Config | Delete | Done] Deleted config '${config}'`
             },
             edit: {
                 no_key_or_config: () =>
-                    `${this.cli.config.no_key_or_config('chỉnh sửa', 'edit', '<key_1>:<giá_trị_1> <key_2>:<giá_trị_2> ...')}`,
+                    `${this.cli.config.no_key_or_config('edit', '<key_1>:<value_1> <key_2>:<value_2> ...')}`,
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('chỉnh sửa', config),
+                not_exist: (config) => this.cli.config.not_exist('edit', config),
                 /**
                  * @param {String} config Config name
                  */
-                show_key_and_value: (config) => `[Cài đặt | Đề nghị] Bạn có thể dùng 'config show ${config}' để biết các key và giá trị`,
+                show_key_and_value: (config) => `[Config | Suggest] You can use 'config show ${config}' to know the keys and values`,
                 /**
                  * @param {String} key Key
                  */
-                invalid_key: (key) => `[Cài đặt | Chỉnh sửa | Lỗi] Key '${key}' không tồn tại`,
+                invalid_key: (key) => `[Config | Edit | Error] Key '${key}' does not exist`,
                 /**
                  * @param {String} key Key
                  */
-                invalid_number: (key) => `[Cài đặt | Chỉnh sửa | Lỗi] Key '${key}' phải là một con số`,
+                invalid_number: (key) => `[Config | Edit | Error] Key '${key}' must be a number`,
                 /**
                  * @param {String} version Minecraft version
                  */
-                invalid_version: (version) => `[Cài đặt | Chỉnh sửa | Lỗi] Phiên bản '${version}' không hợp lệ (chỉ hỗ trợ từ 1.8 đến 1.18)`,
+                invalid_version: (version) => `[Config | Edit | Error] Invalid version: '${version}' (only support from 1.8 tp 1.18)`,
                 /**
                  * @param {String} config Config name 
                  */
-                done: (config) => `[Cài đặt | Chỉnh sửa | Hoàn thành] Đã chỉnh sửa cài đặt '${config}'`,
+                done: (config) => `[Config | Edit | Done] Edited config '${config}'`,
                 /**
                  * @param {String[]} array Array of string
                  */
                 edited: (array) =>
-                    `Những thứ đã chỉnh sửa:\n` +
+                    `Edited things:\n` +
                     `>  ${array.join('\n>  ')}`
             },
             list: {
@@ -400,7 +398,7 @@ module.exports = {
                  * @param {Stirng} current Current config
                  */
                 list: (array, current) =>
-                    `[Config | Thống kê] Danh sách các cài đặt:\n` +
+                    `[Config | List] List of config files:\n` +
                     `>  ${array.map(name => {
                         let n = name.replace('.json', '');
                         if (n + '.json' == current) n += ' (đang dùng)';
@@ -417,103 +415,111 @@ module.exports = {
                  * @param {String} config Config name
                  */
                 done: (config) =>
-                    `[Cài đặt | Dùng | Hoàn thành] Đã dùng cài đặt '${config}'\n` +
-                    `[Cài đặt | Đề nghị] Bạn có thể dùng 'config reload' để làm mới cài đặt`
+                    `[Config | Load | Done] Used config '${config}'\n` +
+                    `[Config | Suggest] You can use 'config reload' to reload the config`
             },
             reload: {
-                done: () => `[Cài đặt | Làm mới] Đã làm mới toàn bộ cài đặt`,
+                done: () => `[Config | Reload] Reloaded all configs`,
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => `[Cài đặt | Làm mới | Lỗi] Cài đặt ${config} không còn tồn tại`,
+                not_exist: (config) => `[Config | Reload | Error] Config ${config} does not exist`,
                 /**
                  * @param {String} config Config name
                  */
-                change: (config) => `[Cài đặt | Làm mới] Đã chuyển cài đặt thành '${config}'`
+                change: (config) => `[Config | Làm mới] Changed to '${config}'`
             },
             rename: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('đổi tên', 'rename', '<tên mới>'),
+                no_key_or_config: () => this.cli.config.no_key_or_config('rename', '<new file name>'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('đổi tên', config),
+                not_exist: (config) => this.cli.config.not_exist('rename', config),
                 /**
                  * @param {String} config Config name
                  */
-                already_exist: (config) => `[Cài đặt | Đổi tên | Lỗi] Cài đặt '${config}' đã tồn tại`,
+                already_exist: (config) => `[Config | Rename | Error] Config '${config}' already exist`,
                 /**
                  * @param {String} old_config Old config name
                  * @param {String} new_config New config name
                  */
                 done: (old_config, new_config) =>
-                    `[Cài đặt | Đổi tên | Hoàn thành] Đã đổi tên '${old_config}' thành '${new_config}'`
+                    `[Config | Rename | Done] Renamed '${old_config}' to '${new_config}'`
             },
             show: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('thống kê', 'show', ''),
+                no_key_or_config: () => this.cli.config.no_key_or_config('show'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('thống kê', config),
+                not_exist: (config) => this.cli.config.not_exist('show', config),
                 key: () => `Key`,
-                value: () => `Giá trị`,
+                value: () => `value`,
             }
         },
         installer: {
             download: {
-                get_information: () => `[Thông báo] Đang lấy thông tin từ API của Github...`,
-                downloading: () => `[Thông báo] Đang tải File từ Github...`,
-                done: () => `[Thông báo] Đã tải xong.`
+                get_information: () => `[Notification] Getting file(s) from Github API...`,
+                downloading: () => `[Notification] Downloading file(s) from Github...`,
+                done: () => `[Notification] Finished dowloading file(s).`
             },
             install: {
-                install_package: () => `[Thông báo] Đang tải các gói tài nguyên...`,
+                install_package: () => `[Notification] Installing package(s)...`,
                 install_done: () =>
-                    `[Thông báo] Đã tải xong các gói tài nguyên\n` +
-                    `[Thông báo] Đã tải toàn bộ HoghwayBot`,
-                relaunch: () => `[Thông báo] Vui lòng khởi động lại HighwayBot [node cmd | ./start.bat]`
-            }
-        },
-        prepair: {
-            choices: () =>
-                `----- Chào mừng bạn đã đến bộ cài đặt của HighwayBot ----\n` +
-                `Bộ cài đặt này sẽ giúp bạn tải toàn bộ HighwayBot\n` +
-                `Chúng tôi cần một số thông tin trước khi cài đặt\n` +
-                `\n` +
-                `Dự án HighwayBot vẫn đang trong quá trình phát triển.\n` +
-                `Ở đây sẽ có 2 lựa chọn cho bạn khi tải HighwayBot\n` +
-                `\n`,
-            choice_1: () =>
-                `1. Tải từ trực tiếp từ Github của HighwayBot ([❕] Chỉ dành cho các nhà phát triển) (Yêu cầu 'git')`,
-            choice_2: () =>
-                `2. Tải từ trang cập nhật các phiên bản mới (Khuyến nghị cho các người dùng phổ thông)`,
-            choice_3: () =>
-                `3. Thoát bộ cài đặt HighwayBot`,
-            method_1: {
-                notification: () =>
-                    `Bạn đã chọn cách 1 (tải từ Github)\n` +
-                    `Vui lòng chờ trong lúc HoghwayBot đang tải xuống...`,
-                cloning: () =>
-                    `[Thông báo] Đang tải...`,
-                done: () =>
-                    `[Thông báo] Đã tải xong.`,
-                relaunch: () => `[Thông báo] Vui lòng khởi động lại HighwayBot [node cmd | ./start.bat]`
+                    `[Notification] Finished installing package(s)\n` +
+                    `[Notification] Insatlled HighwayBot`,
+                relaunch: () => `[Notification] Please launch the bot again to apply the changes [node cmd | ./start.bat]`
             },
-            method_2: {
-                notification: () => `Bạn đã chọn cách 2 (tải từ trang cập nhật)`,
-                confirm: () =>
-                    `Bộ cài đặt này được tạo ra bởi đội lập trình của HighwayBot.\n` +
-                    `Chúng tôi không chịu trách nhiệm cho bất kỳ thiệt hại nào do trình cài đặt này gây ra trong bản thử nghiệm\n` +
-                    `Bạn có chắc chắn tiếp tục? (Y / N)`,
-                deny: () =>
-                    `[X] Đã dừng việc tải\n` +
-                    `Lý do: Bạn không đồng ý với các điều khoản`,
-                acccept: () =>
-                    `Cảm ơn bạn đã hợp tác\n` +
-                    `Đã khởi động quá trình tải xuống...`,
+            prepair: {
+                choices: () =>
+                    `----- Welcome to HighwayBot's installer ----\n` +
+                    `This installer will help you to download the entire HighwayBot\n` +
+                    `We need some information before installation\n` +
+                    `\n` +
+                    //`Dự án HighwayBot vẫn đang trong quá trình phát triển.\n` +
+                    `Here there will be 2 options for you to install HighwayBot\n` +
+                    `\n`,
+                choice_1: () =>
+                    `1. Download from HighwayBot's Github directly ([❕] For devolopers only) (Required 'git')`,
+                choice_2: () =>
+                    `2. Download from the release page (Recommended for general users)`,
+                choice_3: () =>
+                    `3. Exit HighwayBot's installation`,
+                choose: () =>
+                    `Please choose the way you want to install HighwayBot.`,
+                bad_choice: () =>
+                    `[X] Bad choice, please choose the way you want to install HighwayBot.`,
+                exit: () =>
+                    `[X] Exited the Installation`,
+                method_1: {
+                    notification: () =>
+                        `You choose to install HighwayBot from the official GitHub repository.\n` +
+                        `Please wait while we are downloading the repository...`,
+                    cloning: () =>
+                        `[Notification] Cloning the repository...`,
+                    done: () =>
+                        `[Notification] Cloned the HighwayBot repository`,
+                    relaunch: () => `[Notification] Please launch the bot again to apply the changes [node cmd | ./start.bat]`
+                },
+                method_2: {
+                    notification: () => `You choose to install HighwayBot from the release page.`,
+                    confirm: () =>
+                        `This installer was created by HighwayBot's devoloper team.\n` +
+                        `We are not responsible for any damage caused by this installer in the beta.\n` +
+                        `Are you sure to continue? (Y/N)`,
+                    deny: () =>
+                        `[X] Installer has been terminated.\n` +
+                        `Reason: You did not agree to the terms and conditions`,
+                    acccept: () =>
+                        `Thank you for your cooperation\n` +
+                        `Please wait for the installation process...`,
+                    bad_choice: () =>
+                        `[X] Bad choice, please confirm to install HighwayBot.`
+                }
+            },
+            unzip: {
+                unzipping: () => `[Notification] Đang giải nén các File...`,
+                unzip_done: () => `[Notification] Đã giải nén các File`,
             }
-        },
-        unzip: {
-            unzipping: () => `[Thông báo] Đang giải nén các File...`,
-            unzip_done: () => `[Thông báo] Đã giải nén các File`,
         }
     }
 }
