@@ -39,7 +39,7 @@ async function download() {
     zip.data.once('end', () => {
         process.stdout.clearLine()
         process.stdout.cursorTo(0)
-        console.log('[#] Downloaded zip file')
+        console.log(`[#] Downloaded zip file (version '${data[0].tag_name}')`)
         unzip()
     });
 };
@@ -114,7 +114,6 @@ async function restart() {
 };
 
 const dns = require('node:dns');
-const { resolve } = require('path');
 dns.resolve('www.google.com', (err) => {
     if (err) return console.log('[!] You are not connected to the internet.\n[#] Please connect to the internet and try again.')
     else {
