@@ -11,37 +11,31 @@ function install() {
     download();
 }
 
+
 async function download() {
-    const axios = require('axios').default;
-    const fs = require('node:fs');
-    stdout('[-] Downloading zip file');
+    stdout('[-] Downloading zip file')
+    const axios = require('axios').default
+    const fs = require('node:fs')
     const res = await axios({
-        url: 'https://api.github.com/repos/HackerShader/HighwayBot/releases',
+        url: 'https://api.github.com/repos/HackerShader/HighwayBot/releases/latest',
         method: 'GET',
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
         }
-    });
-    let data = res.data.map(data => data.target_commitish === 'main' ? data : undefined);
-    let i = 0;
-    while (data.indexOf(undefined) !== -1) {
-        if (data[i] === undefined) data.splice(i, 1);
-        else i++;
-    }
-    const url = data[0].zipball_url;
+    })
     const zip = await axios({
-        url: url,
+        url: res.data.zipball_url,
         method: 'GET',
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
         },
         responseType: 'stream'
-    });
+    })
     zip.data.pipe(fs.createWriteStream('./Highway-Bot.zip'));
     zip.data.once('end', () => {
-        stdout(`[#] Downloaded zip file (version '${data[0].tag_name}')`);
-        unzip();
-    });
+        stdout('[#] Downloaded zip file')
+        unzip()
+    })
 }
 
 function unzip() {
@@ -108,7 +102,7 @@ function restart() {
 }
 
 function countdown() {
-    let i = 500;
+    let i = 15;
     console.log('[!] Welcome to HighwayBot Installer\n');
     const countdownTimer = setInterval(async function () {
         process.stdout.clearLine(0);
