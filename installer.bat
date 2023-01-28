@@ -1,3 +1,3 @@
-cls
 echo off
+cls
 node installer.js
