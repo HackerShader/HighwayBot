@@ -13,31 +13,27 @@ module.exports = {
         command_not_found: (name) => `[CMD | Error] Command '${name}' not found`,
         // Instal
         first_time_msg: () => `[Notification] This is the first time you run this program`,
-        install_wait: () => `[Notification] Please wait while installing dependencies...`,
+        downloading: () => `[Notification] Downloading package(s)...`,
         /**
-         * @param {Number} progress Download progress
-         * @param {String} package Package name
-         */
-        install_package: (progress, package) => `[Notification] [${progress}%] Installing ${package}...`,
-        /**
-         * @param {String} package Package name
          * @param {String} err Error
          */
-        install_err: (package, err) => `[Notification] Error downloading package '${package}':\n${err}`,
-        install_done: () => '[Notification] [100%] Dependencies installed',
+        download_err: (err) => `[Notification] Error while downloading package(s):\n${err}`,
+        download_done: () => '[Notification] Downloaded package(s)',
         // Guide
         first_time_guide: () =>
             `To start using the bot, please do the following:\n` +
-            `> Run 'config create default' command to create empty 'deafult' config\n` +
+            `> Run 'config create' command to create empty 'deafult' config\n` +
             `> Run 'config edit' to edit the newly created empty 'default' config.\n` +
-            `> Run 'config load default' and config reload' to load config\n` +
-            this.cmd.commands()
+            `> Run 'config load default' and 'config reload' to load config\n` +
+            `> Run 'runbot' to let the bot into the server if you have done all the steps above\n` +
+            `Type 'help' to see a list of commands\n` +
+            `Type 'language <your language symbol (like: vi, pl, en, ...)>' to use`
     },
     index: {
         /**
          * @param {String} package Package name
          */
-        miss_package: (package) => `[MC-Bot | Error] Missing dependencies ${package}`,
+        miss_package: (package) => `[MC-Bot | Error] Missing package ${package}`,
         install: () => `[MC-Bot| Install] Please type 'install' for full bot installation`,
         /**
          * @param {String} file File name
@@ -170,6 +166,7 @@ module.exports = {
         },
         config: {
             not_install: () => this.cli.not_install(),
+            description: () => `Configure the HighwayBot config`,
             miss_key: () =>
                 `[Config] Usage: config <name of config> <key>\n` +
                 `Các 'key' hiện có\n` +
@@ -191,11 +188,8 @@ module.exports = {
              */
             error: (err) => `[Config | Error] ${err}`
         },
-        clear: {
-            description: () => this.cli.dev_description()
-        },
         exit: {
-            description: () => `Exit the program`,
+            description: () => `Exit the HighwayBot command line interface.`,
             exit: () => `[HighwayBot] Exited`
         },
         help: {
@@ -211,19 +205,19 @@ module.exports = {
              * @param {String} description 
              * @param {String} aliases 
              */
-            one_command: (name, description, aliases) =>
+            command: (name, description, aliases) =>
                 `HighwayBot helper\n` +
                 ` |  Command infomation\n` +
                 ` |  | Name: ${name}\n` +
-                ` |  | Description: ${description}\n` +
-                ` |  | Aliases: ${aliases}`,
+                ` |  | Description: ${description || this.cli.help.no_description()}\n` +
+                ` |  | Aliases: ${aliases || this.cli.help.no_aliases()}`,
             /**
              * @param {Array} commands
              */
             all_commands: (commands) =>
                 `HighwayBot helper\n` +
                 ` | Commands list\n` +
-                commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description ? cmd.description : this.cli.help.no_description()}`) +
+                commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || this.cli.help.no_description()}`).join('\n') +
                 ` | Social / Contact\n` +
                 ` |  | Discord: https://discord.gg/YSZPRkKNzh\n` +
                 ` |  | Github: https://github.com/HackerShader/HighwayBot`,
@@ -231,14 +225,17 @@ module.exports = {
         info: {
             description: () => `HighwayBot Information`,
             not_install: () => this.cli.not_install(),
-            info: () =>
+            /**
+             * @param {{version: String, build: String, owner: String, dir: String, license: String, main: String, uptime: }} info 
+             */
+            info: (info) =>
                 `@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ | HighwayBot v${info.version}\n` +
                 `@@@@@@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@@@@@@ | Build: ${info.build}\n` +
                 `@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@ | Owner: ${info.author}\n` +
-                `@@@@@@@@@@@@@@  &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&  @@@@@@@@@@@@@@ | Installed at: ${__dirname}\n` +
+                `@@@@@@@@@@@@@@  &@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&  @@@@@@@@@@@@@@ | Installed at: ${info.dir}\n` +
                 `@@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@ | License: ${info.license}\n` +
                 `@@@@@@@@&  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  %@@@@@@@@ | Main file: ${info.main}\n` +
-                `@@@@@@@  @@@@@@@@@@@@@@@@@     **@@@@@@@@@@@*@@@@@@@@@@@@@@@@@  @@@@@@@ | \n` +
+                `@@@@@@@  @@@@@@@@@@@@@@@@@     **@@@@@@@@@@@*@@@@@@@@@@@@@@@@@  @@@@@@@ | Uptime: ${info.uptime}\n` +
                 `@@@@@  @@@@@@@@@@@@@@@@@@                       @@@@@@@@@@@@@@@@  @@@@@ | \n` +
                 `@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@            @@@@@@@@@@@@@@@@@@  @@@@ | \n` +
                 `@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@           &@@@@@@@@@@@@@@@  @@@ | \n` +
@@ -289,9 +286,9 @@ module.exports = {
         reload: {
             description: () => this.cli.dev_description(),
             /**
-             * @param {String} file File name
+             * @param {String} dir
              */
-            reloading: (file) => `Reloading ${file}`,
+            reloading: (dir) => `Reloading ${dir}`,
             /**
              * @param {String} file File name
              */
@@ -299,18 +296,18 @@ module.exports = {
             done: () => `[Reload] Done`
         },
         runbot: {
-            description: () => `Start the minecraft bot`,
+            description: () => `Execute HighwayBot main file`,
             not_install: () => this.cli.not_install()
         },
         update: {
-            description: () => `[❕] Only for devolopers | Update bot`
+            description: () => `Update the bot (Not recommended | [❕] Only for developers) (requires git)`
         },
-        config: {
+        _config: {
             /**
              * @param {String} en_command
              * @param {String} usage
              */
-            no_key_or_config: (en_command, usage) =>
+            usage: (en_command, usage) =>
                 `[Config | ${en_command[0].toUpperCase()}${en_command.slice(1).toLowerCase()}] Usage: 'config ${en_command.toLowerCase()} <config name> ${!usage || usage.trim() == '' ? '' : `${usage}`}'`,
             /**
              * @param {String} en_command
@@ -319,11 +316,11 @@ module.exports = {
             not_exist: (en_command, config) =>
                 `[Config | ${en_command[0].toUpperCase()}${en_command.slice(1).toLowerCase()} | Error] Config '${config.toLowerCase()}' does not exist`,
             clone: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('clone', '<clone file name>'),
+                usage: () => this.cli._config.usage('clone', '<clone file name>'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('clone', config),
+                not_exist: (config) => this.cli._config.not_exist('clone', config),
                 /**
                  * @param {String} config Config name
                  */
@@ -335,11 +332,11 @@ module.exports = {
                 done: (base, clone) => `[Config | Clone | Done] Config '${base}' cloned to '${clone}'`
             },
             create: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('create'),
+                usage: () => this.cli._config.usage('create'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('create', config),
+                already_exist: (config) => `[Config | Clone | Error] Config '${config}' already exist`,
                 /**
                  * @param {String} config Config name
                  */
@@ -348,35 +345,39 @@ module.exports = {
                     `[Config | Suggest] You can use command 'config edit ${config}' to edit`
             },
             delete: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('delete'),
+                usage: () => this.cli._config.usage('delete'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('delete', config),
+                not_exist: (config) => this.cli._config.not_exist('delete', config),
                 /**
                 * @param {String} config Config name
                 */
                 done: (config) => `[Config | Delete | Done] Deleted config '${config}'`
             },
             edit: {
-                no_key_or_config: () =>
-                    `${this.cli.config.no_key_or_config('edit', '<key_1>:<value_1> <key_2>:<value_2> ...')}`,
+                usage: () =>
+                    `${this.cli._config.usage('edit', '<key_1>:<value_1> <key_2>:<value_2> ...')}`,
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('edit', config),
+                not_exist: (config) => this.cli._config.not_exist('edit', config),
                 /**
                  * @param {String} config Config name
                  */
-                show_key_and_value: (config) => `[Config | Suggest] You can use 'config show ${config}' to know the keys and values`,
+                note: (config) => `[Config | Edit | Note] Use the 'config list ${config}' command to find out what the key is.`,
                 /**
                  * @param {String} key Key
                  */
-                invalid_key: (key) => `[Config | Edit | Error] Key '${key}' does not exist`,
+                invalid_key: (key) => `[Config | Edit | Error] Key '${key}' does not exist or have multiple option`,
                 /**
                  * @param {String} key Key
                  */
                 invalid_number: (key) => `[Config | Edit | Error] Key '${key}' must be a number`,
+                /**
+                 * @param {String} key Key
+                 */
+                invalid_string: (key) => `[Config | Edit | Error] Key '${key}' must be a string`,
                 /**
                  * @param {String} version Minecraft version
                  */
@@ -401,40 +402,40 @@ module.exports = {
                     `[Config | List] List of config files:\n` +
                     `>  ${array.map(name => {
                         let n = name.replace('.json', '');
-                        if (n + '.json' == current) n += ' (đang dùng)';
+                        if (n + '.json' == current) n += ' (using)';
                         return n;
                     }).join('\n>  ')}`
             },
             load: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('dùng', 'load', ''),
+                usage: () => this.cli._config.usage('load', ''),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('dùng', config),
+                not_exist: (config) => this.cli._config.not_exist('load', config),
                 /**
                  * @param {String} config Config name
                  */
                 done: (config) =>
-                    `[Config | Load | Done] Used config '${config}'\n` +
-                    `[Config | Suggest] You can use 'config reload' to reload the config`
+                    `[Config | Load | Done] Used config '${config}'\n`
+                //`[Config | Suggest] You can use 'config reload' to reload the config`
             },
             reload: {
                 done: () => `[Config | Reload] Reloaded all configs`,
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => `[Config | Reload | Error] Config ${config} does not exist`,
+                not_exist: (config) => `[Config | Reload | Error] Config ${config} no longer exist`,
                 /**
                  * @param {String} config Config name
                  */
                 change: (config) => `[Config | Làm mới] Changed to '${config}'`
             },
             rename: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('rename', '<new file name>'),
+                usage: () => this.cli._config.usage('rename', '<new file name>'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('rename', config),
+                not_exist: (config) => this.cli._config.not_exist('rename', config),
                 /**
                  * @param {String} config Config name
                  */
@@ -447,27 +448,26 @@ module.exports = {
                     `[Config | Rename | Done] Renamed '${old_config}' to '${new_config}'`
             },
             show: {
-                no_key_or_config: () => this.cli.config.no_key_or_config('show'),
+                usage: () => this.cli._config.usage('show'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli.config.not_exist('show', config),
-                key: () => `Key`,
-                value: () => `value`,
+                not_exist: (config) => this.cli._config.not_exist('show', config),
+                keys: () => `Keys`,
+                values: () => `Values`,
             }
         },
         installer: {
             download: {
-                get_information: () => `[Notification] Getting file(s) from Github API...`,
+                get_information: () => `[Notification] Getting information from Github API...`,
                 downloading: () => `[Notification] Downloading file(s) from Github...`,
                 done: () => `[Notification] Finished dowloading file(s).`
             },
             install: {
-                install_package: () => `[Notification] Installing package(s)...`,
+                installing: () => `[Notification] Installing...`,
                 install_done: () =>
-                    `[Notification] Finished installing package(s)\n` +
-                    `[Notification] Insatlled HighwayBot`,
-                relaunch: () => `[Notification] Please launch the bot again to apply the changes [node cmd | ./start.bat]`
+                    `[Notification] Installed HighwayBot\n` +
+                    `[Notification] Please launch the bot again to apply the changes [node cmd | ./start.bat]`
             },
             prepair: {
                 choices: () =>
@@ -488,8 +488,6 @@ module.exports = {
                     `Please choose the way you want to install HighwayBot.`,
                 bad_choice: () =>
                     `[X] Bad choice, please choose the way you want to install HighwayBot.`,
-                exit: () =>
-                    `[X] Exited the Installation`,
                 method_1: {
                     notification: () =>
                         `You choose to install HighwayBot from the official GitHub repository.\n` +
@@ -498,10 +496,17 @@ module.exports = {
                         `[Notification] Cloning the repository...`,
                     done: () =>
                         `[Notification] Cloned the HighwayBot repository`,
-                    relaunch: () => `[Notification] Please launch the bot again to apply the changes [node cmd | ./start.bat]`
+                    relaunch: () =>
+                        `[Notification] Please launch the bot again to apply the changes [node cmd | ./start.bat]`
                 },
                 method_2: {
-                    notification: () => `You choose to install HighwayBot from the release page.`,
+                    notification: () => `You choose to install HighwayBot from the release page.`
+                },
+                method_3: {
+                    exit: () =>
+                        `[X] Exited the Installation`,
+                },
+                confirm: {
                     confirm: () =>
                         `This installer was created by HighwayBot's devoloper team.\n` +
                         `We are not responsible for any damage caused by this installer in the beta.\n` +
@@ -517,8 +522,41 @@ module.exports = {
                 }
             },
             unzip: {
-                unzipping: () => `[Notification] Đang giải nén các File...`,
-                unzip_done: () => `[Notification] Đã giải nén các File`,
+                unzipping: () => `[Notification] Extracting HighwayBot archive...`,
+                unzip_done: () => `[Notification] Extracted`,
+            }
+        },
+        update: {
+            update_git: {
+                cloning: () => `[Update | Pending] Starting update...`,
+                cloned: () => `[Update | Done] Cloned repo`,
+                applying_change: () => `[Update | Pending] Applying change(s)...`,
+                replace: () => `[Update | Done] Replaced the files`,
+                /**
+                 * @param {String} build 
+                 */
+                apply_done: (build) => `[Update | Done] HighwayBot updated to build ${build}`,
+                relaunch: () => `[Notification] Please launch the bot again to apply the changes [node ./cli.js | ./start.bat]`
+            },
+            update_release: {
+                not_install: () => this.cli.not_install(),
+                no_internet: () =>
+                    `[!] You are not connected to the internet.\n` +
+                    `[#] Please connect to the internet and try again.`,
+                downloading: () => `[-] Downloading zip file`,
+                download_done: () => `[#] Downloaded zip file`,
+                unzipping: () => `[-] Unzipping file`,
+                unzip_done: () => `[#] Unzipped file`,
+                moving: () => `[-] Moving files`,
+                move_done: () => `[#] Moved files`,
+                /**
+                 * @param {Number} packages
+                 */
+                downloading_package: (packages) => `[-] Downloading ${packages} package(s)`,
+                download_package_done: () => `[#] Downloaded package(s)`,
+                remove_temp: () => `[#] Removed temporary file.`,
+                restart_timer: () => `[-] Shut down after 10s to apply change`,
+                shut_down: () => `[#] Shutting down...`
             }
         }
     }

@@ -1,12 +1,13 @@
 const consolelog = require('./util/translate')
 const colors = require('./util/colorcode')
+const string = require('../language/translate')
 
 module.exports = {
     name: "exit",
-    description: "Close the HighwayBot command line interface.",
+    description: string('cli.exit.description'),
     aliases: ['close'],
     async execute() {
-        await consolelog(colors.code.green,'[HighwayBot] Closed');
+        console.log(string('cli.exit.exit'));
         process.exit(0);
     }
 };

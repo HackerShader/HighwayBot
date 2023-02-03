@@ -1,11 +1,11 @@
-const consolelog = require('./util/translate');
+const string = require('../language/translate')
 const settings = require('../settings.json');
 const color = require('./util/colorcode')
 const editJsonFile = require('edit-json-file');
 
 module.exports = {
     name: "language",
-    description: "Language option",
+    description: string('cli.language.description'),
     aliases: ['lang'],
     /**
      *
@@ -13,32 +13,20 @@ module.exports = {
      */
     async execute(args) {
         if (!args[1]) {
-            await consolelog(color.code.blue, '[Language] using: ' + settings.lang);
-            return await consolelog('',
-                'If you want to change the language, use the command: \'language <language symbol>\'\n' +
-                'Example:\n' +
-                '\'language en\' for English\n' +
-                '\'language vi\' for Vietnamese\n' +
-                '\'language ja\' for Japanese\n' +
-                '\'language zh\' for Chinese\n' +
-                '\'language ko\' for Korean\n' +
-                '\'language fr\' for French\n' +
-                'And more...'
-            );
+            console.log(string('cli.language.default', settings.lang));
+            return console.log(string('cli.language.how_to_use'));
         }
         const ToLowerCase = args[1].toLowerCase();
-        if (ToLowerCase.length > 2) return await consolelog(color.code.red, '[Language] Not a valid language symbol (2 characters)');
+        if (ToLowerCase.length > 2) return console.log(string('cli.language.invalid'));
         try {
             delete require.cache[require.resolve('../settings.json')];
-            const consolelog_new = require('./util/translate')
-            await consolelog_new('', 'language')
         } catch (err) {
-            await console.log(err)
+            console.error(err)
         } finally {
             const file = editJsonFile('./settings.json')
             file.set('lang', ToLowerCase);
             file.save();
-            await consolelog(color.code.green, '[Language] Changed to ' + ToLowerCase);
+            console.log(string('cli.language.change', ToLowerCase))
         }
     }
 };

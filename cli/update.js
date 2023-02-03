@@ -1,12 +1,13 @@
+const string = require('../language/translate')
+
 module.exports = {
     name: "update",
-    description: "Update the bot (Not recommended | Only for developers) (requires git)",
+    description: string('cli.update.description'),
     aliases: ['up'],
     async execute(args) {
         if(!args[1]) return;
         if (args[1] === `updaterl`) {
             require('./')
         } 
-
     }
 };

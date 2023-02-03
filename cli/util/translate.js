@@ -5,7 +5,6 @@ const settings = require('../../settings.json');
  * @param {String | null} color Color code
  * @param {String | null} text Text to log
  */
-console.log(settings.lang)
 module.exports = async (color, text) => {
     if (settings.lang === 'en') return console.log(color == null ? '' : color, text);
     return new Promise(async (resolve, reject) => {

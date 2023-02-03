@@ -1,33 +1,29 @@
-const consolelog = require('./util/translate')
+//const consolelog = require('./util/translate')
+const string = require('../language/translate')
 
 module.exports = {
     name: "help",
-    description: `Displays all commands or info about a specific command.`,
+    description: string('cli.help.description'),
     aliases: ['h', 'commands', 'cmds', 'cmd', 'command', 'cmdlist'],
+    /**
+     * 
+     * @param {String[]} args 
+     * @param {Array} cmds 
+     */
     async execute(args, cmds) {
-        if (args[1]) {
-            const command = await cmds.find(cmd => cmd.name === args[1])
-                || await cmds.find(
+        if (args[0]) {
+            const command = cmds.find(cmd => cmd.name === args[0])
+                || cmds.find(
                     cmd =>
                         cmd.aliases != null && Array.isArray(cmd.aliases)
-                            ? cmd.aliases.includes(args[1])
+                            ? cmd.aliases.includes(args[0])
                             : false
                 );
-            if (!command) console.log(`\x1b[31m\x1b[0m` + `[Help | Error] [${args[1]}] is not a available command`);
-            await consolelog(`HighwayBot helper\n` +
-                `| Command Information\n` +
-                `| | Name: ${command.name}\n` +
-                `| | Description: ${command.description ? command.description : 'No description'}\n` +
-                `| | Aliases: ${command.aliases ? command.aliases.join(', ') : 'No aliases'}`);
+            if (!command) console.log(string('cli.help.command_not_found', args[1]));
+            console.log(string('cli.help.command', command.name, command.description, command.aliases?.join(', ')))
         } else {
-            await consolelog('',`HighwayBot helper\n| Commands`);
-            for (const cmd of cmds) {
-                await consolelog('', ` |  | ${cmd.name} - ${cmd.description ? cmd.description : 'No description'}`);
-            }
-            await consolelog('',`|` +
-                `\n| Social / Contact` +
-                `\n|  | Discord: https://discord.gg/YSZPRkKNzh` +
-                `\n|  | Github: https://github.com/HackerShader/HighwayBot`);
+            console.log('help')
+            console.log(string('cli.help.all_commands', cmds))
         }
     }
 };

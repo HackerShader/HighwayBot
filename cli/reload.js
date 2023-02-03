@@ -1,8 +1,9 @@
 const consolelog = require('./util/translate');
+const string = require('../language/translate')
 
 module.exports = {
     name: "reload",
-    description: "Reload command",
+    description: string('cli.reload.description'),
     /**
      *
      * @param {String[]} args
@@ -17,29 +18,30 @@ module.exports = {
                     '.git',
                     'node_modules'
                 ].includes(file)) return;
-                console.log(`\x1b[33m%s\x1b[0m`, `Reloading ${dir}/${file}`);
+                console.log(string('cli.reload.reloading', `${dir}/${file}`));
                 if (!file.toLowerCase().endsWith('.js') && !fs.lstatSync(`${dir}/${file}`).isDirectory()) try {
                     require(`../${dir}/${file}`);
-                }
-                catch {
+                } catch {
                     return;
                 }
                 if (fs.lstatSync(`${dir}/${file}`).isDirectory()) reloadDir(`${dir}/${file}`);
                 else {
                     delete require.cache[require.resolve(`../${dir}/${file}`)];
-                    console.log(`\x1b[32m%s\x1b[0m`, `Reloaded ${dir}/${file}`);
+                    console.log(string('cli.reload.reloaded', `${dir}/${file}`));
                 }
             });
         if (!args[1]) reloadDir('./cli');
         else if (args[1].toLowerCase() === 'all') reloadDir('.');
         else {
-            if (args[1] !== 'dir' || 'file') reloadDir(args[1]);
-            else if (args[1] === 'dir') reloadDir(args[2]);
-            else if (args[1] === 'file') {
-                delete require.cache[require.resolve(`../${args[2]}`)];
-                console.log(`\x1b[32m%s\x1b[0m`, `Reloaded ${args[2]}`);
+            switch (args[1].toLowerCase()) {
+                case 'dir': reloadDir(args[2]); break
+                case 'file':
+                    delete require.cache[require.resolve(`../${args[2]}`)];
+                    console.log(string('cli.reload.reloaded',`${args[2]}`));
+                    break
+                default: reloadDir(args[1])
             }
         }
-        console.log('\x1b[32m%s\x1b[0m', '[Reload] Done');
+        console.log(string('cli.reload.done', '[Reload] Done'));
     }
 };

@@ -1,36 +1,25 @@
 const fs = require('fs-extra');
 const consolelog = require('./util/translate')
+const string = require('../language/translate')
 
 module.exports = {
     name: "config",
-    description: "Configure the HighwayBot config",
+    description: string('cli.config.description'),
     aliases: ['cfg'],
     async execute(args) {
         const info = require("../package.json");
-        if (info.build === undefined) return console.log('\x1b[31m[X] HighwayBot not installed!\x1b[0m');
+        if (info.build === undefined) return console.log(string('cli.config.not_installer'));
         if (!fs.existsSync('./config')) fs.mkdirSync('./config');
         if (!args[1]) {
-            return await consolelog('',
-                `[Config] Usage: config <config> <key>` +
-                `\nAvailable key:` +
-                `\n>  clone: Clone a config file` +
-                `\n>  create: Create a config file` +
-                `\n>  delete: Delete a config file` +
-                `\n>  edit: Edit a config file with every value` +
-                `\n>  list: List all config files` +
-                `\n>  load: Load a config file` +
-                `\n>  reload: Reload all config file` +
-                `\n>  renane: rename a config file` +
-                `\n>  show: Show a config file` 
-            );
+            return console.log(string('cli.config.miss_key'));
         }
+        const file = fs.readdirSync('./cli/config/').filter(file => file.endsWith('.js'));
+        if (!file.includes(`${args[1]}.js`)) console.log(string('cli.config.key_not_found', key));
         try {
             await require(`./config/${args[1]}`)(args);
         }
         catch (e) {
-            const file = fs.readdirSync('./cli/config/');
-            if (!file.includes(`${args[1]}.js`)) console.log(`\x1b[31m[Config | Error] [${args[1]}] is not a available key\x1b[0m`);
-            else console.log(e.name + ': ' + e.message);
+            console.log(string('cli.config.error', e.name + ': ' + e.message));
         }
     }
 };
