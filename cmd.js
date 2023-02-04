@@ -4,7 +4,6 @@ const string = require('./language/translate')
 const chalk = require('chalk')
 const prompt = require('prompt')
 let cmds = []
-
 console.log(string('cmd.welcome'));
 
 /**
@@ -23,48 +22,18 @@ function callback(prompt) {
         if (!command) {
             console.log(string('cmd.command_not_found', cmd))
             return callback(prompt)
-        } else try {
-            await command.execute(args, cmds)
-            return callback(prompt)
-        } catch (e) {
-            callback(prompt);
-        }
+        } else
+            Promise.resolve(command.execute)
+                .then((func) => func(args, cmds))
+                .catch((e) => console.log(e))
+                .finally(() => callback(prompt))
     });
 }
+require('./cli/util/handler')(cmds);
+prompt.start()
+callback(prompt)
 
-function handler() {
-    require('./cli/util/handler')(cmds);
-}
-
-async function main() {
-    if (fs.existsSync('./node_modules')) {
-        console.log(string('cmd.commands'));
-        const prompt = require('prompt')
-        prompt.start()
-        handler()
-        callback(prompt);
-    } else {
-        fs.writeFileSync('./settings.json', JSON.stringify({
-            lang: 'en'
-        }));
-        console.log(string('cmd.first_time_msg'));
-        console.log(string('cmd.downloading'))
-        let packages = [
-            'prompt', 'edit-json-file', 'fs-extra', 'unzipper', 'superagent', '@vitalets/google-translate-api'
-        ]
-        child_process.exec(`npm install ${packages.join(' ')}`)
-            .on('error', (err) => {
-                console.log(string('cmd.download_err', err))
-            })
-            .once('close', () => {
-                console.log(string('cmd.download_done'));
-                console.log(string('cmd.first_time_guide'))
-                const prompt = require('prompt')
-                prompt.start()
-                handler();
-                callback(prompt);
-            })
-    }
-}
-
-main();
+const Event = require('node:events').EventEmitter
+const emitter = new Event()
+emitter.on('language', () => { cmds = []; require('./cli/util/handler')(cmds) })
+module.exports = emitter

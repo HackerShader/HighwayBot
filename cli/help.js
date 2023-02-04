@@ -1,4 +1,3 @@
-//const consolelog = require('./util/translate')
 const string = require('../language/translate')
 
 module.exports = {
@@ -19,10 +18,9 @@ module.exports = {
                             ? cmd.aliases.includes(args[0])
                             : false
                 );
-            if (!command) console.log(string('cli.help.command_not_found', args[1]));
+            if (!command) console.log(string('cli.help.command_not_found', args[0]));
             console.log(string('cli.help.command', command.name, command.description, command.aliases?.join(', ')))
         } else {
-            console.log('help')
             console.log(string('cli.help.all_commands', cmds))
         }
     }

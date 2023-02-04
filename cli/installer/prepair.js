@@ -2,7 +2,7 @@ const prompt = require('prompt');
 const exec = require('child_process').exec;
 const editJsonFile = require('edit-json-file');
 const fs = require('fs-extra');
-const consolelog = require('./../util/translate')
+//const consolelog = require('./../util/translate')
 const color = require('./../util/colorcode')
 const string = require('../../language/translate')
 

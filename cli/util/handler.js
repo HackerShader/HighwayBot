@@ -1,5 +1,4 @@
 const fs = require('node:fs')
-
 /**
  *
  * @param {Array} array
@@ -9,6 +8,7 @@ module.exports = (array) =>
         .filter(file => file.endsWith('.js'))
         .map(file => file.replace('.js', ''))
         .forEach(async (file) => {
+            delete require.cache[require.resolve(`../../cli/${file}`)]
             const cmd = require(`../../cli/${file}`);
             if (!cmd.name) throw new Error(`Command [${cmd.name}] miss name`);;
             const command = array.find(c => c.name === cmd.name)

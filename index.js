@@ -1,5 +1,5 @@
 const notifier = require('node-notifier');
-const consolelog = require('./cli/util/translate')
+//const consolelog = require('./cli/util/translate')
 const package_json = require('./package.json');
 const dependencies_array = [
     "mineflayer",

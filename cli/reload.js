@@ -1,9 +1,8 @@
-const consolelog = require('./util/translate');
 const string = require('../language/translate')
 
 module.exports = {
     name: "reload",
-    description: string('cli.reload.description'),
+    description: string('cli.dev_description'),
     /**
      *
      * @param {String[]} args
@@ -26,7 +25,7 @@ module.exports = {
                 }
                 if (fs.lstatSync(`${dir}/${file}`).isDirectory()) reloadDir(`${dir}/${file}`);
                 else {
-                    delete require.cache[require.resolve(`../${dir}/${file}`)];
+                    delete require.cache[require.resolve(`${dir}/${file}`)];
                     console.log(string('cli.reload.reloaded', `${dir}/${file}`));
                 }
             });

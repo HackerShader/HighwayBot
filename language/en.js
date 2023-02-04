@@ -1,7 +1,6 @@
 module.exports = {
     cmd: {
         welcome: () => `----- Welcome to HighwayBot controller -----`,
-        // Command
         commands: () => `Type:\n` +
             `> 'help' to see a list of commandsn\n` +
             `> 'language <your language acronym (like: 'en', 'vi',...)>' to change the default language\n` +
@@ -11,7 +10,6 @@ module.exports = {
          * @param {String} name Command name
          */
         command_not_found: (name) => `[CMD | Error] Command '${name}' not found`,
-        // Instal
         first_time_msg: () => `[Notification] This is the first time you run this program`,
         downloading: () => `[Notification] Downloading package(s)...`,
         /**
@@ -19,7 +17,6 @@ module.exports = {
          */
         download_err: (err) => `[Notification] Error while downloading package(s):\n${err}`,
         download_done: () => '[Notification] Downloaded package(s)',
-        // Guide
         first_time_guide: () =>
             `To start using the bot, please do the following:\n` +
             `> Run 'config create' command to create empty 'deafult' config\n` +
@@ -151,10 +148,9 @@ module.exports = {
     },
     cli: {
         not_install: () => `[X] You haven't downloaded the full HighwayBot`,
-        dev_description: () => `[❕] For developers to test new features only!`,
+        dev_description: () => `[!] For developers to test new features only!`,
         changelog: {
             description: () => `New updates of bots`,
-            not_install: () => this.cli.not_install(),
             /**
              * @param {String} log Commit logs
              */
@@ -165,7 +161,6 @@ module.exports = {
             clear: () => `[✔] Cleared the entire console`
         },
         config: {
-            not_install: () => this.cli.not_install(),
             description: () => `Configure the HighwayBot config`,
             miss_key: () =>
                 `[Config] Usage: config <name of config> <key>\n` +
@@ -209,22 +204,21 @@ module.exports = {
                 `HighwayBot helper\n` +
                 ` |  Command infomation\n` +
                 ` |  | Name: ${name}\n` +
-                ` |  | Description: ${description || this.cli.help.no_description()}\n` +
-                ` |  | Aliases: ${aliases || this.cli.help.no_aliases()}`,
+                ` |  | Description: ${description || this.no_description()}\n` +
+                ` |  | Aliases: ${aliases || this.no_aliases()}`,
             /**
              * @param {Array} commands
              */
             all_commands: (commands) =>
                 `HighwayBot helper\n` +
                 ` | Commands list\n` +
-                commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || this.cli.help.no_description()}`).join('\n') +
+                commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || this.cli.help.no_description()}`).join('\n') + `\n` + // cái cli.help tồn tại nó nói undefined
                 ` | Social / Contact\n` +
                 ` |  | Discord: https://discord.gg/YSZPRkKNzh\n` +
                 ` |  | Github: https://github.com/HackerShader/HighwayBot`,
         },
         info: {
             description: () => `HighwayBot Information`,
-            not_install: () => this.cli.not_install(),
             /**
              * @param {{version: String, build: String, owner: String, dir: String, license: String, main: String, uptime: }} info 
              */
@@ -281,7 +275,8 @@ module.exports = {
             /**
              * @param {String} language Language
              */
-            change: (language) => `[Ngôn ngữ] Set default language to: ${language}`
+            change: (language) => `[Language] Set default language to: ${language}`,
+            restart: () => `[Language] Please restart HighwayBit to apply the change`
         },
         reload: {
             description: () => this.cli.dev_description(),
@@ -296,11 +291,10 @@ module.exports = {
             done: () => `[Reload] Done`
         },
         runbot: {
-            description: () => `Execute HighwayBot main file`,
-            not_install: () => this.cli.not_install()
+            description: () => `Execute HighwayBot main file`
         },
         update: {
-            description: () => `Update the bot (Not recommended | [❕] Only for developers) (requires git)`
+            description: () => `Update the bot`
         },
         _config: {
             /**
@@ -479,7 +473,7 @@ module.exports = {
                     `Here there will be 2 options for you to install HighwayBot\n` +
                     `\n`,
                 choice_1: () =>
-                    `1. Download from HighwayBot's Github directly ([❕] For devolopers only) (Required 'git')`,
+                    `1. Download from HighwayBot's Github directly ([!] For devolopers only) (Required 'git')`,
                 choice_2: () =>
                     `2. Download from the release page (Recommended for general users)`,
                 choice_3: () =>
@@ -526,7 +520,7 @@ module.exports = {
                 unzip_done: () => `[Notification] Extracted`,
             }
         },
-        update: {
+        _update: {
             update_git: {
                 cloning: () => `[Update | Pending] Starting update...`,
                 cloned: () => `[Update | Done] Cloned repo`,
@@ -539,7 +533,6 @@ module.exports = {
                 relaunch: () => `[Notification] Please launch the bot again to apply the changes [node ./cli.js | ./start.bat]`
             },
             update_release: {
-                not_install: () => this.cli.not_install(),
                 no_internet: () =>
                     `[!] You are not connected to the internet.\n` +
                     `[#] Please connect to the internet and try again.`,

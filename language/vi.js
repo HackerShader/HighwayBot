@@ -147,11 +147,10 @@ module.exports = {
         },
     },
     cli: {
-        no_install: () => `[X] Bạn chưa tải toàn bộ HighwayBot`,
-        dev_description: () => `[❕] Chỉ dành cho nhà phát triển thử nghiệm tính năng mới`,
+        not_install: () => `[X] Bạn chưa tải toàn bộ HighwayBot`,
+        dev_description: () => `[!] Chỉ dành cho nhà phát triển thử nghiệm tính năng mới`,
         changelog: {
             description: () => `Các cập nhật mới của bot`,
-            not_install: () => this.cli.no_install(),
             /**
              * @param {String} log Commit logs
              */
@@ -162,7 +161,6 @@ module.exports = {
             clear: () => `[✔] Đã xóa toàn bộ console`
         },
         config: {
-            not_install: () => this.cli.no_install(),
             description: () => `Chỉnh sửa các cài đặt của HighwayBot`,
             miss_key: () =>
                 `[Cài đặt] Cách dùng: config <tên cài đặt> <key>\n` +
@@ -214,14 +212,13 @@ module.exports = {
             all_commands: (commands) =>
                 `Hỗ trợ của HighwayBot\n` +
                 ` |  Danh sách toàn bộ lệnh\n` +
-                commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || this.cli.help.no_description()}`).join('\n') +
+                commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || this.cli.help.no_description()}`).join('\n') + `\n` +
                 ` | Các kênh truyền thông và hỗ trợ\n` +
                 ` |  | Discord: https://discord.gg/YSZPRkKNzh\n` +
                 ` |  | Github: https://github.com/HackerShader/HighwayBot`,
         },
         info: {
             description: () => `Thông tin về HighwayBot`,
-            not_install: () => this.cli.no_install(),
             /**
              * @param {{version: String, build: String, owner: String, dir: String, license: String, main: String, uptime: }} info 
              */
@@ -278,7 +275,8 @@ module.exports = {
             /**
              * @param {String} language Language
              */
-            change: (language) => `[Ngôn ngữ] Đã chỉnh thành: ${language}`
+            change: (language) => `[Ngôn ngữ] Đã chỉnh thành: ${language}`,
+            restart: () => `[Ngôn ngữ] Vui lòng restrat bot.`
         },
         reload: {
             description: () => this.cli.dev_description(),
@@ -293,11 +291,10 @@ module.exports = {
             done: () => `[Làm mới] Xong`
         },
         runbot: {
-            description: () => `Chạy bot`,
-            not_install: () => this.cli.no_install
+            description: () => `Chạy bot`
         },
         update: {
-            description: () => `[❕] Chỉ dành cho lập trình viên | Cập nhật bot`
+            description: () => `[!] Chỉ dành cho lập trình viên | Cập nhật bot`
         },
         _config: {
             /**
@@ -478,7 +475,7 @@ module.exports = {
                     `Ở đây sẽ có 2 lựa chọn cho bạn khi tải HighwayBot\n` +
                     `\n`,
                 choice_1: () =>
-                    `1. Tải từ trực tiếp từ Github của HighwayBot ([❕] Chỉ dành cho các nhà phát triển) (Yêu cầu 'git')`,
+                    `1. Tải từ trực tiếp từ Github của HighwayBot ([!] Chỉ dành cho các nhà phát triển) (Yêu cầu 'git')`,
                 choice_2: () =>
                     `2. Tải từ trang cập nhật các phiên bản mới (Khuyến nghị cho các người dùng phổ thông)`,
                 choice_3: () =>
@@ -525,7 +522,7 @@ module.exports = {
                 unzip_done: () => `[Thông báo] Đã giải nén các File`,
             }
         },
-        update: {
+        _update: {
             update_git: {
                 cloning: () => `[Cập nhật | Đang tải] Bắt đầu cập nhật...`,
                 cloned: () => `[Cập nhật | Hoàn thành] Đã tải xong repo`,
@@ -538,7 +535,6 @@ module.exports = {
                 relaunch: () => `[Thông báo] Vui lòng restart HighwayBot [node ./cli.js | ./start.bat]`
             },
             update_release: {
-                not_install: () => this.cli.not_install(),
                 no_internet: () =>
                     `[!] Bạn đang ngoại tuyến.\n` +
                     `[#] Vui lòng kết nối internet và thử lại.`,

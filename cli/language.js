@@ -1,8 +1,4 @@
 const string = require('../language/translate')
-const settings = require('../settings.json');
-const color = require('./util/colorcode')
-const editJsonFile = require('edit-json-file');
-
 module.exports = {
     name: "language",
     description: string('cli.language.description'),
@@ -12,11 +8,13 @@ module.exports = {
      * @param {String[]} args
      */
     async execute(args) {
-        if (!args[1]) {
+        const editJsonFile = require('edit-json-file');
+        if (!args[0]) {
+            const settings = require('../settings.json');
             console.log(string('cli.language.default', settings.lang));
             return console.log(string('cli.language.how_to_use'));
         }
-        const ToLowerCase = args[1].toLowerCase();
+        const ToLowerCase = args[0].toLowerCase();
         if (ToLowerCase.length > 2) return console.log(string('cli.language.invalid'));
         try {
             delete require.cache[require.resolve('../settings.json')];
@@ -26,6 +24,8 @@ module.exports = {
             const file = editJsonFile('./settings.json')
             file.set('lang', ToLowerCase);
             file.save();
+            delete require.cache[require.resolve('../settings.json')]
+            require('../cmd').emit('language')
             console.log(string('cli.language.change', ToLowerCase))
         }
     }

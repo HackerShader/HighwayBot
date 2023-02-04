@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const unzipper = require('unzipper');
-const consolelog = require('./../util/translate')
+//const consolelog = require('./../util/translate')
 const color = require('./../util/colorcode')
 const string = require('../../language/translate')
 

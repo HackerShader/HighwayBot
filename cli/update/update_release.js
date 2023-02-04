@@ -8,11 +8,11 @@ const fs = require('fs-extra')
  * @returns {void}
  */
 module.exports = async () => {
-    if (!info.build) console.log(string('cli.update.update_release.not_install'));
+    if (!info.build) console.log(string('cli._update.not_install'));
     const dns = require('node:dns');
     dns.resolve('www.google.com', (err) => {
         if (err) {
-            return console.log(string('cli.update.update_release.no_internet'));
+            return console.log(string('cli._update.update_release.no_internet'));
         } else
             download()
     });
@@ -28,7 +28,7 @@ function stdout(text) {
 }
 
 async function download() {
-    stdout(string('cli.update.update_release.downloading'))
+    stdout(string('cli._update.update_release.downloading'))
     const res = await axios({
         url: 'https://api.github.com/repos/HackerShader/HighwayBot/releases/latest',
         method: 'GET',
@@ -47,24 +47,24 @@ async function download() {
     })
     zip.data.pipe(fs.createWriteStream('./Highway-Bot.zip'));
     zip.data.once('end', () => {
-        stdout(string('cli.update.update_release.download_done'))
+        stdout(string('cli._update.update_release.download_done'))
         unzip()
     })
 }
 
 function unzip() {
-    stdout(string('cli.update.update_release.unzipping'));
+    stdout(string('cli._update.update_release.unzipping'));
     fs.createReadStream('./Highway-Bot.zip')
         .pipe(unzipper.Extract({ path: './' }))
         .once('close', () => {
             fs.rmSync('./Highway-Bot.zip');
-            stdout(string('cli.update.update_release.unzip_done'));
+            stdout(string('cli._update.update_release.unzip_done'));
             move();
         });
 }
 
 function move() {
-    stdout(string('cli.update.update_release.moving'));
+    stdout(string('cli._update.update_release.moving'));
     const reg = /^HackerShader-HighwayBot-(.+)$/;
     let stop = false;
     fs.readdirSync('./')
@@ -78,7 +78,7 @@ function move() {
                 fs.removeSync(`./${dir}`);
                 const package_json = require('edit-json-file')('./package.json', { autosave: true })
                 package_json.set('tag', process.env.tag)
-                stdout(string('cli.update.update_release.move_done'));
+                stdout(string('cli._update.update_release.move_done'));
                 reinstall();
             }
         });
@@ -86,11 +86,11 @@ function move() {
 
 function reinstall() {
     const packages = Object.keys(require('./package.json').dependencies);
-    stdout(string('cli.update.update_release.downloading_package', packages.length));
+    stdout(string('cli._update.update_release.downloading_package', packages.length));
     const child_process = require('child_process');
     const exec = child_process.exec('npm install');
     exec.on('exit', () => {
-        stdout(string('cli.update.update_release.download_package_done'));
+        stdout(string('cli._update.update_release.download_package_done'));
         remove_temp();
     });
 }
@@ -100,14 +100,14 @@ function remove_temp() {
     if (fs.existsSync('./installer.js')) fs.unlinkSync('./installer.js');
     if (fs.existsSync('./installer.bat')) fs.unlinkSync('./installer.bat');
     if (fs.existsSync('./installer.sh')) fs.unlinkSync('./installer.sh');
-    stdout(string('cli.update.update_release.remove_temp'));
+    stdout(string('cli._update.update_release.remove_temp'));
     restart();
 }
 
 function restart() {
-    stdout(string('cli.update.update_release.restart_timer'));
+    stdout(string('cli._update.update_release.restart_timer'));
     setTimeout(() => {
-        stdout(string('cli.update.update_release.shut_down'));
+        stdout(string('cli._update.update_release.shut_down'));
         process.exit(0);
     }, 10000);
 }

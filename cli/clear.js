@@ -1,4 +1,3 @@
-const consolelog = require('./util/translate')
 const color = require('./util/colorcode')
 const string = require('../language/translate')
 
