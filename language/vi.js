@@ -177,7 +177,7 @@ module.exports = {
             /**
              * @param {String} key Key
              */
-            key_not_found: (key) => `[Cài đặt | Lỗi] Không tìm thấy key '${key}'`,
+            key_not_found: () => `[Cài đặt | Lỗi] Không tìm thấy key`,
             /**
              * @param {String} err Error
              */

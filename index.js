@@ -46,6 +46,17 @@ const tpsPlugin = require('mineflayer-tps')(mineflayer);
 const prefix = config.general.ingameprefix;
 const inventoryViewer = require('mineflayer-web-inventory');
 
+//use soon
+const {
+    StateTransition,
+    BotStateMachine,
+    EntityFilters,
+    BehaviorFollowEntity,
+    BehaviorLookAtEntity,
+    BehaviorGetClosestEntity,
+    NestedStateMachine,
+    StateMachineWebserver } = require("mineflayer-statemachine");
+
 function notifierbox(title, description) {
     notifier.notify({
         title: title,

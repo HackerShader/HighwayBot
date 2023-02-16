@@ -41,8 +41,8 @@ module.exports = (args) => {
                 dig: {
                     delay: 2,
                     delay_task: 0,
-                    algorithm: 3,
-                    reach: 4
+                    algorithm: 1,
+                    reach: 3.75
                 },
                 place: {
                     delay: 2,

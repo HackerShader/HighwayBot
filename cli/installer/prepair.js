@@ -6,7 +6,8 @@ const fs = require('fs-extra');
 const color = require('./../util/colorcode')
 const string = require('../../language/translate')
 
-console.clear();
+console.log('\nThis Installer will be terminated, if you want to install the highwaybot controller, please download the installer file on release page\n\n')
+
 async function start() {
     console.log(string('cli.installer.prepair.choices'))
     console.log(string('cli.installer.prepair.choice_1'))

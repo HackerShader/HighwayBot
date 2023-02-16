@@ -1,4 +1,5 @@
 module.exports = async (bot) => {
+
     //create arrays
     const block = {
         placeblock: [],
@@ -15,10 +16,11 @@ module.exports = async (bot) => {
                 if (target.name !== 'air'
                     && bot.canDigBlock(target)
                     && ((y === 0 && (z > -2 && z < 2))
-                    || ((y > 0 && y <= 3) && (z >= -2 && z <= 2)))
+                        || ((y > 0 && y <= 3) && (z >= -2 && z <= 2)))
                 ) block.breakblock.push((target))
             }
         }
     }
     return block
+
 }

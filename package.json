@@ -26,6 +26,7 @@
     "mineflayer": "^4.3.0",
     "mineflayer-navigate": "0.0.10",
     "mineflayer-pathfinder": "^2.2.0",
+    "mineflayer-statemachine": "^1.7.0",
     "mineflayer-tps": "^1.0.1",
     "mineflayer-web-inventory": "^1.7.1",
     "ms": "^2.1.3",

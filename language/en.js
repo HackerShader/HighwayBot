@@ -2,7 +2,7 @@ module.exports = {
     cmd: {
         welcome: () => `----- Welcome to HighwayBot controller -----`,
         commands: () => `Type:\n` +
-            `> 'help' to see a list of commandsn\n` +
+            `> 'help' to see a list of commands\n` +
             `> 'language <your language acronym (like: 'en', 'vi',...)>' to change the default language\n` +
             `> 'runbot' to run bot`,
         command: () => `command`,
@@ -164,7 +164,7 @@ module.exports = {
             description: () => `Configure the HighwayBot config`,
             miss_key: () =>
                 `[Config] Usage: config <name of config> <key>\n` +
-                `Các 'key' hiện có\n` +
+                `Available keys:\n` +
                 `>  clone: Make a copy of an existing config\n` +
                 `>  create: Create a new config\n` +
                 `>  delete: Delete an existing config\n` +
@@ -177,7 +177,7 @@ module.exports = {
             /**
              * @param {String} key Key
              */
-            key_not_found: (key) => `[Config | Error] Can't find key '${key}'`,
+            key_not_found: () => `[Config | Error] Can't find key`,
             /**
              * @param {String} err Error
              */
@@ -303,6 +303,7 @@ module.exports = {
              */
             usage: (en_command, usage) =>
                 `[Config | ${en_command[0].toUpperCase()}${en_command.slice(1).toLowerCase()}] Usage: 'config ${en_command.toLowerCase()} <config name> ${!usage || usage.trim() == '' ? '' : `${usage}`}'`,
+                
             /**
              * @param {String} en_command
              * @param {String} config
@@ -310,7 +311,7 @@ module.exports = {
             not_exist: (en_command, config) =>
                 `[Config | ${en_command[0].toUpperCase()}${en_command.slice(1).toLowerCase()} | Error] Config '${config.toLowerCase()}' does not exist`,
             clone: {
-                usage: () => this.cli._config.usage('clone', '<clone file name>'),
+                usage: () => this.cli._config.usage ('clone', '<clone file name>'),
                 /**
                  * @param {String} config Config name
                  */
@@ -396,7 +397,7 @@ module.exports = {
                     `[Config | List] List of config files:\n` +
                     `>  ${array.map(name => {
                         let n = name.replace('.json', '');
-                        if (n + '.json' == current) n += ' (using)';
+                        if (n + '.json' == current) n += ' (current)';
                         return n;
                     }).join('\n>  ')}`
             },
