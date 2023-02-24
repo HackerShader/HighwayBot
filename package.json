@@ -1,7 +1,7 @@
 {
   "name": "highwaybot",
   "version": "Nightly-build",
-  "build": "08142022-patch1",
+  "build": "",
   "description": "A different way to digging and building Highway Nether in every Anarchy server!",
   "main": "index.js",
   "scripts": {
