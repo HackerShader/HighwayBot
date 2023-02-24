@@ -30,26 +30,27 @@ function FindObject(obj, path, value) {
  */
 module.exports = async (args) => {
     if (!args[1] || !args[2]) return console.log(string('cli._config.edit.usage'));
-    if (!fs.existsSync(`./config/${args[1]}.json`)) return console.log(string('cli._config.edit.not_exist', args[2]));
+    if (!fs.existsSync(`./config/${args[1]}.json`)) return console.log(string('cli._config.edit.not_exist', args[1]));
     if (!args[2]) return console.log(string('cli._config.edit.note', args[1]));
-    const configure = require(`./../../config/${args[2]}.json`)
-    const file = require('edit-json-file')(`./config/${args[2]}.json`);
-    args.slice(1).forEach(data => {
+    const configure = require(`./../../config/${args[1]}.json`)
+    const file = require('edit-json-file')(`./config/${args[1]}.json`);
+    args.slice(2).forEach(data => {
         const datasplit = data.split(':')
         const key = datasplit[0].toLowerCase()
         let value = datasplit[1];
+        console.log(key, value)
         //if(!key || !value) return console.log(color.code.red, `[Config | Edit | Error] Missing key/value`)
         const ObjectChecker = FindObject(configure, key, value)
         if (ObjectChecker === 1) {
-            if (typeof objects === 'string') return console.log(string('cli._config.edit.invalid_number', key))
+            if (typeof objects === 'string') return console.log(color.code.red, string('cli._config.edit.invalid_number', key))
             value = Number(value)
         }
         if (ObjectChecker === 2) {
-            if (typeof objects === 'number') return console.log(string('cli._config.edit.invalid_string', key))
+            if (typeof objects === 'number') return console.log(color.code.red, string('cli._config.edit.invalid_string', key))
         }
-        if (ObjectChecker === false) return console.log(string('cli._config.edit.invalid_key', key))
+        if (ObjectChecker === false) return console.log(color.code.red, string('cli._config.edit.invalid_key', key))
         file.set(key, value)
         file.save()
+        return console.log(string('cli._config.edit.done', args[1]))
     });
-    console.log(string('cli._config.edit.done', args[2]))
 }

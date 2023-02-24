@@ -1,42 +1,22 @@
-const superagent = require('superagent')
 const info = require('../../package.json')
 const string = require('../../language/translate')
 const axios = require('axios').default
 const fs = require('fs-extra')
 
 /**
- * @returns {void}
+ * @returns {void}  
  */
-module.exports = async () => {
-    if (!info.build) console.log(string('cli._update.not_install'));
-    const dns = require('node:dns');
-    dns.resolve('www.google.com', (err) => {
-        if (err) {
-            return console.log(string('cli._update.update_release.no_internet'));
-        } else
-            download()
-    });
-}
-
 /**
  * @param {String} text 
  */
-function stdout(text) {
+async function stdout(text) {
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
     process.stdout.write(text);
 }
 
+
 async function download() {
-    stdout(string('cli._update.update_release.downloading'))
-    const res = await axios({
-        url: 'https://api.github.com/repos/HackerShader/HighwayBot/releases/latest',
-        method: 'GET',
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
-        }
-    })
-    process.env.tag = res.data.tag_name
     const zip = await axios({
         url: res.data.zipball_url,
         method: 'GET',
@@ -45,12 +25,15 @@ async function download() {
         },
         responseType: 'stream'
     })
+    stdout(string('cli._update.update_release.downloading'))
     zip.data.pipe(fs.createWriteStream('./Highway-Bot.zip'));
     zip.data.once('end', () => {
         stdout(string('cli._update.update_release.download_done'))
         unzip()
     })
+    
 }
+
 
 function unzip() {
     stdout(string('cli._update.update_release.unzipping'));
@@ -111,3 +94,22 @@ function restart() {
         process.exit(0);
     }, 10000);
 }
+
+
+
+//  if (!info.build) return console.log('HighwayBot not installed');
+const dns = require('node:dns');
+dns.resolve('www.google.com', async (err) => {
+    if (err) return console.log(string('cli._update.update_release.no_internet'));
+    const res = await axios({
+        url: 'https://api.github.com/repos/HackerShader/HighwayBot/releases/latest',
+        method: 'GET',
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
+        }
+    })
+    if (await res.data.tag_name === info.build) return stdout('Already latest version')
+    await download()
+        
+    
+});
