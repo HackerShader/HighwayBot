@@ -14,6 +14,7 @@ module.exports = {
             bot.chat(`/msg ${config.general.owner} [Baritone] Commands: ${BaritoneCommands}`);
             return;
         }
+        if (!fs.existsSync(`./Core/Baritone/${args[1]}`)) return bot.chat(`/msg ${config.general.owner} [Baritone] | Error: ${args[1]} is not a valid command`)
         try {
             require(`./../Core/Baritone/${args[1]}`)(bot, args, username);
         }

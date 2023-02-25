@@ -35,5 +35,6 @@
     "superagent": "^8.0.6",
     "unzipper": "^0.10.11",
     "vec3": "^0.1.7"
-  }
+  },
+  "type": "commonjs"
 }

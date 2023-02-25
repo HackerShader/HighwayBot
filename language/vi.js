@@ -1,4 +1,4 @@
-module.exports = {
+const translate = {
     cmd: {
         welcome: () => `----- Chào mừng bạn đến với bộ điều khiển HighwayBot -----`,
         commands: () => `Nhập:\n` +
@@ -204,15 +204,15 @@ module.exports = {
                 `Hỗ trợ của HighwayBot\n` +
                 ` |  Thông tin về lệnh\n` +
                 ` |  | Tên: ${name}\n` +
-                ` |  | Mô tả: ${description || this.cli.help.no_description()}\n` +
-                ` |  | Tên khác: ${aliases || this.cli.help.no_aliases()}`,
+                ` |  | Mô tả: ${description || translate.cli.help.no_description()}\n` +
+                ` |  | Tên khác: ${aliases || translate.cli.help.no_aliases()}`,
             /**
              * @param {Array} commands
              */
             all_commands: (commands) =>
                 `Hỗ trợ của HighwayBot\n` +
                 ` |  Danh sách toàn bộ lệnh\n` +
-                commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || this.cli.help.no_description()}`).join('\n') + `\n` +
+                commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || translate.cli.help.no_description()}`).join('\n') + `\n` +
                 ` | Các kênh truyền thông và hỗ trợ\n` +
                 ` |  | Discord: https://discord.gg/YSZPRkKNzh\n` +
                 ` |  | Github: https://github.com/HackerShader/HighwayBot`,
@@ -279,7 +279,7 @@ module.exports = {
             restart: () => `[Ngôn ngữ] Vui lòng restrat bot.`
         },
         reload: {
-            description: () => this.cli.dev_description(),
+            description: () => translate.cli.dev_description(),
             /**
              * @param {String} dir 
              */
@@ -303,7 +303,7 @@ module.exports = {
              * @param {String} usage
              */
             usage: (vi_command, en_command, usage) =>
-                `[Cài đặt | ${vi_command[0].toUpperCase()}${vi_command.slice(1).toLowerCase()}] Cách dùng: 'config ${en_command.toLowerCase()} <tên cài đặt> ${!usage || usage.trim() == '' ? '' : `${usage}`}'`,
+                `[Cài đặt | ${vi_command[0].toUpperCase()}${vi_command.slice(1).toLowerCase()}] Cách dùng: config ${en_command.toLowerCase()} <tên cài đặt> ${!usage || usage.trim() == '' ? '' : `${usage}`}`,
             /**
              * @param {String} vi_command
              * @param en_command
@@ -312,11 +312,11 @@ module.exports = {
             not_exist: (vi_command, en_command, config) =>
                 `[Cài đặt | ${vi_command[0].toUpperCase()}${vi_command.slice(1).toLowerCase()} | Lỗi] Cài đặt '${config.toLowerCase()}' không tồn tại`,
             clone: {
-                usage: () => this.cli._config.usage('sao chép', 'clone', '<tên bản sao>'),
+                usage: () => translate.cli._config.usage('sao chép', 'clone', '<tên bản sao>'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('sao chép', config),
+                not_exist: (config) => translate.cli._config.not_exist('sao chép', config),
                 /**
                  * @param {String} config Config name
                  */
@@ -328,7 +328,7 @@ module.exports = {
                 done: (base, clone) => `[Cài đặt | Sao chép | Hoàn thành] Đã tạo bản sao '${clone}' từ '${base}'`
             },
             create: {
-                usage: () => this.cli._config.usage('tạo', 'create', ''),
+                usage: () => translate.cli._config.usage('tạo', 'create', ''),
                 /**
                  * @param {String} config Config name
                  */
@@ -341,11 +341,11 @@ module.exports = {
                     `[Cài đặt | Đề nghị] Bạn có thể dùng lệnh 'config edit ${config}' để chỉnh sửa`
             },
             delete: {
-                usage: () => this.cli._config.usage('xóa', 'delete', ''),
+                usage: () => translate.cli._config.usage('xóa', 'delete', ''),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('xóa', config),
+                not_exist: (config) => translate.cli._config.not_exist('xóa', config),
                 /**
                 * @param {String} config Config name
                 */
@@ -353,11 +353,11 @@ module.exports = {
             },
             edit: {
                 usage: () =>
-                    `${this.cli._config.usage('chỉnh sửa', 'edit', '<key_1>:<giá_trị_1> <key_2>:<giá_trị_2> ...')}`,
+                    `${translate.cli._config.usage('chỉnh sửa', 'edit', '<key_1>:<giá_trị_1> <key_2>:<giá_trị_2> ...')}`,
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('chỉnh sửa', config),
+                not_exist: (config) => translate.cli._config.not_exist('chỉnh sửa', config),
                 /**
                  * @param {String} config Config name
                  */
@@ -403,11 +403,11 @@ module.exports = {
                     }).join('\n>  ')}`
             },
             load: {
-                usage: () => this.cli._config.usage('dùng', 'load', ''),
+                usage: () => translate.cli._config.usage('dùng', 'load', ''),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('dùng', config),
+                not_exist: (config) => translate.cli._config.not_exist('dùng', config),
                 /**
                  * @param {String} config Config name
                  */
@@ -427,11 +427,11 @@ module.exports = {
                 change: (config) => `[Cài đặt | Làm mới] Đã chuyển cài đặt thành '${config}'`
             },
             rename: {
-                usage: () => this.cli._config.usage('đổi tên', 'rename', '<tên mới>'),
+                usage: () => translate.cli._config.usage('đổi tên', 'rename', '<tên mới>'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('đổi tên', config),
+                not_exist: (config) => translate.cli._config.not_exist('đổi tên', config),
                 /**
                  * @param {String} config Config name
                  */
@@ -444,11 +444,11 @@ module.exports = {
                     `[Cài đặt | Đổi tên | Hoàn thành] Đã đổi tên '${old_config}' thành '${new_config}'`
             },
             show: {
-                usage: () => this.cli._config.usage('thống kê', 'show', ''),
+                usage: () => translate.cli._config.usage('thống kê', 'show', ''),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('thống kê', config),
+                not_exist: (config) => translate.cli._config.not_exist('thống kê', config),
                 keys: () => `Key`,
                 values: () => `Giá trị`,
             }
@@ -556,3 +556,5 @@ module.exports = {
         }
     }
 }
+
+module.exports = translate

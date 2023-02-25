@@ -1,4 +1,4 @@
-module.exports = {
+const translate = {
     cmd: {
         welcome: () => `----- Welcome to HighwayBot controller -----`,
         commands: () => `Type:\n` +
@@ -10,7 +10,7 @@ module.exports = {
          * @param {String} name Command name
          */
         command_not_found: (name) => `[CMD | Error] Command '${name}' not found`,
-        first_time_msg: () => `[Notification] This is the first time you run this program`,
+        first_time_msg: () => `[Notification] This is the first time you run translate program`,
         downloading: () => `[Notification] Downloading package(s)...`,
         /**
          * @param {String} err Error
@@ -204,15 +204,15 @@ module.exports = {
                 `HighwayBot helper\n` +
                 ` |  Command infomation\n` +
                 ` |  | Name: ${name}\n` +
-                ` |  | Description: ${description || this.no_description()}\n` +
-                ` |  | Aliases: ${aliases || this.no_aliases()}`,
+                ` |  | Description: ${description || translate.no_description()}\n` +
+                ` |  | Aliases: ${aliases || translate.no_aliases()}`,
             /**
              * @param {Array} commands
              */
             all_commands: (commands) =>
                 `HighwayBot helper\n` +
                 ` | Commands list\n` +
-                commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || this.cli.help.no_description()}`).join('\n') + `\n` + // cái cli.help tồn tại nó nói undefined
+                commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || translate.cli.help.no_description()}`).join('\n') + `\n` + // cái cli.help tồn tại nó nói undefined
                 ` | Social / Contact\n` +
                 ` |  | Discord: https://discord.gg/YSZPRkKNzh\n` +
                 ` |  | Github: https://github.com/HackerShader/HighwayBot`,
@@ -279,7 +279,7 @@ module.exports = {
             restart: () => `[Language] Please restart HighwayBit to apply the change`
         },
         reload: {
-            description: () => this.cli.dev_description(),
+            description: () => translate.cli.dev_description(),
             /**
              * @param {String} dir
              */
@@ -302,8 +302,7 @@ module.exports = {
              * @param {String} usage
              */
             usage: (en_command, usage) =>
-                `[Config | ${en_command[0].toUpperCase()}${en_command.slice(1).toLowerCase()}] Usage: 'config ${en_command.toLowerCase()} <config name> ${!usage || usage.trim() == '' ? '' : `${usage}`}'`,
-                
+                `[Config | ${en_command[0].toUpperCase()}${en_command.slice(1).toLowerCase()}] Usage: config ${en_command.toLowerCase()} <config name> ${!usage || usage.trim() == '' ? '' : `${usage}`}`,
             /**
              * @param {String} en_command
              * @param {String} config
@@ -311,11 +310,11 @@ module.exports = {
             not_exist: (en_command, config) =>
                 `[Config | ${en_command[0].toUpperCase()}${en_command.slice(1).toLowerCase()} | Error] Config '${config.toLowerCase()}' does not exist`,
             clone: {
-                usage: () => this.cli._config.usage ('clone', '<clone file name>'),
+                usage: () => translate.cli._config.usage('clone', '<clone file name>'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('clone', config),
+                not_exist: (config) => translate.cli._config.not_exist('clone', config),
                 /**
                  * @param {String} config Config name
                  */
@@ -327,7 +326,7 @@ module.exports = {
                 done: (base, clone) => `[Config | Clone | Done] Config '${base}' cloned to '${clone}'`
             },
             create: {
-                usage: () => this.cli._config.usage('create'),
+                usage: () => translate.cli._config.usage('create'),
                 /**
                  * @param {String} config Config name
                  */
@@ -340,11 +339,11 @@ module.exports = {
                     `[Config | Suggest] You can use command 'config edit ${config}' to edit`
             },
             delete: {
-                usage: () => this.cli._config.usage('delete'),
+                usage: () => translate.cli._config.usage('delete'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('delete', config),
+                not_exist: (config) => translate.cli._config.not_exist('delete', config),
                 /**
                 * @param {String} config Config name
                 */
@@ -352,11 +351,11 @@ module.exports = {
             },
             edit: {
                 usage: () =>
-                    `${this.cli._config.usage('edit', '<key_1>:<value_1> <key_2>:<value_2> ...')}`,
+                    `${translate.cli._config.usage('edit', '<key_1>:<value_1> <key_2>:<value_2> ...')}`,
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('edit', config),
+                not_exist: (config) => translate.cli._config.not_exist('edit', config),
                 /**
                  * @param {String} config Config name
                  */
@@ -402,11 +401,11 @@ module.exports = {
                     }).join('\n>  ')}`
             },
             load: {
-                usage: () => this.cli._config.usage('load', ''),
+                usage: () => translate.cli._config.usage('load', ''),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('load', config),
+                not_exist: (config) => translate.cli._config.not_exist('load', config),
                 /**
                  * @param {String} config Config name
                  */
@@ -426,11 +425,11 @@ module.exports = {
                 change: (config) => `[Config | Làm mới] Changed to '${config}'`
             },
             rename: {
-                usage: () => this.cli._config.usage('rename', '<new file name>'),
+                usage: () => translate.cli._config.usage('rename', '<new file name>'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('rename', config),
+                not_exist: (config) => translate.cli._config.not_exist('rename', config),
                 /**
                  * @param {String} config Config name
                  */
@@ -443,11 +442,11 @@ module.exports = {
                     `[Config | Rename | Done] Renamed '${old_config}' to '${new_config}'`
             },
             show: {
-                usage: () => this.cli._config.usage('show'),
+                usage: () => translate.cli._config.usage('show'),
                 /**
                  * @param {String} config Config name
                  */
-                not_exist: (config) => this.cli._config.not_exist('show', config),
+                not_exist: (config) => translate.cli._config.not_exist('show', config),
                 keys: () => `Keys`,
                 values: () => `Values`,
             }
@@ -504,7 +503,7 @@ module.exports = {
                 confirm: {
                     confirm: () =>
                         `This installer was created by HighwayBot's devoloper team.\n` +
-                        `We are not responsible for any damage caused by this installer in the beta.\n` +
+                        `We are not responsible for any damage caused by translate installer in the beta.\n` +
                         `Are you sure to continue? (Y/N)`,
                     deny: () =>
                         `[X] Installer has been terminated.\n` +
@@ -555,3 +554,5 @@ module.exports = {
         }
     }
 }
+
+module.exports = translate
