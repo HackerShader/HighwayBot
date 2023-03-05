@@ -1,5 +1,4 @@
 const fs = require('fs-extra');
-const color = require('../util/colorcode');
 const string = require('../../language/translate')
 
 module.exports = (args) => {
@@ -11,7 +10,7 @@ module.exports = (args) => {
             return console.log(string('cli._config.create.usage'));
         if (fs.existsSync(`./config/${args[1]}.json`))
             return console.log(string('cli._config.create.already_exist', args[1]));
-        configName = args[2];
+        configName = args[1];
     }
 	
     fs.writeFileSync(`./config/${configName}.json`, JSON.stringify({

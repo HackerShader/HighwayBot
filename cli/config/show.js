@@ -1,16 +1,15 @@
 const fs = require('fs-extra');
 const ascii = require('ascii-table');
-const color = require('../util/colorcode');
 const string = require('../../language/translate')
 
 module.exports = (args) => {
     const table = new ascii().setHeading(string('cli._config.show.keys'), string('cli._config.show.values'));
-    if (!args[2])
+    if (!args[1])
         return console.log(string('cli._config.show.usage'));
-    if (!fs.existsSync(`./config/${args[2]}.json`))
-        return console.log(string('cli.config.show.not_exist', args[2]));
-    delete require.cache[require.resolve(`../../config/${args[2]}.json`)];
-    const file = require(`../../config/${args[2]}.json`);
+    if (!fs.existsSync(`./config/${args[1]}.json`))
+        return console.log(string('cli._config.show.not_exist', args[1]));
+    delete require.cache[require.resolve(`../../config/${args[1]}.json`)];
+    const file = require(`../../config/${args[1]}.json`);
 
     //Improve Object showing
 

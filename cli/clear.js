@@ -1,4 +1,3 @@
-const color = require('./util/colorcode')
 const string = require('../language/translate')
 
 module.exports = {
@@ -10,3 +9,4 @@ module.exports = {
         console.log(string('cli.clear.clear'));
     }
 };
+

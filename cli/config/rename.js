@@ -1,5 +1,4 @@
 const fs = require('fs-extra');
-const color = require('../util/colorcode');
 const string = require('../../language/translate')
 
 module.exports = (args) => {
@@ -10,5 +9,5 @@ module.exports = (args) => {
     if (fs.existsSync(`./config/${args[2]}.json`))
         return console.log(string('cli._config.rename.already_exist', args[2]));
     fs.renameSync(`./config/${args[1]}.json`, `./config/${args[2]}.json`);
-    return console.log(string('cli.config.rename.done', args[1], args[2]));
+    return console.log(string('cli._config.rename.done', args[1], args[2]));
 };

@@ -22,5 +22,4 @@ module.exports = async (bot) => {
         }
     }
     return block
-
 }

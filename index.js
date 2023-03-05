@@ -46,26 +46,18 @@ const tpsPlugin = require('mineflayer-tps')(mineflayer);
 const prefix = config.general.ingameprefix;
 const inventoryViewer = require('mineflayer-web-inventory');
 
-//use soon
-const {
-    StateTransition,
-    BotStateMachine,
-    EntityFilters,
-    BehaviorFollowEntity,
-    BehaviorLookAtEntity,
-    BehaviorGetClosestEntity,
-    NestedStateMachine,
-    StateMachineWebserver } = require("mineflayer-statemachine");
-
 function notifierbox(title, description) {
     notifier.notify({
         title: title,
         icon: __dirname + './cli/util/logo.png',
-        message: description
+        message: description,
+        wait: true,
+        appIcon: __dirname + './cli/util/logo.png',
+        appID: "HighwayBot"
     });
 }
 
-console.log(`   Launching...` +
+console.log(`[HighwayBot] Launching...` +
     `\n             Version: ${require('./package.json').version}` +
     `\n             Prefix: ${prefix}` +
     `\n             Server: ${config.hostinfo.hostname}:${config.hostinfo.port}` +
@@ -76,7 +68,7 @@ console.log(`   Launching...` +
 
 function HighwayBot() {
     const bot = mineflayer.createBot({
-        username: "highwaybot",
+        username: config.general.botusername,
         host: config.hostinfo.hostname,
         port: config.hostinfo.port,
         version: '1.12.2',
@@ -87,24 +79,6 @@ function HighwayBot() {
     bot.loadPlugin(tpsPlugin);
     mineflayernavigate(bot);
     inventoryViewer(bot, {port: config.invport});
-
-    //advanced login
-    bot.on('windowOpen', async (window) => {
-        const pin = config.pin;
-        window.requiresConfirmation = false;
-        await bot.clickWindow(pin[0], 0, 0);
-        await bot.clickWindow(pin[1], 0, 0);
-        await bot.clickWindow(pin[2], 0, 0);
-        await bot.clickWindow(pin[3], 0, 0);
-
-        setTimeout(() => {
-            bot.chat('/cli');
-        }, 5 * 1000);
-
-        setTimeout(() => {
-            bot.clickWindow(0, 0, 0);
-        }, 6 * 1000);
-    });
 
     bot.on('chat', (username, message) => {
         if (!message.startsWith(config.general.ingameprefix)) return;
@@ -121,18 +95,19 @@ function HighwayBot() {
         }
     });
     bot.on('kicked', kick => {
-        notifierbox('HighwayBot disconnected by server', `${kick}`)
+        notifierbox('Disconnected by server', `${kick}`)
         console.log(`Disconnected. Reason: ${kick}`);
     });
 
     bot.on('end', (reason) => {
-        notifierbox('HighwayBot disconnected', `${reason}`)
+        notifierbox('Disconnected', `${reason}`)
         console.log(`Disconnected. Reason: ${reason}`);
         setTimeout(() => HighwayBot(), 10000);
     });
 
+    //module loader
     bot.on('spawn', () => {
-        notifierbox('HighwayBot', `Connected to ${config.hostinfo.hostname}`)
+        notifierbox('Connected', `${config.hostinfo.hostname}`)
         console.log('Bot spawn !');
         console.log('Position of bot:' + Math.round(bot.entity.position.x), Math.round(bot.entity.position.y), Math.round(bot.entity.position.z));
         fs.readdirSync('./Core/Player').forEach(folder => {
