@@ -20,7 +20,7 @@ async function callback(prompt) {
             console.log(string('cmd.command_not_found', cmd))
             return await callback(prompt)
         } else
-            await Promise.resolve(command.execute)
+             Promise.resolve(command.execute)
                 .then((func) => func(args, cmds))
                 .catch((e) => console.log(e))
                 .finally(() => callback(prompt))

@@ -74,39 +74,38 @@ module.exports = {
                 stdout(string('cli._update.update_release.download_package_done'));
                 remove_temp();
             });
-
-            function remove_temp() {
-                const fs = require('node:fs');
-                if (fs.existsSync('./installer.js')) fs.unlinkSync('./installer.js');
-                if (fs.existsSync('./installer.bat')) fs.unlinkSync('./installer.bat');
-                if (fs.existsSync('./installer.sh')) fs.unlinkSync('./installer.sh');
-                stdout(string('cli._update.update_release.remove_temp'));
-                restart();
-            }
-
-            function restart() {
-                stdout(string('cli._update.update_release.restart_timer'));
-                setTimeout(() => {
-                    stdout(string('cli._update.update_release.shut_down'));
-                    process.exit(0);
-                }, 10000);
-            }
-
-
-            if (!info.build) return console.log('HighwayBot not installed');
-            stdout('[Updater] Checking for update');
-            const res = await axios({
-                url: 'https://api.github.com/repos/HackerShader/HighwayBot/releases/latest',
-                method: 'GET',
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
-                }
-            });
-
-            const tag_name = res.data.tag_name;
-            if (tag_name === info.build) return stdout('Already latest version');
-            await stdout(`Found new update ${tag_name}\n`);
-            await download(res);
         }
+
+        function remove_temp() {
+            const fs = require('node:fs');
+            if (fs.existsSync('./installer.js')) fs.unlinkSync('./installer.js');
+            if (fs.existsSync('./installer.bat')) fs.unlinkSync('./installer.bat');
+            if (fs.existsSync('./installer.sh')) fs.unlinkSync('./installer.sh');
+            stdout(string('cli._update.update_release.remove_temp'));
+            restart();
+        }
+
+        function restart() {
+            stdout(string('cli._update.update_release.restart_timer'));
+            setTimeout(() => {
+                stdout(string('cli._update.update_release.shut_down'));
+                process.exit(0);
+            }, 10000);
+        }
+
+        if (!info.build) return console.log('HighwayBot not installed');
+        stdout('[Updater] Checking for update');
+        const res = await axios({
+            url: 'https://api.github.com/repos/HackerShader/HighwayBot/releases/latest',
+            method: 'GET',
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
+            }
+        });
+
+        const tag_name = res.data.tag_name;
+        if (tag_name === info.build) return stdout('Already latest version');
+        await stdout(`Found new update ${tag_name}\n`);
+        await download(res);
     }
 };

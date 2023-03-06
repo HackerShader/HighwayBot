@@ -46,6 +46,7 @@ const tpsPlugin = require('mineflayer-tps')(mineflayer);
 const prefix = config.general.ingameprefix;
 const inventoryViewer = require('mineflayer-web-inventory');
 
+//fix soon
 function notifierbox(title, description) {
     notifier.notify({
         title: title,
@@ -56,7 +57,6 @@ function notifierbox(title, description) {
         appID: "HighwayBot"
     });
 }
-
 console.log(`[HighwayBot] Launching...` +
     `\n             Version: ${require('./package.json').version}` +
     `\n             Prefix: ${prefix}` +
@@ -68,19 +68,18 @@ console.log(`[HighwayBot] Launching...` +
 
 function HighwayBot() {
     const bot = mineflayer.createBot({
-        username: config.general.botusername,
+        username: "highwaybot",
         host: config.hostinfo.hostname,
         port: config.hostinfo.port,
         version: '1.12.2',
     });
 
-    //Plugins loader
     bot.loadPlugin(pathfinder);
     bot.loadPlugin(tpsPlugin);
     mineflayernavigate(bot);
     inventoryViewer(bot, {port: config.invport});
 
-    bot.on('chat', (username, message) => {
+    bot.on('chat', async(username, message) => {
         if (!message.startsWith(config.general.ingameprefix)) return;
         const args = message.slice(prefix.length).trim().split(' ');
         const cmd = args[0].toLowerCase();
@@ -89,11 +88,12 @@ function HighwayBot() {
         //execute commands
         try {
             const command = require(`./commands/${cmd}.js`);
-            command.execute(bot, message, args, username);
+            await command.execute(bot, message, args, username);
         } catch (err) {
             console.log(err)
         }
     });
+
     bot.on('kicked', kick => {
         notifierbox('Disconnected by server', `${kick}`)
         console.log(`Disconnected. Reason: ${kick}`);
