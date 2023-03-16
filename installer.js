@@ -120,7 +120,7 @@ dns.resolve('www.google.com', (err) => {
     else {
         const version = {
             current: /^(.+).(.+).(.+)$/.exec(process.version),
-            recommended: ['v16', 'v18', '19']
+            recommended: ['v16', 'v18', 'v19']
         };
 
         if (!version.recommended.includes(version.current[1])) {
