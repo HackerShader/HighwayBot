@@ -5,7 +5,7 @@ function stdout(text) {
 }
 function install() {
     const child_process = require('child_process');
-    const list = ['axios', 'unzipper', 'fs-extra', 'edit-json-file'];
+    const list = ['axios', 'unzipper', 'fs-extra'];
     stdout(`[-] Preparing ${list.length} package(s)`)
     child_process.execSync(`npm install ${list.join(' ')}`);
     download();
@@ -23,7 +23,6 @@ async function download() {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
         }
     })
-    process.env.tag = res.data.tag_name
     const zip = await axios({
         url: res.data.zipball_url,
         method: 'GET',
@@ -44,7 +43,7 @@ function unzip() {
     const fs = require('node:fs');
     const unzipper = require('unzipper');
     fs.createReadStream('./Highway-Bot.zip')
-        .pipe(unzipper.Extract({ path: './' }))
+        .pipe(unzipper.Extract({path: './'}))
         .once('close', () => {
             fs.rmSync('./Highway-Bot.zip');
             stdout('[#] Unzipped file');
@@ -64,10 +63,8 @@ function move() {
             if (reg.test(file)) {
                 stop = true;
                 const dir = reg.exec(file)[0];
-                fs.copySync(`./${dir}`, './', { overwrite: true });
+                fs.copySync(`./${dir}`, './', {overwrite: true});
                 fs.removeSync(`./${dir}`);
-                const package_json = require('edit-json-file')('./package.json', { autosave: true })
-                package_json.set('tag', process.env.tag)
                 stdout('[#] Moved files');
                 reinstall();
             }
@@ -106,32 +103,37 @@ function restart() {
 
 function countdown() {
     let i = 15;
-    console.log('[!] Welcome to HighwayBot Installer\n');
     const countdownTimer = setInterval(async function () {
-        process.stdout.clearLine(0);
-        process.stdout.cursorTo(0);
-        process.stdout.write(`[-] After ${i} seconds, the installer would run. If you don\'t want, just close this window or press Ctrl+C`);
-        i--;
+        stdout(`[-] After ${i} seconds, the installer would run. If you don\'t want, just close this window or press Ctrl+C`)
+        i = i - 1;
         if (i <= 0) {
             clearInterval(countdownTimer);
-            install();
+            await install();
         }
     }, 1000);
 }
 
+console.log(`[!] Welcome to HighwayBot Installer\n\n[+] Install path: ${__dirname}\n`);
 const dns = require('node:dns');
 dns.resolve('www.google.com', (err) => {
-    if (err) {
-        console.log('[!] You are not connected to the internet.\n[#] Please connect to the internet and try again.');
-        setTimeout(() => process.exit(0), 5000)
-    }
+    if (err) return console.log('[!] You are not connected to the internet.\n[#] Please connect to the internet and try again.');
     else {
         const version = {
-            current: /^(.+).(.+).(.+)$/.exec(process.version)[1],
-            recommended: ['v16', 'v18', 'v19']
+            current: /^(.+).(.+).(.+)$/.exec(process.version),
+            recommended: ['v16', 'v18', '19']
         };
 
-        if (!version.recommended.includes(version.current)) console.log('\n[!] Please use the latest version of NodeJS for best experience.\n');
+        if (!version.recommended.includes(version.current[1])) {
+            console.log(`[!] Please use the latest version of NodeJS for best experience.` +   
+                        `\n    Current Nodejs version: ${version.current[0]}`+
+                        `\n    More infomation at: https://nodejs.org/en/download` +
+                        `\n    Shutting down after 15 seconds`
+                       )
+            setTimeout(() => {
+                process.exit(0)
+            }, 15000);
+            return;
+        }
         countdown();
     }
 });
