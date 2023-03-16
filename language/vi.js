@@ -294,7 +294,7 @@ const translate = {
             description: () => `Chạy bot`
         },
         update: {
-            description: () => `[!] Chỉ dành cho lập trình viên | Cập nhật bot`
+            description: () => `Cập nhật bot`
         },
         _config: {
             /**
