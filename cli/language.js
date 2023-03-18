@@ -25,7 +25,7 @@ module.exports = {
             file.set('lang', ToLowerCase);
             file.save();
             delete require.cache[require.resolve('../settings.json')]
-            require('../cmd').emit('language')
+            require('../cmd').emitter.emit('language')
             console.log(string('cli.language.change', ToLowerCase))
         }
     }

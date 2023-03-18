@@ -2,10 +2,8 @@ const fs = require('fs-extra');
 const string = require('../../language/translate')
 
 module.exports = (args) => {
-    let configName;
-    if (!args[1] && !fs.existsSync('./config/default.json')) {
-        configName = 'default';
-    } else {
+    let configName = 'default';
+    if (fs.existsSync('./config/default.json')) {
         if (!args[1] || fs.existsSync('./config/default'))
             return console.log(string('cli._config.create.usage'));
         if (fs.existsSync(`./config/${args[1]}.json`))
@@ -75,9 +73,6 @@ module.exports = (args) => {
                 }
             }
         }
-        
-
-
     }));
-    console.log(string('cli._config.create.done', args[1]))
+    console.log(string('cli._config.create.done', configName))
 };

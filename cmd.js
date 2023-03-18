@@ -35,4 +35,5 @@ function callback() {
 const Event = require('node:events').EventEmitter
 const emitter = new Event()
 emitter.on('language', () => { cmds = require('./cli/util/handler')(); readline.setPrompt(string('cmd.command')) })
-module.exports = emitter
+
+module.exports = { emitter, readline }
