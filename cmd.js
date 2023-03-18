@@ -1,15 +1,20 @@
 const string = require('./language/translate')
-const prompt = require('prompt')
-let cmds = []
 console.log(string('cmd.welcome'));
 
-/**
- * @param {prompt} prompt 
- */
-async function callback(prompt) {
-    prompt.get(string('cmd.command'), async function (err, result) {
-        if (!result[string('cmd.command')]) return await callback(prompt)
-        const args = result[string('cmd.command')].split(' ');
+const readline = require('node:readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
+readline.setPrompt('\n' + string('cmd.command'))
+
+let cmds = require('./cli/util/handler')();
+
+callback()
+function callback() {
+    readline.prompt()
+    readline.once('line', async function (input) {
+        if (!input) return callback()
+        const args = input.split(' ');
         const cmd = args.shift().toLowerCase()
         const command = await cmds.find(index => index.name === cmd)
             || cmds.find(index =>
@@ -18,19 +23,16 @@ async function callback(prompt) {
                     : false)
         if (!command) {
             console.log(string('cmd.command_not_found', cmd))
-            return await callback(prompt)
+            return callback()
         } else
-             Promise.resolve(command.execute)
+            Promise.resolve(command.execute)
                 .then((func) => func(args, cmds))
-                .catch((e) => console.log(e))
-                .finally(() => callback(prompt))
+                .catch((e) => { })
+                .finally(() => callback())
     });
 }
-require('./cli/util/handler')(cmds);
-prompt.start()
-callback(prompt)
 
 const Event = require('node:events').EventEmitter
 const emitter = new Event()
-emitter.on('language', () => { cmds = []; require('./cli/util/handler')(cmds) })
+emitter.on('language', () => { cmds = require('./cli/util/handler')(); readline.setPrompt(string('cmd.command')) })
 module.exports = emitter

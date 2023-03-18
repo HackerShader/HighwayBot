@@ -5,7 +5,7 @@ const translate = {
             `> 'help' để biết danh sách lệnh\n` +
             `> 'language <viết tắt của ngôn ngữ của bạn (như: 'en', 'vi',...)>' để đổi ngôn ngữ mặc định\n` +
             `> 'runbot' để chạy bot`,
-        command: () => `lệnh`,
+        command: () => `lệnh: `,
         /**
          * @param {String} name Command name
          */
@@ -211,8 +211,9 @@ const translate = {
              */
             all_commands: (commands) =>
                 `Hỗ trợ của HighwayBot\n` +
-                ` |  Danh sách toàn bộ lệnh\n` +
+                ` | Danh sách toàn bộ lệnh:\n` +
                 commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || translate.cli.help.no_description()}`).join('\n') + `\n` +
+                ` | \n` +
                 ` | Các kênh truyền thông và hỗ trợ\n` +
                 ` |  | Discord: https://discord.gg/YSZPRkKNzh\n` +
                 ` |  | Github: https://github.com/HackerShader/HighwayBot`,
@@ -262,14 +263,14 @@ const translate = {
              */
             default: (language) => `[Ngôn ngữ] Ngôn ngữ đang sử dụng: ${language}`,
             how_to_use: () =>
-                `Nếu bạn muốn chỉnh ngôn ngữ mặc định, nhập: 'language <viết tắt của ngôn ngữ của bạn>'\n` +
+                `[Ngôn ngữ] Nếu bạn muốn chỉnh ngôn ngữ mặc định, nhập: 'language <viết tắt của ngôn ngữ của bạn>'\n` +
                 `Ví dụ:\n` +
                 `'language en' cho tiếng Anh\n` +
                 `'language vi' cho tiếng Việt\n` +
-                `'language ja' cho tiếng Nhật\n` +
-                `'language zh' cho tiếng Trung\n` +
-                `'language ko' cho tiếng Hàn\n` +
-                `'language fr' cho tiếng Pháp\n` +
+                //`'language ja' cho tiếng Nhật\n` +
+                //`'language zh' cho tiếng Trung\n` +
+                //`'language ko' cho tiếng Hàn\n` +
+                //`'language fr' cho tiếng Pháp\n` +
                 `Xem thêm tại: 'https://www.loc.gov/standards/iso639-2/php/code_list.php'`,
             invalid: () => `[Ngôn ngữ] Tên viết tắt không hợp lệ (chỉ gồm 2 chữ cái như: vi, en, ...)`,
             /**

@@ -1,15 +1,15 @@
 const fs = require('node:fs')
 /**
- *
- * @param {Array} array
+ * @return {Array}
  */
-module.exports = (array) =>
-    fs.readdirSync('./cli')
+module.exports = () => {
+    let array = []
+    const files = fs.readdirSync('./cli')
         .filter(file => file.endsWith('.js'))
         .map(file => file.replace('.js', ''))
-        .forEach(async (file) => {
-            delete require.cache[require.resolve(`../../cli/${file}`)]
-            const cmd = require(`../../cli/${file}`);
+    for (let i in files) {
+            delete require.cache[require.resolve(`../../cli/${files[i]}`)]
+            const cmd = require(`../../cli/${files[i]}`);
             if (!cmd.name) throw new Error(`Command [${cmd.name}] miss name`);;
             const command = array.find(c => c.name === cmd.name)
                 || array.find(
@@ -25,4 +25,6 @@ module.exports = (array) =>
                 aliases: cmd.aliases,
                 execute: cmd.execute
             });
-        });
+        };
+    return array
+}

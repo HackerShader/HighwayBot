@@ -1,5 +1,4 @@
 const notifier = require('node-notifier');
-//const consolelog = require('./cli/util/translate')
 const package_json = require('./package.json');
 const dependencies_array = [
     "mineflayer",
@@ -26,10 +25,10 @@ if (!fs.existsSync('./data/status.json')) {
     fs.mkdirSync('./data');
     fs.writeFileSync('./data/status.json', JSON.stringify({
         stop: 'true',
-        mine: Number(0),
-        place: Number(0),
+        mine: 0,
+        place: 0,
         timer: "0",
-        "place-err": Number(0)
+        "place-err": 0
     }));
 }
 

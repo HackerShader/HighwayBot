@@ -5,7 +5,7 @@ const translate = {
             `> 'help' to see a list of commands\n` +
             `> 'language <your language acronym (like: 'en', 'vi',...)>' to change the default language\n` +
             `> 'runbot' to run bot`,
-        command: () => `command`,
+        command: () => `command: `,
         /**
          * @param {String} name Command name
          */
@@ -213,6 +213,7 @@ const translate = {
                 `HighwayBot helper\n` +
                 ` | Commands list\n` +
                 commands.map(cmd => ` |  | ${cmd.name} - ${cmd.description || translate.cli.help.no_description()}`).join('\n') + `\n` + // cái cli.help tồn tại nó nói undefined
+                ` | \n` +
                 ` | Social / Contact\n` +
                 ` |  | Discord: https://discord.gg/YSZPRkKNzh\n` +
                 ` |  | Github: https://github.com/HackerShader/HighwayBot`,
@@ -262,8 +263,8 @@ const translate = {
              */
             default: (language) => `[Language] Language in use: ${language}`,
             how_to_use: () =>
-                `If you want to change the default language, type: 'language <your language acronym>'\n` +
-                `Ví dụ:\n` +
+                `[Language] If you want to change the default language, type: 'language <your language acronym>'\n` +
+                `Example:\n` +
                 `'language en' for English\n` +
                 `'language vi' for Vietnamese\n` +
                 //`'language ja' cho tiếng Nhật\n` +
