@@ -2,7 +2,7 @@ console.log(
     `[!] Welcome to HighwayBot Installer` + '\n' +
     `[!] Installing on: ${__dirname}\n`
 );
-
+const date = new Date().getTime()
 run()
 
 /**
@@ -57,7 +57,7 @@ function install() {
     const list = ['axios', 'unzipper', 'fs-extra'];
     stdout(`[-] Preparing ${list.length} package(s)`, true);
     child_process.execSync(`npm install ${list.join(' ')}`);
-    stdout(`[#] Installed ${list.length} package(s)`);
+    stdout(`[#] Prepared ${list.length} package(s)`);
     download();
 }
 
@@ -133,6 +133,8 @@ function delete_temp() {
 }
 
 function restart() {
+    const newdate = new Date().getTime()
+    console.log(`[#] Installed HighwayBot. This process took ${((newdate - date)/1000).toFixed(1)} seconds`)
     stdout('[-] Shut down after 10s', true);
     setTimeout(() => {
         stdout('[#] Shutting down...');
