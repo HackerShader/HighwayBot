@@ -13,13 +13,10 @@ const dependencies_array = [
 let miss = false;
 const color = require('./cli/util/colorcode');
 dependencies_array.forEach(str => {
-    if (!Object.keys(package_json.dependencies).includes(str)) {
-        console.log(color.code.red, `[MC-Bot | Error] Missing dependencies '${str}'`);
+    if (!Object.keys(package_json.dependencies).includes(str)) {- console.log(color.code.red, `[MC-Bot | Error] Missing dependencies '${str}'`);
         miss = true;
     }
-});
-if (miss === true) console.log(color.code.yellow, '[MC-Bot | Install] Please type \'install\' for full bot installation');
-
+}); if (miss === true) console.log(color.code.yellow, '[MC-Bot | Install] Please type \'install\' for full bot installation');
 const fs = require('fs-extra');
 if (!fs.existsSync('./data/status.json')) {
     fs.mkdirSync('./data');
@@ -93,6 +90,7 @@ function HighwayBot() {
         }
     });
 
+    const RECONNECT_COOLDOWN_SECONDS = config.general.reconnectcooldown * 1000
     bot.on('kicked', kick => {
         notifierbox('Disconnected by server', `${kick}`)
         console.log(`Disconnected. Reason: ${kick}`);
@@ -101,9 +99,8 @@ function HighwayBot() {
     bot.on('end', (reason) => {
         notifierbox('Disconnected', `${reason}`)
         console.log(`Disconnected. Reason: ${reason}`);
-        setTimeout(() => HighwayBot(), 10000);
+        setTimeout(() => HighwayBot(), RECONNECT_COOLDOWN_SECONDS);
     });
-
     //module loader
     bot.on('spawn', () => {
         notifierbox('Connected', `${config.hostinfo.hostname}`)

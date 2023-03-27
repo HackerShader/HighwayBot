@@ -5,7 +5,7 @@ module.exports = {
     name: "config",
     description: string('cli.config.description'),
     aliases: ['cfg'],
-    execute: (args) => new Promise(async (resolve) => {
+    async execute(args) {
         const info = require("../package.json");
         if (info.build === undefined) return console.log(string('cli.not_installer'));
         if (!fs.existsSync('./config')) fs.mkdirSync('./config');
@@ -16,11 +16,10 @@ module.exports = {
         if (!file.includes(`${args[0]}.js`)) return console.log(string(`cli.config.key_not_found`) + `: ${args[0]}`);
         try {
             await require(`./config/${args[0]}`)(args);
-            resolve()
         }
         catch (e) {
             console.error(e)
             console.error(string('cli.config.error', e.name + ': ' + e.message));
         }
-    })
+    }
 };

@@ -16,7 +16,8 @@ module.exports = (args) => {
             ingameprefix: "2w!",
             botusername: "highwaybot",
             owner: "Player",
-            version: "1.12.2"
+            version: "1.12.2",
+            reconnectcooldown: 10
         },
         hostinfo: {
             hostname: "localhost",
@@ -60,7 +61,6 @@ module.exports = (args) => {
                 movenment: {
                     velocity: {
                         toggle: true,
-
                     }
                 },
                 utility: {
