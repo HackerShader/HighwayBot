@@ -4,13 +4,23 @@ console.log(string('cmd.welcome'));
 
 let CMDLIST_ARRAY = []
 fs.readdirSync('cli').forEach(files => {
-    const cmdlist = files.replace('.js', '')  
-    CMDLIST_ARRAY.push(cmdlist)    
+    if (!files.endsWith('js') && !files.includes('util')) {
+        fs.readdirSync('cli/' + files).forEach(files2 => {
+            const comlist = ((files) + ' ' + (files2).replace('.js', ''))    
+            CMDLIST_ARRAY.push(comlist)
+        })
+    }
+    if (files.endsWith('js')) {
+        // console.log(files.endsWith('fs'))
+        const cmdlist = files.replace('.js', '')
+        CMDLIST_ARRAY.push(cmdlist)
+    }
 })
 
 const autoComplete = function completer(line) {
     const completions = CMDLIST_ARRAY
-    const hits = completions.filter((c) => c.startsWith(line));
+    const hits = completions.filter((c) => c.startsWith(line)
+    );
     return [hits.length ? hits : completions, line];
 }
 

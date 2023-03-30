@@ -5,7 +5,7 @@ const translate = {
             `> 'help' để biết danh sách lệnh\n` +
             `> 'language <viết tắt của ngôn ngữ của bạn (như: 'en', 'vi',...)>' để đổi ngôn ngữ mặc định\n` +
             `> 'runbot' để chạy bot`,
-        command: () => `lệnh: `,
+        command: () => `Lệnh: `,
         /**
          * @param {String} name Command name
          */
