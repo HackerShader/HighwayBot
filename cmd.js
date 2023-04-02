@@ -11,7 +11,6 @@ fs.readdirSync('cli').forEach(files => {
         })
     }
     if (files.endsWith('js')) {
-        // console.log(files.endsWith('fs'))
         const cmdlist = files.replace('.js', '')
         CMDLIST_ARRAY.push(cmdlist)
     }
@@ -51,7 +50,7 @@ function prompt() {
             return prompt()
         } else
             Promise.resolve(command.execute)
-                .then((func) => func(args, cmds))
+                .then(func => func(args, cmds))
                 .catch((e) => { })
                 .finally(() => prompt())
     });

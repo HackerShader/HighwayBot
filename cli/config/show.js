@@ -12,35 +12,26 @@ module.exports = (args) => {
     const file = require(`../../config/${args[1]}.json`);
 
     //Improve Object showing
-
     /**
-     *
-     * @param {Object} object
-     * @param {String} key1
+     * @param {Object} object 
+     * @param {String} _key
+     * @return {String}
      */
-    function objectShow(object, key1) {
+    function objectValue(object, _key) {
         let str = '';
         Object.keys(object).forEach((key) => {
-            let value;
-            if (object[`${key}`]) value = object[`${key}`];
-            else value = null;
-            if (typeof value == 'object' && value != null) str = str + objectShow(value, key);
-            else {
-                if (key1) str = str + key1 + '.' + key + ': ' + value + '\n';
-                else str = str + key + ': ' + value + '\n';
-            }
-        });
-        return str;
+            if (typeof object[key] == 'object') str += objectValue(object[key], (_key ? _key + '.' : '') + key)
+            else str += `${_key ? _key + '.' : ''}${key}: ${object[key]}\n`;
+        })
+        return str
     }
 
-    objectShow(file, null).split('\n').slice(0, -1).forEach((args) => {
-        let key, value, i = 0;
-        args.split('').forEach((c) => {
-            if (c === ':') {
-                key = args.split('').slice(0, i).join('').toLowerCase();
-                value = args.split('').splice(i + 1).join('');
-            } else i++;
-        });
+
+    objectValue(file, null).split('\n').slice(0, -1).forEach((arg) => {
+        const args = arg.split('');
+        const i = args.indexOf(':');
+        const key = args.slice(0, i).join('').toLowerCase();
+        const value = args.splice(i + 1).join('');
         if (key !== '' && value !== '') table.addRow(key, value);
     });
 
