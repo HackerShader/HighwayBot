@@ -19,7 +19,4 @@ let code = {
     cyan: '\x1b[36m%s\x1b[0m',
     white: '\x1b[37m%s\x1b[0m'
 };
-module.exports = {
-    color: color,
-    code: code
-};
+module.exports = { color, code };

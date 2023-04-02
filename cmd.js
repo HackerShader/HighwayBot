@@ -52,7 +52,7 @@ function prompt() {
         } else
             Promise.resolve(command.execute)
                 .then((func) => func(args, cmds))
-                .catch((e) => { console.log(e) })
+                .catch((e) => { })
                 .finally(() => prompt())
     });
 }
