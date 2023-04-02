@@ -1,12 +1,15 @@
 const fs = require('fs-extra');
 const color = require('../util/colorcode');
-const string = require('../../language/translate')
+const string = require('../../language/translate');
 let objects;
+
+function isBoolean(object) {
+    return (typeof object === 'boolean');
+}
 
 function isObject(object) {
     return (typeof object === 'object');
 }
-
 function isNumber(input) {
     return isNaN(input) !== true;
 }
@@ -19,6 +22,8 @@ function FindObject(obj, path, value) {
         obj = obj[path[i]];
     }
     objects = obj
+    if (isBoolean(obj) === true) return 'boolean';
+    if (isBoolean(obj) === false) return;
     if (isObject(obj) === true) return false;
     if (isNumber(value) === true) return 1;
     if (isNumber(value) === false) return 2;
@@ -41,12 +46,19 @@ module.exports = async (args) => {
         console.log(key, value)
         //if(!key || !value) return console.log(color.code.red, `[Config | Edit | Error] Missing key/value`)
         const ObjectChecker = FindObject(configure, key, value)
+        console.log(ObjectChecker)
         if (ObjectChecker === 1) {
             if (typeof objects === 'string') return console.log(color.code.red, string('cli._config.edit.invalid_number', key))
             value = Number(value)
         }
         if (ObjectChecker === 2) {
             if (typeof objects === 'number') return console.log(color.code.red, string('cli._config.edit.invalid_string', key))
+        }
+        if (ObjectChecker === 'boolean') {
+            console.log(typeof value, value)
+            if (typeof value === 'number') return console.log('need a boolean')
+            if (value === 'true') value = true
+            if (value === 'false') value = false
         }
         if (ObjectChecker === false) return console.log(color.code.red, string('cli._config.edit.invalid_key', key))
         file.set(key, value)

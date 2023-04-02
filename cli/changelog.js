@@ -8,9 +8,9 @@ module.exports = {
     description: string('cli.changelog.description'),
     async execute() {
         if (info.version === undefined && info.build === undefined) return console.log(string('cli.not_install'));
-        exec('git log --format="%B" -n 1', async (err, stdout) => {
+        await exec('git log --format="%B" -n 1', async (err, stdout) => {
             if (err) return console.log(err);
-            console.log(string('cli.changelog.changelog', stdout));
-        });
+            await console.log(string('cli.changelog.changelog', stdout));
+        }); 
     }
-};
+};  

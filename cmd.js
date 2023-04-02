@@ -1,17 +1,17 @@
+const chalk = require('chalk')
 const fs = require('fs-extra')
 const string = require('./language/translate')
-console.log(string('cmd.welcome'));
+console.log(chalk.dim.bgGrey(string('cmd.welcome')));
 
 let CMDLIST_ARRAY = []
 fs.readdirSync('cli').forEach(files => {
     if (!files.endsWith('js') && !files.includes('util')) {
         fs.readdirSync('cli/' + files).forEach(files2 => {
-            const comlist = ((files) + ' ' + (files2).replace('.js', ''))    
+            const comlist = ((files) + ' ' + (files2).replace('.js', ''))
             CMDLIST_ARRAY.push(comlist)
         })
     }
     if (files.endsWith('js')) {
-        // console.log(files.endsWith('fs'))
         const cmdlist = files.replace('.js', '')
         CMDLIST_ARRAY.push(cmdlist)
     }
@@ -29,8 +29,8 @@ const readline = require('node:readline').createInterface({
     output: process.stdout,
     completer: autoComplete
 })
-readline.setPrompt('\n' + string('cmd.command'))
 
+readline.setPrompt(string('cmd.command'))
 let cmds = require('./cli/util/handler')();
 
 prompt()
@@ -52,7 +52,7 @@ function prompt() {
         } else
             Promise.resolve(command.execute)
                 .then((func) => func(args, cmds))
-                .catch((e) => { })
+                .catch((e) => { console.log(e) })
                 .finally(() => prompt())
     });
 }

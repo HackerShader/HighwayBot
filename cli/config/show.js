@@ -18,6 +18,8 @@ module.exports = (args) => {
      * @param {Object} object
      * @param {String} key1
      */
+    //old base
+
     function objectShow(object, key1) {
         let str = '';
         Object.keys(object).forEach((key) => {
@@ -45,4 +47,6 @@ module.exports = (args) => {
     });
 
     console.log(table.toString());
+
+
 };
