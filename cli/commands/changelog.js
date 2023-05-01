@@ -1,6 +1,6 @@
-const info = require('./../package.json');
+const info = require('../../package.json');
 const exec = require('child_process').exec;
-const string = require('../language/translate')
+const string = require('../../language/translate')
 
 module.exports = {
     name: "changelog",

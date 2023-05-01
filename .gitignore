@@ -134,6 +134,7 @@ dist
 temp.js
 
 # Ignore some files
+setting.json
 settings.json
 /data/status.json
 commandconfig.json

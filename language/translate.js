@@ -1,4 +1,3 @@
-const fs = require('node:fs');
 /**
  * @param {String} path Path to text
  * @param {Object} param
